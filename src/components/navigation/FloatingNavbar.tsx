@@ -35,7 +35,19 @@ const overflowItems = navItems.filter((item) => item.secondary);
  * it under the hero headline and again in the footer), so the floating copy
  * mounted by the root layout stands down there.
  */
-const ROUTES_WITH_INLINE_NAV = ["/about", "/services", "/contact"];
+const ROUTES_WITH_INLINE_NAV = [
+  "/about",
+  "/services",
+  "/contact",
+  "/projects",
+  "/projects/details",
+  "/project/details",
+  "/blogs",
+  "/blog",
+];
+
+/** Detail routes are dynamic, so they are matched by prefix as well. */
+const PREFIXES_WITH_INLINE_NAV = ["/projects/", "/project/", "/blogs/", "/blog/"];
 
 interface FloatingNavbarProps {
   /**
@@ -75,7 +87,11 @@ export default function FloatingNavbar({
     };
   }, [variant]);
 
-  if (variant === "fixed" && ROUTES_WITH_INLINE_NAV.includes(pathname)) {
+  const pageOwnsNav =
+    ROUTES_WITH_INLINE_NAV.includes(pathname) ||
+    PREFIXES_WITH_INLINE_NAV.some((prefix) => pathname.startsWith(prefix));
+
+  if (variant === "fixed" && pageOwnsNav) {
     return null;
   }
 

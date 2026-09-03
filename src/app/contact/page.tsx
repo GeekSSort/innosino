@@ -469,7 +469,7 @@ export default function ContactPage() {
           SECTION 2: GLOBAL HUBS (SHANGHAI & DHAKA)
           ===================================================================== */}
       <section
-        className="svc-partners"
+        className="hero-follow"
         style={{ paddingBlockEnd: "clamp(2.5rem, 5.6vw, 64px)" }}
       >
         <div

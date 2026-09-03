@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 export default function ProjectDetailsPage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -19,276 +20,104 @@ export default function ProjectDetailsPage() {
   }, []);
 
   return (
-    <main
-      style={{
-        position: "relative",
-        width: "1440px",
-        minHeight: "6331px",
-        overflow: "hidden",
-        backgroundColor: "#000000",
-        margin: "0 auto",
-      }}
-    >
-      {/* =========================================================================
-          SECTION 1: HERO & OVERLAPPING MEDIA CARD (Height 684px)
-          Top background: Video /project_page/Project Page-Hero Section.mp4
-          ========================================================================= */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "684px",
-          backgroundColor: "#F1F1F1",
-          overflow: "visible",
-        }}
-      >
-        {/* Background Video */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: "1440px",
-            height: "684px",
-            overflow: "hidden",
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        >
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          >
+    <main className="pd-page">
+      {/* =====================================================================
+          SECTION 1: HERO & OVERLAPPING MEDIA CARD
+          The video card is the hero's last flow child and hangs into the white
+          body below it by --page-hero-hang.
+          ===================================================================== */}
+      <section className="page-hero">
+        <div className="section-media">
+          <video ref={heroVideoRef} autoPlay loop muted playsInline>
             <source
               src="/project_page/Project Page-Hero Section.mp4"
               type="video/mp4"
             />
           </video>
           <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.60)",
-              pointerEvents: "none",
-            }}
+            className="section-media__scrim"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.60)" }}
           />
         </div>
 
-        {/* Logo */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "60px",
-            width: "236px",
-            height: "32px",
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            src="/about_us/IS-Logo.png"
-            alt="INNOSINO"
-            width={236}
-            height={32}
-            style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            priority
-          />
-        </div>
+        <div className="container page-hero__inner">
+          <div className="page-hero__head">
+            <Image
+              src="/about_us/IS-Logo.png"
+              alt="INNOSINO"
+              width={340}
+              height={128}
+              className="brand-logo"
+              priority
+            />
 
-        {/* Hero Title, Breadcrumb & Subtitle Frame */}
-        <div
-          style={{
-            position: "absolute",
-            left: "134px",
-            top: "112px",
-            width: "1171px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "16px",
-            zIndex: 20,
-          }}
-        >
-          {/* Breadcrumb: HOME > PROJECTS > PROJECT DETAILS */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "10px",
-              height: "24px",
-            }}
-          >
-            <span style={{ fontSize: "14px", color: "#FF7018" }}>✦</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <Link
-                href="/"
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                }}
-              >
-                HOME
-              </Link>
-              <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
-              <Link
-                href="/projects"
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                }}
-              >
-                PROJECTS
-              </Link>
-              <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
-              <span
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textTransform: "uppercase",
-                }}
-              >
-                PROJECT DETAILS
-              </span>
+            <div className="page-hero__copy">
+              <div className="breadcrumb">
+                <svg
+                  className="breadcrumb__mark"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 0.6C12 6.9 17.1 12 23.4 12C17.1 12 12 17.1 12 23.4C12 17.1 6.9 12 0.6 12C6.9 12 12 6.9 12 0.6Z"
+                    fill="#FF7018"
+                  />
+                </svg>
+                <Link href="/" className="breadcrumb__link">
+                  HOME
+                </Link>
+                <span className="breadcrumb__link" aria-hidden="true">
+                  ›
+                </span>
+                <Link href="/projects" className="breadcrumb__link">
+                  PROJECTS
+                </Link>
+                <span className="breadcrumb__link" aria-hidden="true">
+                  ›
+                </span>
+                <span className="breadcrumb__link">PROJECT DETAILS</span>
+              </div>
+
+              <h1 className="page-hero__title">POLYPAN ELECTRONIC HANDPAN</h1>
+
+              <p className="page-hero__sub">
+                An intelligent electronic handpan combining 9-zone capacitive
+                touch sensing, gesture control, and wireless MIDI built to give
+                a 4,000-year-old instrument family a stage-ready, wireless
+                voice.
+              </p>
+
+              {/* 4 Key Spec Pills */}
+              <div className="pd-hero__specs">
+                {[
+                  "9 Independent Touch Zones",
+                  "7 Gesture Combinations",
+                  "3 layer CAPACITIVE TOUCH STACK",
+                  "BLE Wireless Connectivity",
+                ].map((stat) => (
+                  <span key={stat} className="pd-spec">
+                    {stat}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Title: POLYPAN ELECTRONIC HANDPAN */}
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "64px",
-              fontWeight: 400,
-              lineHeight: "1.1",
-              color: "#FFFFFF",
-              textTransform: "uppercase",
-            }}
-          >
-            POLYPAN ELECTRONIC HANDPAN
-          </h1>
+          {/* Header pill — in the hero's flow, directly above the video card,
+              then floats once it scrolls away. */}
+          <FloatingNavbar variant="inline" />
 
-          {/* Subtitle */}
-          <p
-            style={{
-              margin: 0,
-              width: "1171px",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "150%",
-              color: "#FFFFFF",
-            }}
-          >
-            An intelligent electronic handpan combining 9-zone capacitive touch sensing, gesture control, and wireless MIDI built to give a 4,000-year-old instrument family a stage-ready, wireless voice.
-          </p>
-        </div>
-
-        {/* 4 Key Spec Pills (y: 343px, x: 134px) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "134px",
-            top: "343px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "16px",
-            zIndex: 20,
-          }}
-        >
-          {[
-            "9 Independent Touch Zones",
-            "7 Gesture Combinations",
-            "3 layer CAPACITIVE TOUCH STACK",
-            "BLE Wireless Connectivity",
-          ].map((stat, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                padding: "6px 16px",
-                backgroundColor: "rgba(255, 255, 255, 0.16)",
-                border: "1px solid #FF7018",
-                borderRadius: "4px",
-                backdropFilter: "blur(4px)",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 600,
-                  color: "#FFFFFF",
-                  textTransform: "capitalize",
-                }}
-              >
-                {stat}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Floating Navbar (Top: 444px, Left: 134px) */}
-        <div style={{ position: "absolute", left: "134px", top: "444px", zIndex: 30 }}>
-                  </div>
-
-        {/* Overlapping Hero Visual Card (x: 235, y: 568, w: 970, h: 546) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "235px",
-            top: "568px",
-            width: "970px",
-            height: "546px",
-            borderRadius: "18px",
-            overflow: "hidden",
-            border: "1px solid #FF7018",
-            boxShadow: "0 0 30px rgba(30, 30, 30, 0.20)",
-            backgroundColor: "#000000",
-            zIndex: 25,
-          }}
-        >
-          <video
-            ref={cardVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          >
-            <source
-              src="/project_page/Project Details_first card video.mp4"
-              type="video/mp4"
-            />
-          </video>
+          {/* Overlapping hero visual card */}
+          <div className="pd-hero__media">
+            <video ref={cardVideoRef} autoPlay loop muted playsInline>
+              <source
+                src="/project_page/Project Details_first card video.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
         </div>
       </section>
 
@@ -298,28 +127,22 @@ export default function ProjectDetailsPage() {
                     Technical Specifications, Signal Path, Project Timeline,
                     What Shipped, From Bench To Shell, and CTA Card
           ========================================================================= */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          backgroundColor: "#FFFFFF",
-          boxSizing: "border-box",
-          paddingTop: "480px", // Room for overlapping 546px hero card
-          paddingLeft: "135px",
-          paddingRight: "135px",
-          paddingBottom: "100px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "80px",
-        }}
-      >
+      <section className="pd-body">
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "clamp(2.5rem, 5.6vw, 80px)",
+          }}
+        >
         {/* 1. PROJECT OVERVIEW */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -368,12 +191,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 2. THE CHALLENGE */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -397,7 +220,7 @@ export default function ProjectDetailsPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "var(--pd-cols-3)",
               gap: "24px",
               marginTop: "12px",
             }}
@@ -459,12 +282,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 3. ENGINEERING APPROACH */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -488,7 +311,7 @@ export default function ProjectDetailsPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: "var(--pd-cols-3)",
               gap: "24px",
               marginTop: "12px",
             }}
@@ -550,12 +373,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 4. TECHNICAL SPECIFICATIONS */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -578,7 +401,7 @@ export default function ProjectDetailsPage() {
 
           <div
             style={{
-              width: "1170px",
+              width: "100%",
               border: "1px solid #E5E7EB",
               borderRadius: "14px",
               overflow: "hidden",
@@ -609,7 +432,7 @@ export default function ProjectDetailsPage() {
               >
                 <span
                   style={{
-                    width: "280px",
+                    width: "min(100%, 280px)",
                     fontFamily: "'Urbanist', sans-serif",
                     fontSize: "14px",
                     fontWeight: 700,
@@ -635,12 +458,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 5. SIGNAL PATH */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -663,8 +486,8 @@ export default function ProjectDetailsPage() {
 
           <div
             style={{
-              width: "1170px",
-              height: "200px",
+              width: "100%",
+              minHeight: "200px",
               borderRadius: "16px",
               backgroundColor: "#000000",
               display: "flex",
@@ -678,7 +501,7 @@ export default function ProjectDetailsPage() {
             }}
           >
             {/* Top Row */}
-            <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+            <div className="pd-flow-row">
               <div
                 style={{
                   border: "1px solid #FF7018",
@@ -726,7 +549,7 @@ export default function ProjectDetailsPage() {
             </div>
 
             {/* Bottom Row */}
-            <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+            <div className="pd-flow-row">
               <div
                 style={{
                   border: "1px solid #FF7018",
@@ -761,12 +584,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 6. PROJECT TIMELINE */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -789,8 +612,8 @@ export default function ProjectDetailsPage() {
 
           <div
             style={{
-              width: "1170px",
-              height: "260px",
+              width: "100%",
+              minHeight: "260px",
               borderRadius: "16px",
               backgroundColor: "#000000",
               boxSizing: "border-box",
@@ -806,7 +629,7 @@ export default function ProjectDetailsPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
+                gridTemplateColumns: "var(--pd-cols-4)",
                 borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
                 paddingBottom: "12px",
                 textAlign: "center",
@@ -832,9 +655,9 @@ export default function ProjectDetailsPage() {
             <div
               style={{
                 position: "relative",
-                height: "160px",
+                minHeight: "160px",
                 display: "grid",
-                gridTemplateColumns: "repeat(4, 1fr)",
+                gridTemplateColumns: "var(--pd-cols-4)",
                 gap: "12px",
                 alignItems: "center",
               }}
@@ -943,12 +766,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 7. WHAT SHIPPED */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -960,7 +783,7 @@ export default function ProjectDetailsPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
+              gridTemplateColumns: "var(--pd-cols-4)",
               gap: "20px",
               marginTop: "8px",
             }}
@@ -1009,12 +832,12 @@ export default function ProjectDetailsPage() {
         </div>
 
         {/* 8. FROM BENCH TO SHELL */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "1170px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "24px", width: "100%" }}>
           <h2
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
               textTransform: "uppercase",
@@ -1028,16 +851,16 @@ export default function ProjectDetailsPage() {
               display: "flex",
               flexDirection: "row",
               gap: "24px",
-              width: "1170px",
-              height: "520px",
+              width: "100%",
+              minHeight: "520px",
               marginTop: "8px",
             }}
           >
             {/* Left Large Image Card (573 × 520 px) */}
             <div
               style={{
-                width: "573px",
-                height: "520px",
+                width: "100%",
+                minHeight: "520px",
                 borderRadius: "16px",
                 overflow: "hidden",
                 backgroundColor: "#000000",
@@ -1059,8 +882,8 @@ export default function ProjectDetailsPage() {
             {/* Right Column: 2 Images (573 × 248 px each) from public/project_page */}
             <div
               style={{
-                width: "573px",
-                height: "520px",
+                width: "100%",
+                minHeight: "520px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -1068,8 +891,8 @@ export default function ProjectDetailsPage() {
             >
               <div
                 style={{
-                  width: "573px",
-                  height: "248px",
+                  width: "100%",
+                  minHeight: "248px",
                   borderRadius: "16px",
                   overflow: "hidden",
                   position: "relative",
@@ -1086,8 +909,8 @@ export default function ProjectDetailsPage() {
 
               <div
                 style={{
-                  width: "573px",
-                  height: "248px",
+                  width: "100%",
+                  minHeight: "248px",
                   borderRadius: "16px",
                   overflow: "hidden",
                   position: "relative",
@@ -1108,8 +931,8 @@ export default function ProjectDetailsPage() {
         {/* 9. CTA CARD BANNER */}
         <div
           style={{
-            width: "1170px",
-            height: "328px",
+            width: "100%",
+            minHeight: "328px",
             borderRadius: "20px",
             background: "linear-gradient(135deg, #FF7018 0%, #FFBE03 100%)",
             display: "flex",
@@ -1128,7 +951,7 @@ export default function ProjectDetailsPage() {
             style={{
               margin: 0,
               fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
+              fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#FFFFFF",
               textTransform: "uppercase",
@@ -1140,7 +963,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              width: "680px",
+              maxWidth: "680px",
               fontFamily: "'Urbanist', sans-serif",
               fontSize: "16px",
               fontWeight: 500,
@@ -1171,6 +994,7 @@ export default function ProjectDetailsPage() {
             <span style={{ fontSize: "12px" }}>↗</span>
           </Link>
         </div>
+        </div>
       </section>
 
       {/* =========================================================================
@@ -1178,153 +1002,120 @@ export default function ProjectDetailsPage() {
           Black #000000 background
           ========================================================================= */}
       <footer
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "276px",
-          backgroundColor: "#000000",
-          boxSizing: "border-box",
-        }}
+        className="flow-section"
+        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
       >
-        <div style={{ position: "absolute", left: "135px", top: "64px", zIndex: 30 }}>
-                  </div>
+        <div className="container">
+          <div
+            className="chat-dock"
+            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
+          >
+            {chatOpen && (
+              <div className="chat-dock__bubble">
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "var(--fs-small)",
+                    fontWeight: 400,
+                    lineHeight: 1.2,
+                    color: "#666666",
+                  }}
+                >
+                  Welcome to Innosino! Need help? Just reply to this
+                  message&mdash;we&rsquo;re online and ready to assist you.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setChatOpen(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: "2px",
+                    cursor: "pointer",
+                    display: "flex",
+                    flexShrink: 0,
+                  }}
+                  aria-label="Close chat bubble"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
+                      stroke="#888888"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            )}
 
-        {/* Interactive Chat Widget */}
-        <div
-          style={{
-            position: "absolute",
-            left: "974px",
-            top: "39px",
-            width: "331px",
-            height: "141px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            gap: "12px",
-            zIndex: 40,
-          }}
-        >
-          {chatOpen && (
-            <div
+            <button
+              type="button"
+              onClick={() => setChatOpen(!chatOpen)}
+              className="chat-dock__toggle"
+              aria-label="Toggle chat"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
+                  fill="#000000"
+                />
+                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
+                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="footer-bar">
+            <p
               style={{
-                position: "relative",
-                width: "331px",
-                height: "81px",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                boxSizing: "border-box",
-                padding: "9px 12px",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                margin: 0,
+                fontSize: "var(--fs-small)",
+                fontWeight: 400,
+                color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              <p
-                style={{
-                  margin: 0,
-                  width: "280px",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  lineHeight: "120%",
-                  color: "#666666",
-                }}
-              >
-                Welcome to Innosino! Need help? Just reply to this message—we’re online and ready to assist you.
-              </p>
-              <button
-                type="button"
-                onClick={() => setChatOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: "2px",
-                  cursor: "pointer",
-                  color: "#999999",
-                }}
-                aria-label="Close chat bubble"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
+              © 2026 Innosion All Rights Reserved
+            </p>
+
+            <div className="footer-bar__links">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "/about" },
+                { label: "Services", href: "/services" },
+                { label: "Industries", href: "/#industries" },
+                { label: "Blogs", href: "/blogs" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Terms & Condition", href: "#terms" },
+                { label: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    fontSize: "var(--fs-body)",
+                    fontWeight: 500,
+                    color: "#FFFFFF",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
-          )}
-
-          <button
-            type="button"
-            onClick={() => setChatOpen(!chatOpen)}
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: "#FF6A00",
-              border: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
-            }}
-            aria-label="Toggle chat"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="#000000" />
-              <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-              <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Footer Bottom Links & Copyright */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "156px",
-            width: "1169px",
-            height: "56px",
-            borderTop: "1px solid rgba(255, 255, 255, 0.2)",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            boxSizing: "border-box",
-          }}
-        >
-          <p style={{ margin: 0, fontFamily: "'Urbanist', sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
-            © 2026 Innosion All Rights Reserved
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "24px" }}>
-            {[
-              { label: "Home", href: "/" },
-              { label: "About Us", href: "/about" },
-              { label: "Services", href: "/services" },
-              { label: "Industries", href: "/#industries" },
-              { label: "Blogs", href: "#blogs" },
-              { label: "Privacy Policy", href: "#privacy" },
-              { label: "Terms & Condition", href: "#terms" },
-              { label: "Contact Us", href: "/contact" },
-            ].map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 500,
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
           </div>
         </div>
       </footer>

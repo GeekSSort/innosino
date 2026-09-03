@@ -310,7 +310,7 @@ export default function ServicePage() {
       {/* =====================================================================
           SECTION 2: TRUSTED BY & PARTNERS (Node 1498:14587)
           ===================================================================== */}
-      <section className="svc-partners">
+      <section className="hero-follow">
         <div className="container">
           <h2 className="svc-partners__title">
             TRUSTED BY 30+ Global Partners &amp; Collaborations

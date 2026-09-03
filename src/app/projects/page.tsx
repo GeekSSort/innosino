@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 const categories = [
   "All",
@@ -115,829 +116,403 @@ export default function ProjectsPage() {
   });
 
   return (
-    <main
-      style={{
-        position: "relative",
-        width: "1440px",
-        minHeight: "3497px",
-        overflow: "hidden",
-        backgroundColor: "#000000",
-        margin: "0 auto",
-      }}
-    >
-      {/* =========================================================================
-          SECTION 1: HERO & FEATURED PROJECT CARD OVERLAP (Height 684px)
-          Top background: Video /homepage_assets/Home page Hero section.mp4
-          ========================================================================= */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "684px",
-          backgroundColor: "#F1F1F1",
-          overflow: "visible",
-        }}
-      >
-        {/* Background Video */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: "1440px",
-            height: "684px",
-            overflow: "hidden",
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        >
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          >
+    <main className="pj-page">
+      {/* =====================================================================
+          SECTION 1: HERO & FEATURED PROJECT CARD (Node 1498:14883)
+          The featured card is the hero's last flow child and hangs into the
+          white band below it by --page-hero-hang.
+          ===================================================================== */}
+      <section className="page-hero">
+        <div className="section-media">
+          <video ref={heroVideoRef} autoPlay loop muted playsInline>
             <source
               src="/project_page/Project Page-Hero Section.mp4"
               type="video/mp4"
             />
           </video>
           <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.55)",
-              pointerEvents: "none",
-            }}
+            className="section-media__scrim"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.55)" }}
           />
         </div>
 
-        {/* Logo */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "60px",
-            width: "236px",
-            height: "32px",
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            src="/about_us/IS-Logo.png"
-            alt="INNOSINO"
-            width={236}
-            height={32}
-            style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            priority
-          />
-        </div>
+        <div className="container page-hero__inner">
+          <div className="page-hero__head">
+            <Image
+              src="/about_us/IS-Logo.png"
+              alt="INNOSINO"
+              width={340}
+              height={128}
+              className="brand-logo"
+              priority
+            />
 
-        {/* Hero Title & Subtitle Frame */}
-        <div
-          style={{
-            position: "absolute",
-            left: "134px",
-            top: "112px",
-            width: "1171px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "16px",
-            zIndex: 20,
-          }}
-        >
-          {/* Breadcrumb: HOME > PROJECTS */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "10px",
-              height: "24px",
-            }}
-          >
-            <span style={{ fontSize: "14px", color: "#FF7018" }}>✦</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <Link
-                href="/"
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                }}
-              >
-                HOME
-              </Link>
-              <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
-              <span
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textTransform: "uppercase",
-                }}
-              >
-                PROJECTS
-              </span>
+            <div className="page-hero__copy">
+              <div className="breadcrumb">
+                <svg
+                  className="breadcrumb__mark"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 0.6C12 6.9 17.1 12 23.4 12C17.1 12 12 17.1 12 23.4C12 17.1 6.9 12 0.6 12C6.9 12 12 6.9 12 0.6Z"
+                    fill="#FF7018"
+                  />
+                </svg>
+                <Link href="/" className="breadcrumb__link">
+                  HOME
+                </Link>
+                <span className="breadcrumb__link" aria-hidden="true">
+                  ›
+                </span>
+                <span className="breadcrumb__link">PROJECTS</span>
+              </div>
+
+              <h1 className="page-hero__title">OUR PROJECTS</h1>
+
+              <p className="page-hero__sub">
+                Explore the innovative solutions we&apos;ve designed and
+                developed across industries. Every project reflects our
+                commitment to quality, precision, and solving real-world
+                challenges through smart engineering.
+              </p>
             </div>
           </div>
 
-          {/* Title: OUR PROJECTS */}
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "64px",
-              fontWeight: 400,
-              lineHeight: "1.1",
-              color: "#FFFFFF",
-              textTransform: "uppercase",
-            }}
-          >
-            OUR PROJECTS
-          </h1>
+          {/* Header pill — composed in the hero's flow, then floats once it
+              scrolls away (same behaviour as the contact page). */}
+          <FloatingNavbar variant="inline" />
 
-          {/* Subtitle */}
-          <p
-            style={{
-              margin: 0,
-              width: "1171px",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "150%",
-              color: "#FFFFFF",
-            }}
-          >
-            Explore the innovative solutions we've designed and developed across industries. Every project reflects our commitment to quality, precision, and solving real-world challenges through smart engineering.
-          </p>
-        </div>
-
-        {/* Floating Navbar (Top: 401px, Left: 134px) */}
-        <div style={{ position: "absolute", left: "134px", top: "401px", zIndex: 30 }}>
-                  </div>
-
-        {/* Overlapping Featured Project Card (Node 1498:14883, x: 235, y: 557, w: 970, h: 478) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "235px",
-            top: "557px",
-            width: "970px",
-            height: "478px",
-            borderRadius: "18px",
-            backgroundColor: "#FFFFFF",
-            boxShadow: "0 0 30px rgba(30, 30, 30, 0.10)",
-            zIndex: 25,
-            boxSizing: "border-box",
-            padding: "36px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            overflow: "hidden",
-          }}
-        >
-          {/* Left Column of Featured Card (Width: 434px) */}
-          <div
-            style={{
-              width: "434px",
-              height: "402px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-              {/* Tag & Title */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#FF7018", fontSize: "14px" }}>✦</span>
-                  <span
-                    style={{
-                      fontFamily: "'Urbanist', sans-serif",
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      color: "#FF7018",
-                    }}
-                  >
-                    Featured Project
+          {/* Overlapping Featured Project Card (Node 1498:14883) */}
+          <div className="pj-featured">
+            <div className="pj-featured__body">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "clamp(1rem, 1.7vw, 24px)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "clamp(0.75rem, 1.1vw, 16px)",
+                  }}
+                >
+                  <span className="pj-featured__eyebrow">
+                    <span aria-hidden="true">✦</span>
+                    <span>Featured Project</span>
                   </span>
+
+                  <h2 className="pj-featured__title">
+                    Smart Musical Instruments
+                  </h2>
                 </div>
 
-                <h2
-                  style={{
-                    margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "36px",
-                    fontWeight: 700,
-                    color: "#000000",
-                    lineHeight: "1.2",
-                  }}
-                >
-                  Smart Musical Instruments
-                </h2>
-              </div>
-
-              {/* Description */}
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "15px",
-                  fontWeight: 500,
-                  lineHeight: "150%",
-                  color: "#666666",
-                }}
-              >
-                Engineered an intelligent musical instruments powered by AI, DSP, and embedded technologies, enabling real-time audio processing, ultra-low-latency wireless connectivity, intelligent gesture recognition, and patent-ready innovations for next-generation digital music experiences.
-              </p>
-
-              {/* Tag Badge */}
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  border: "1.5px solid #FF7018",
-                  borderRadius: "6px",
-                  padding: "8px 14px",
-                  width: "fit-content",
-                }}
-              >
-                <span style={{ fontSize: "14px", color: "#FF7018" }}>⚡</span>
-                <span
-                  style={{
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "13px",
-                    fontWeight: 700,
-                    color: "#000000",
-                    letterSpacing: "0.04em",
-                  }}
-                >
-                  SMART INSTRUMENTS DEVELOPED
-                </span>
-              </div>
-            </div>
-
-            {/* Know Details Button */}
-            <Link
-              href="#featured-details"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "6px",
-                width: "136px",
-                height: "40px",
-                borderRadius: "100px",
-                backgroundColor: "#000000",
-                color: "#FFFFFF",
-                fontFamily: "'Urbanist', sans-serif",
-                fontSize: "14px",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              <span>Know Details</span>
-              <span style={{ fontSize: "11px" }}>↗</span>
-            </Link>
-          </div>
-
-          {/* Right Column of Featured Card: Guitar Image (Width: 434px, Height: 406px) */}
-          <div
-            style={{
-              width: "434px",
-              height: "406px",
-              borderRadius: "14px",
-              overflow: "hidden",
-              position: "relative",
-              backgroundColor: "#161616",
-            }}
-          >
-            <Image
-              src="/homepage_assets/featured_project_images/guitar.png"
-              alt="Smart Musical Instruments"
-              fill
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          SECTION 2: OUR RECENT PROJECTS (Filters, Grid, Pagination)
-          White section with paddingTop to compensate for overlapping card
-          ========================================================================= */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          minHeight: "1800px",
-          backgroundColor: "#FFFFFF",
-          boxSizing: "border-box",
-          paddingTop: "390px", // Room for the 478px floating card
-          paddingLeft: "135px",
-          paddingRight: "135px",
-          paddingBottom: "80px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "40px",
-        }}
-      >
-        {/* Title: OUR RECENT PROJECTS */}
-        <h2
-          style={{
-            margin: 0,
-            fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-            fontSize: "48px",
-            fontWeight: 400,
-            color: "#000000",
-            textTransform: "uppercase",
-          }}
-        >
-          OUR RECENT <span style={{ color: "#FF7018" }}>PROJECTS</span>
-        </h2>
-
-        {/* Filter Pills & Search Bar Row */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "12px",
-            width: "1170px",
-            overflowX: "auto",
-            paddingBottom: "4px",
-          }}
-        >
-          {/* Search Box */}
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              width: "180px",
-              height: "42px",
-              backgroundColor: "#EFEFEF",
-              borderRadius: "100px",
-              padding: "0 16px",
-              boxSizing: "border-box",
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ fontSize: "14px", color: "#888", marginRight: "8px" }}>🔍</span>
-            <input
-              type="text"
-              placeholder="Search Project"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: "100%",
-                border: "none",
-                background: "none",
-                fontFamily: "'Urbanist', sans-serif",
-                fontSize: "14px",
-                color: "#000",
-                outline: "none",
-              }}
-            />
-          </div>
-
-          {/* Category Filter Pills */}
-          {categories.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                style={{
-                  height: "42px",
-                  padding: "0 20px",
-                  borderRadius: "100px",
-                  border: "none",
-                  backgroundColor: isSelected ? "#FF7018" : "#EFEFEF",
-                  color: isSelected ? "#FFFFFF" : "#333333",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: isSelected ? 600 : 500,
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  transition: "all 0.2s ease",
-                  flexShrink: 0,
-                }}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* 3x3 Project Grid (Node width 374, height 416) */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "24px",
-            width: "1170px",
-            marginTop: "10px",
-          }}
-        >
-          {filteredProjects.map((project, idx) => (
-            <div
-              key={idx}
-              style={{
-                width: "374px",
-                height: "416px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                boxSizing: "border-box",
-              }}
-            >
-              {/* Project Image Card */}
-              <div
-                style={{
-                  width: "374px",
-                  height: "280px",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  position: "relative",
-                  backgroundColor: "#0D0D0D",
-                }}
-              >
-                <Image
-                  src={project.img}
-                  alt={project.title}
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-
-              {/* Project Info */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                <span
-                  style={{
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    color: "#FF7018",
-                  }}
-                >
-                  {project.category}
-                </span>
-                <h3
-                  style={{
-                    margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "20px",
-                    fontWeight: 700,
-                    color: "#000000",
-                  }}
-                >
-                  {project.title}
-                </h3>
-                <p
-                  style={{
-                    margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    lineHeight: "140%",
-                    color: "#666666",
-                  }}
-                >
-                  {project.desc}
+                <p className="pj-featured__desc">
+                  Engineered an intelligent musical instruments powered by AI,
+                  DSP, and embedded technologies, enabling real-time audio
+                  processing, ultra-low-latency wireless connectivity,
+                  intelligent gesture recognition, and patent-ready innovations
+                  for next-generation digital music experiences.
                 </p>
+
+                <span className="pj-badge">
+                  <span style={{ color: "#FF7018" }} aria-hidden="true">
+                    ⚡
+                  </span>
+                  <span>SMART INSTRUMENTS DEVELOPED</span>
+                </span>
               </div>
+
+              <Link href="#featured-details" className="pj-featured__cta">
+                <span>Know Details</span>
+                <span style={{ fontSize: "0.8em" }} aria-hidden="true">
+                  ↗
+                </span>
+              </Link>
             </div>
-          ))}
-        </div>
 
-        {/* Pagination Bar */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "8px",
-            width: "1170px",
-            marginTop: "30px",
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "8px",
-              border: "1px solid #E0E0E0",
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#666",
-            }}
-          >
-            &lt;
-          </button>
-
-          {[1, 2, 3, 4, 5, 10].map((num) => {
-            const isAct = currentPage === num;
-            return (
-              <button
-                key={num}
-                type="button"
-                onClick={() => setCurrentPage(num)}
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "8px",
-                  border: "none",
-                  backgroundColor: isAct ? "#FF7018" : "transparent",
-                  color: isAct ? "#FFFFFF" : "#333333",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "15px",
-                  fontWeight: isAct ? 700 : 500,
-                  cursor: "pointer",
-                }}
-              >
-                {num}
-              </button>
-            );
-          })}
-
-          <button
-            type="button"
-            onClick={() => setCurrentPage(currentPage + 1)}
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "8px",
-              border: "1px solid #E0E0E0",
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#666",
-            }}
-          >
-            &gt;
-          </button>
+            <div className="pj-featured__media">
+              <Image
+                src="/homepage_assets/featured_project_images/guitar.png"
+                alt="Smart Musical Instruments"
+                fill
+                sizes="(max-width: 899px) 100vw, 434px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* =========================================================================
-          SECTION 3: CTA CARD BANNER (White Section, Centered CTA Card)
-          ========================================================================= */}
+      {/* =====================================================================
+          SECTION 2: OUR RECENT PROJECTS (Filters, Grid, Pagination)
+          ===================================================================== */}
       <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "488px",
-          backgroundColor: "#FFFFFF",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxSizing: "border-box",
-        }}
+        className="hero-follow"
+        style={{ paddingBlockEnd: "clamp(3rem, 6.9vw, 80px)" }}
       >
         <div
+          className="container"
           style={{
-            width: "1170px",
-            height: "328px",
-            borderRadius: "20px",
-            background: "linear-gradient(135deg, #FF7018 0%, #FFBE03 100%)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            gap: "20px",
-            padding: "40px",
-            boxSizing: "border-box",
-            boxShadow: "0 20px 50px rgba(255, 112, 24, 0.25)",
+            gap: "clamp(1.5rem, 2.8vw, 40px)",
           }}
         >
           <h2
+            className="section-heading"
             style={{
-              margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
-              fontWeight: 400,
-              color: "#FFFFFF",
-              textTransform: "uppercase",
-              lineHeight: "1.2",
+              color: "#000000",
+              fontSize: "clamp(1.75rem, 1.1rem + 2.2vw, 3rem)",
             }}
           >
-            HAVE AN IDEA? LET'S ENGINEER IT INTO A PRODUCT.
+            OUR RECENT <span style={{ color: "#FF7018" }}>PROJECTS</span>
           </h2>
-          <p
-            style={{
-              margin: 0,
-              width: "640px",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "16px",
-              fontWeight: 500,
-              color: "#FFFFFF",
-              lineHeight: "150%",
-            }}
-          >
-            Tell us about your project: hardware, firmware, or both. We'll come back with a clear path from concept to production.
-          </p>
-          <Link
-            href="/contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
-              padding: "14px 32px",
-              borderRadius: "100px",
-              backgroundColor: "#000000",
-              color: "#FFFFFF",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "16px",
-              fontWeight: 600,
-              textDecoration: "none",
-            }}
-          >
-            <span>Book a Call</span>
-            <span style={{ fontSize: "12px" }}>↗</span>
-          </Link>
+
+          {/* Filter pills & search */}
+          <div className="pj-filters">
+            <div className="pj-search">
+              <span
+                style={{ fontSize: "14px", color: "#888", marginRight: "8px" }}
+                aria-hidden="true"
+              >
+                🔍
+              </span>
+              <input
+                type="text"
+                className="pj-search__input"
+                placeholder="Search Project"
+                aria-label="Search projects"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className="pj-pill"
+                aria-pressed={selectedCategory === cat}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Project grid */}
+          <div className="pj-grid">
+            {filteredProjects.map((project, idx) => (
+              <article key={idx} className="pj-card">
+                <div className="pj-card__media">
+                  <Image
+                    src={project.img}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 599px) 100vw, (max-width: 1023px) 50vw, 374px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "6px",
+                  }}
+                >
+                  <span className="pj-card__category">{project.category}</span>
+                  <h3 className="pj-card__title">{project.title}</h3>
+                  <p className="pj-card__desc">{project.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="pj-pagination">
+            <button
+              type="button"
+              className="pj-page-button pj-page-button--step"
+              aria-label="Previous page"
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            >
+              &lt;
+            </button>
+
+            {[1, 2, 3, 4, 5, 10].map((num) => (
+              <button
+                key={num}
+                type="button"
+                className="pj-page-button"
+                aria-current={currentPage === num ? "page" : undefined}
+                onClick={() => setCurrentPage(num)}
+              >
+                {num}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              className="pj-page-button pj-page-button--step"
+              aria-label="Next page"
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* =========================================================================
-          SECTION 4: FOOTER & INTERACTIVE CHAT WIDGET
-          Black #000000 background
-          ========================================================================= */}
-      <footer
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "276px",
-          backgroundColor: "#000000",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ position: "absolute", left: "135px", top: "64px", zIndex: 30 }}>
-                  </div>
+      {/* =====================================================================
+          SECTION 3: CTA CARD BANNER
+          ===================================================================== */}
+      <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="container">
+          <div className="cta-banner cta-banner--compact">
+            <h2 className="cta-banner__title">
+              HAVE AN IDEA? LET&apos;S ENGINEER IT INTO A PRODUCT.
+            </h2>
 
-        {/* Interactive Chat Widget */}
-        <div
-          style={{
-            position: "absolute",
-            left: "974px",
-            top: "39px",
-            width: "331px",
-            height: "141px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            gap: "12px",
-            zIndex: 40,
-          }}
-        >
-          {chatOpen && (
-            <div
+            <p className="cta-banner__body">
+              Tell us about your project: hardware, firmware, or both.
+              We&apos;ll come back with a clear path from concept to production.
+            </p>
+
+            <Link href="/contact" className="cta-banner__button">
+              <span>Book a Call</span>
+              <span style={{ fontSize: "0.75em" }} aria-hidden="true">
+                ↗
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          SECTION 4: FOOTER & INTERACTIVE CHAT WIDGET
+          ===================================================================== */}
+      <footer
+        className="flow-section"
+        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
+      >
+        <div className="container">
+          <div
+            className="chat-dock"
+            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
+          >
+            {chatOpen && (
+              <div className="chat-dock__bubble">
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "var(--fs-small)",
+                    fontWeight: 400,
+                    lineHeight: 1.2,
+                    color: "#666666",
+                  }}
+                >
+                  Welcome to Innosino! Need help? Just reply to this
+                  message&mdash;we&rsquo;re online and ready to assist you.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setChatOpen(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: "2px",
+                    cursor: "pointer",
+                    display: "flex",
+                    flexShrink: 0,
+                  }}
+                  aria-label="Close chat bubble"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
+                      stroke="#888888"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setChatOpen(!chatOpen)}
+              className="chat-dock__toggle"
+              aria-label="Toggle chat"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
+                  fill="#000000"
+                />
+                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
+                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="footer-bar">
+            <p
               style={{
-                position: "relative",
-                width: "331px",
-                height: "81px",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                boxSizing: "border-box",
-                padding: "9px 12px",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                margin: 0,
+                fontSize: "var(--fs-small)",
+                fontWeight: 400,
+                color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              <p
-                style={{
-                  margin: 0,
-                  width: "280px",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  lineHeight: "120%",
-                  color: "#666666",
-                }}
-              >
-                Welcome to Innosino! Need help? Just reply to this message—we’re online and ready to assist you.
-              </p>
-              <button
-                type="button"
-                onClick={() => setChatOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: "2px",
-                  cursor: "pointer",
-                  color: "#999999",
-                }}
-                aria-label="Close chat bubble"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
+              © 2026 Innosion All Rights Reserved
+            </p>
+
+            <div className="footer-bar__links">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "/about" },
+                { label: "Services", href: "/services" },
+                { label: "Industries", href: "/#industries" },
+                { label: "Blogs", href: "/blogs" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Terms & Condition", href: "#terms" },
+                { label: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    fontSize: "var(--fs-body)",
+                    fontWeight: 500,
+                    color: "#FFFFFF",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
-          )}
-
-          <button
-            type="button"
-            onClick={() => setChatOpen(!chatOpen)}
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: "#FF6A00",
-              border: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
-            }}
-            aria-label="Toggle chat"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="#000000" />
-              <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-              <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Footer Bottom Links & Copyright */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "156px",
-            width: "1169px",
-            height: "56px",
-            borderTop: "1px solid rgba(255, 255, 255, 0.2)",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            boxSizing: "border-box",
-          }}
-        >
-          <p style={{ margin: 0, fontFamily: "'Urbanist', sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
-            © 2026 Innosion All Rights Reserved
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "24px" }}>
-            {[
-              { label: "Home", href: "/" },
-              { label: "About Us", href: "/about" },
-              { label: "Services", href: "/services" },
-              { label: "Industries", href: "/#industries" },
-              { label: "Blogs", href: "#blogs" },
-              { label: "Privacy Policy", href: "#privacy" },
-              { label: "Terms & Condition", href: "#terms" },
-              { label: "Contact Us", href: "/contact" },
-            ].map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 500,
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
           </div>
         </div>
       </footer>

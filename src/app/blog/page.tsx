@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 const categories = [
   "All",
@@ -141,906 +142,410 @@ export default function BlogsPage() {
     return matchesCategory && matchesSearch;
   });
 
+
   return (
-    <main
-      style={{
-        position: "relative",
-        width: "1440px",
-        minHeight: "3757px",
-        overflow: "hidden",
-        backgroundColor: "#000000",
-        margin: "0 auto",
-      }}
-    >
-      {/* SECTION 1: HERO & FEATURED BLOG CARD OVERLAP */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "684px",
-          backgroundColor: "#F1F1F1",
-          overflow: "visible",
-        }}
-      >
-        {/* Background Video using Contact page hero video */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: "1440px",
-            height: "684px",
-            overflow: "hidden",
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        >
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          >
-            <source
-              src="/about_us/About Us Hero Section.mp4"
-              type="video/mp4"
-            />
+    <main className="blog-page">
+      {/* =====================================================================
+          SECTION 1: HERO & FEATURED BLOG CARD
+          The featured card is the hero's last flow child and hangs into the
+          white band below it by --page-hero-hang.
+          ===================================================================== */}
+      <section className="page-hero">
+        <div className="section-media">
+          <video ref={heroVideoRef} autoPlay loop muted playsInline>
+            <source src="/about_us/About Us Hero Section.mp4" type="video/mp4" />
           </video>
           <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.60)",
-              pointerEvents: "none",
-            }}
+            className="section-media__scrim"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.60)" }}
           />
         </div>
 
-        {/* Logo */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "60px",
-            width: "236px",
-            height: "32px",
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            src="/about_us/IS-Logo.png"
-            alt="INNOSINO"
-            width={236}
-            height={32}
-            style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            priority
-          />
-        </div>
-
-        {/* Hero Title & Subtitle Frame */}
-        <div
-          style={{
-            position: "absolute",
-            left: "134px",
-            top: "112px",
-            width: "1171px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "16px",
-            zIndex: 20,
-          }}
-        >
-          {/* Breadcrumb: HOME > BLOG */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "10px",
-              height: "24px",
-            }}
-          >
-            <span style={{ fontSize: "14px", color: "#FF7018" }}>✦</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <Link
-                href="/"
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                }}
-              >
-                HOME
-              </Link>
-              <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
-              <span
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textTransform: "uppercase",
-                }}
-              >
-                BLOG
-              </span>
-            </div>
-          </div>
-
-          {/* Title: OUR LATEST BLOGS */}
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "64px",
-              fontWeight: 400,
-              lineHeight: "1.1",
-              color: "#FFFFFF",
-              textTransform: "uppercase",
-            }}
-          >
-            OUR LATEST BLOGS
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            style={{
-              margin: 0,
-              width: "1171px",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "150%",
-              color: "#FFFFFF",
-            }}
-          >
-            Stay updated with the latest industry trends, technical guides, engineering insights, project stories, and innovations that inspire smarter products and better technology solutions.
-          </p>
-        </div>
-
-        {/* Floating Navbar */}
-        <div style={{ position: "absolute", left: "134px", top: "401px", zIndex: 30 }}>
-                  </div>
-
-        {/* Overlapping Featured Blog Card */}
-        <div
-          style={{
-            position: "absolute",
-            left: "235px",
-            top: "557px",
-            width: "970px",
-            height: "478px",
-            borderRadius: "18px",
-            backgroundColor: "#FFFFFF",
-            boxShadow: "0 0 30px rgba(30, 30, 30, 0.10)",
-            zIndex: 25,
-            boxSizing: "border-box",
-            padding: "36px",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            overflow: "hidden",
-          }}
-        >
-          {/* Left Column of Featured Card */}
-          <div
-            style={{
-              width: "434px",
-              height: "402px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              {/* Header: Tag + Date */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ color: "#FF7018", fontSize: "14px" }}>✦</span>
-                  <span
-                    style={{
-                      fontFamily: "'Urbanist', sans-serif",
-                      fontSize: "16px",
-                      fontWeight: 600,
-                      color: "#FF7018",
-                    }}
-                  >
-                    Featured Blog
-                  </span>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "14px",
-                    fontWeight: 500,
-                    color: "#888888",
-                  }}
-                >
-                  March 12, 2026
-                </span>
-              </div>
-
-              {/* Title */}
-              <h2
-                style={{
-                  margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "32px",
-                  fontWeight: 700,
-                  color: "#000000",
-                  lineHeight: "1.25",
-                }}
-              >
-                Inside The Logic IC Trainer Kit's 16 Profiles
-              </h2>
-
-              {/* Description */}
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "15px",
-                  fontWeight: 400,
-                  lineHeight: "150%",
-                  color: "#666666",
-                }}
-              >
-                Why we chose a profile-based architecture over hardcoded logic families to improve flexibility, usability, maintainability, and long-term adaptability across diverse applications.
-              </p>
-
-              {/* Author & Read Time */}
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginTop: "4px" }}>
-                <div
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    backgroundColor: "#000000",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#FF7018",
-                    fontWeight: 700,
-                    fontSize: "12px",
-                    fontFamily: "'Urbanist', sans-serif",
-                  }}
-                >
-                  IS
-                </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <span
-                    style={{
-                      fontFamily: "'Urbanist', sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 700,
-                      color: "#000000",
-                    }}
-                  >
-                    Innosino Team
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Urbanist', sans-serif",
-                      fontSize: "12px",
-                      fontWeight: 500,
-                      color: "#888888",
-                    }}
-                  >
-                    8 min
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Know Details Button linking to /blogs/details */}
-            <Link
-              href="/blogs/details"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "6px",
-                width: "136px",
-                height: "40px",
-                borderRadius: "100px",
-                backgroundColor: "#000000",
-                color: "#FFFFFF",
-                fontFamily: "'Urbanist', sans-serif",
-                fontSize: "14px",
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              <span>Know Details</span>
-              <span style={{ fontSize: "11px" }}>↗</span>
-            </Link>
-          </div>
-
-          {/* Right Column of Featured Card */}
-          <div
-            style={{
-              width: "434px",
-              height: "406px",
-              borderRadius: "14px",
-              overflow: "hidden",
-              position: "relative",
-              backgroundColor: "#0B0B0B",
-            }}
-          >
+        <div className="container page-hero__inner">
+          <div className="page-hero__head">
             <Image
-              src="/blog_details assets/BD-01.png"
-              alt="Inside The Logic IC Trainer Kit's 16 Profiles"
-              fill
-              style={{ objectFit: "cover" }}
+              src="/about_us/IS-Logo.png"
+              alt="INNOSINO"
+              width={340}
+              height={128}
+              className="brand-logo"
               priority
             />
-          </div>
-        </div>
-      </section>
 
-      {/* SECTION 2: RESOURCES & INSIGHTS */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          minHeight: "1800px",
-          backgroundColor: "#FFFFFF",
-          boxSizing: "border-box",
-          paddingTop: "390px",
-          paddingLeft: "135px",
-          paddingRight: "135px",
-          paddingBottom: "80px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "40px",
-        }}
-      >
-        <h2
-          style={{
-            margin: 0,
-            fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-            fontSize: "48px",
-            fontWeight: 400,
-            color: "#000000",
-            textTransform: "uppercase",
-          }}
-        >
-          RESOURCES & <span style={{ color: "#FF7018" }}>INSIGHTS</span>
-        </h2>
+            <div className="page-hero__copy">
+              <div className="breadcrumb">
+                <svg
+                  className="breadcrumb__mark"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 0.6C12 6.9 17.1 12 23.4 12C17.1 12 12 17.1 12 23.4C12 17.1 6.9 12 0.6 12C6.9 12 12 6.9 12 0.6Z"
+                    fill="#FF7018"
+                  />
+                </svg>
+                <Link href="/" className="breadcrumb__link">
+                  HOME
+                </Link>
+                <span className="breadcrumb__link" aria-hidden="true">
+                  ›
+                </span>
+                <span className="breadcrumb__link">BLOG</span>
+              </div>
 
-        {/* Filter Row */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "12px",
-            width: "1170px",
-            overflowX: "auto",
-            paddingBottom: "4px",
-          }}
-        >
-          {/* Search Box */}
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              width: "180px",
-              height: "42px",
-              backgroundColor: "#EFEFEF",
-              borderRadius: "100px",
-              padding: "0 16px",
-              boxSizing: "border-box",
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ fontSize: "14px", color: "#888", marginRight: "8px" }}>🔍</span>
-            <input
-              type="text"
-              placeholder="Search Project"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: "100%",
-                border: "none",
-                background: "none",
-                fontFamily: "'Urbanist', sans-serif",
-                fontSize: "14px",
-                color: "#000",
-                outline: "none",
-              }}
-            />
+              <h1 className="page-hero__title">OUR LATEST BLOGS</h1>
+
+              <p className="page-hero__sub">
+                Stay updated with the latest industry trends, technical guides,
+                engineering insights, project stories, and innovations that
+                inspire smarter products and better technology solutions.
+              </p>
+            </div>
           </div>
 
-          {/* Category Filter Pills */}
-          {categories.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                style={{
-                  height: "42px",
-                  padding: "0 20px",
-                  borderRadius: "100px",
-                  border: "none",
-                  backgroundColor: isSelected ? "#FF7018" : "#EFEFEF",
-                  color: isSelected ? "#FFFFFF" : "#333333",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: isSelected ? 600 : 500,
-                  cursor: "pointer",
-                  whiteSpace: "nowrap",
-                  transition: "all 0.2s ease",
-                  flexShrink: 0,
-                }}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
+          {/* Header pill — in the hero's flow, then floats once it scrolls
+              away (same behaviour as the projects page). */}
+          <FloatingNavbar variant="inline" />
 
-        {/* 3x3 Blog Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "24px",
-            width: "1170px",
-            marginTop: "10px",
-          }}
-        >
-          {filteredBlogs.map((blog, idx) => (
-            <Link
-              key={idx}
-              href="/blogs/details"
-              style={{
-                width: "374px",
-                height: "460px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "14px",
-                boxSizing: "border-box",
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
+          {/* Overlapping Featured Blog Card */}
+          <div className="pj-featured">
+            <div className="pj-featured__body">
               <div
                 style={{
-                  width: "374px",
-                  height: "240px",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  position: "relative",
-                  backgroundColor: "#000000",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  gap: "clamp(0.875rem, 1.4vw, 20px)",
                 }}
               >
-                <Image
-                  src={blog.img}
-                  alt={blog.title}
-                  fill
-                  style={{ objectFit: blog.img.includes("white_moontype") ? "contain" : "cover" }}
-                />
-              </div>
-
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span
-                  style={{
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    color: "#FF7018",
-                  }}
-                >
-                  {blog.category}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontSize: "13px",
-                    fontWeight: 500,
-                    color: "#888888",
-                  }}
-                >
-                  {blog.date}
-                </span>
-              </div>
-
-              <h3
-                style={{
-                  margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "19px",
-                  fontWeight: 700,
-                  color: "#000000",
-                  lineHeight: "1.3",
-                }}
-              >
-                {blog.title}
-              </h3>
-
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  lineHeight: "140%",
-                  color: "#666666",
-                }}
-              >
-                {blog.desc}
-              </p>
-
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "auto" }}>
-                <div
-                  style={{
-                    width: "28px",
-                    height: "28px",
-                    borderRadius: "50%",
-                    backgroundColor: "#000000",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#FF7018",
-                    fontWeight: 700,
-                    fontSize: "11px",
-                    fontFamily: "'Urbanist', sans-serif",
-                  }}
-                >
-                  IS
-                </div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
+                <div className="blog-card__meta">
                   <span
-                    style={{
-                      fontFamily: "'Urbanist', sans-serif",
-                      fontSize: "13px",
-                      fontWeight: 700,
-                      color: "#000000",
-                    }}
+                    style={{ display: "flex", alignItems: "center", gap: "8px" }}
                   >
-                    {blog.author}
+                    <span aria-hidden="true">✦</span>
+                    <span>Featured Blog</span>
                   </span>
-                  <span
-                    style={{
-                      fontFamily: "'Urbanist', sans-serif",
-                      fontSize: "12px",
-                      fontWeight: 500,
-                      color: "#888888",
-                    }}
-                  >
-                    {blog.readTime}
+                  <span className="blog-card__date">March 12, 2026</span>
+                </div>
+
+                <h2
+                  className="pj-featured__title"
+                  style={{ lineHeight: 1.25 }}
+                >
+                  Inside The Logic IC Trainer Kit&apos;s 16 Profiles
+                </h2>
+
+                <p className="pj-featured__desc">
+                  Why we chose a profile-based architecture over hardcoded logic
+                  families to improve flexibility, usability, maintainability,
+                  and long-term adaptability across diverse applications.
+                </p>
+
+                <div className="blog-byline" style={{ marginBlockStart: "4px" }}>
+                  <span className="blog-byline__avatar">IS</span>
+                  <span>
+                    <span className="blog-byline__name">Innosino Team</span>
+                    <span className="blog-byline__time">8 min</span>
                   </span>
                 </div>
               </div>
-            </Link>
-          ))}
-        </div>
 
-        {/* Pagination Bar */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "8px",
-            width: "1170px",
-            marginTop: "30px",
-          }}
-        >
-          <button
-            type="button"
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "8px",
-              border: "1px solid #E0E0E0",
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#666",
-            }}
-          >
-            &lt;
-          </button>
+              <Link href="/blogs/details" className="pj-featured__cta">
+                <span>Know Details</span>
+                <span style={{ fontSize: "0.8em" }} aria-hidden="true">
+                  ↗
+                </span>
+              </Link>
+            </div>
 
-          {[1, 2, 3, 4, 5].map((num) => {
-            const isAct = currentPage === num;
-            return (
-              <button
-                key={num}
-                type="button"
-                onClick={() => setCurrentPage(num)}
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: "8px",
-                  border: "none",
-                  backgroundColor: isAct ? "#FF7018" : "transparent",
-                  color: isAct ? "#FFFFFF" : "#333333",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "15px",
-                  fontWeight: isAct ? 700 : 500,
-                  cursor: "pointer",
-                }}
-              >
-                {num}
-              </button>
-            );
-          })}
-
-          <button
-            type="button"
-            onClick={() => setCurrentPage(currentPage + 1)}
-            style={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "8px",
-              border: "1px solid #E0E0E0",
-              backgroundColor: "#FFFFFF",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#666",
-            }}
-          >
-            &gt;
-          </button>
+            <div className="pj-featured__media" style={{ backgroundColor: "#0B0B0B" }}>
+              <Image
+                src="/blog_details assets/BD-01.png"
+                alt="Inside The Logic IC Trainer Kit's 16 Profiles"
+                fill
+                sizes="(max-width: 899px) 100vw, 434px"
+                style={{ objectFit: "cover" }}
+                priority
+              />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* SECTION 3: CTA CARD BANNER */}
+      {/* =====================================================================
+          SECTION 2: RESOURCES & INSIGHTS
+          ===================================================================== */}
       <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "488px",
-          backgroundColor: "#FFFFFF",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxSizing: "border-box",
-        }}
+        className="hero-follow"
+        style={{ paddingBlockEnd: "clamp(3rem, 6.9vw, 80px)" }}
       >
         <div
+          className="container"
           style={{
-            width: "1170px",
-            height: "328px",
-            borderRadius: "20px",
-            background: "linear-gradient(135deg, #FF7018 0%, #FFBE03 100%)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            gap: "20px",
-            padding: "40px",
-            boxSizing: "border-box",
-            boxShadow: "0 20px 50px rgba(255, 112, 24, 0.25)",
+            gap: "clamp(1.5rem, 2.8vw, 40px)",
           }}
         >
           <h2
+            className="section-heading"
             style={{
-              margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "44px",
-              fontWeight: 400,
-              color: "#FFFFFF",
-              textTransform: "uppercase",
-              lineHeight: "1.2",
+              color: "#000000",
+              fontSize: "clamp(1.75rem, 1.1rem + 2.2vw, 3rem)",
             }}
           >
-            HAVE A HARDWARE IDEA WORTH PROTOTYPING?
+            RESOURCES &amp; <span style={{ color: "#FF7018" }}>INSIGHTS</span>
           </h2>
-          <p
-            style={{
-              margin: 0,
-              width: "640px",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "16px",
-              fontWeight: 500,
-              color: "#FFFFFF",
-              lineHeight: "150%",
-            }}
-          >
-            We turn ambitious concepts from single proof of concept through to production readiness.
-          </p>
-          <Link
-            href="/contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
-              padding: "14px 32px",
-              borderRadius: "100px",
-              backgroundColor: "#000000",
-              color: "#FFFFFF",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "16px",
-              fontWeight: 600,
-              textDecoration: "none",
-            }}
-          >
-            <span>Book a Call</span>
-            <span style={{ fontSize: "12px" }}>↗</span>
-          </Link>
+
+          {/* Filter pills & search */}
+          <div className="pj-filters">
+            <div className="pj-search">
+              <span
+                style={{ fontSize: "14px", color: "#888", marginRight: "8px" }}
+                aria-hidden="true"
+              >
+                🔍
+              </span>
+              <input
+                type="text"
+                className="pj-search__input"
+                placeholder="Search Blog"
+                aria-label="Search blogs"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className="pj-pill"
+                aria-pressed={selectedCategory === cat}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Blog grid */}
+          <div className="pj-grid">
+            {filteredBlogs.map((blog, idx) => (
+              <Link key={idx} href="/blogs/details" className="blog-card">
+                <div className="blog-card__media">
+                  <Image
+                    src={blog.img}
+                    alt={blog.title}
+                    fill
+                    sizes="(max-width: 599px) 100vw, (max-width: 1023px) 50vw, 374px"
+                    style={{
+                      objectFit: blog.img.includes("white_moontype")
+                        ? "contain"
+                        : "cover",
+                    }}
+                  />
+                </div>
+
+                <div className="blog-card__meta">
+                  <span>{blog.category}</span>
+                  <span className="blog-card__date">{blog.date}</span>
+                </div>
+
+                <h3 className="blog-card__title">{blog.title}</h3>
+
+                <p className="blog-card__desc">{blog.desc}</p>
+
+                <div className="blog-byline">
+                  <span className="blog-byline__avatar">IS</span>
+                  <span>
+                    <span className="blog-byline__name">{blog.author}</span>
+                    <span className="blog-byline__time">{blog.readTime}</span>
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="pj-pagination">
+            <button
+              type="button"
+              className="pj-page-button pj-page-button--step"
+              aria-label="Previous page"
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            >
+              &lt;
+            </button>
+
+            {[1, 2, 3, 4, 5, 10].map((num) => (
+              <button
+                key={num}
+                type="button"
+                className="pj-page-button"
+                aria-current={currentPage === num ? "page" : undefined}
+                onClick={() => setCurrentPage(num)}
+              >
+                {num}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              className="pj-page-button pj-page-button--step"
+              aria-label="Next page"
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* SECTION 4: FOOTER & CHAT */}
-      <footer
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "276px",
-          backgroundColor: "#000000",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ position: "absolute", left: "135px", top: "64px", zIndex: 30 }}>
-                  </div>
+      {/* =====================================================================
+          SECTION 3: CTA CARD BANNER
+          ===================================================================== */}
+      <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="container">
+          <div className="cta-banner cta-banner--compact">
+            <h2 className="cta-banner__title">
+              HAVE AN IDEA? LET&apos;S ENGINEER IT INTO A PRODUCT.
+            </h2>
 
-        {/* Interactive Chat Widget */}
-        <div
-          style={{
-            position: "absolute",
-            left: "974px",
-            top: "39px",
-            width: "331px",
-            height: "141px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            gap: "12px",
-            zIndex: 40,
-          }}
-        >
-          {chatOpen && (
-            <div
+            <p className="cta-banner__body">
+              Tell us about your project: hardware, firmware, or both.
+              We&apos;ll come back with a clear path from concept to production.
+            </p>
+
+            <Link href="/contact" className="cta-banner__button">
+              <span>Book a Call</span>
+              <span style={{ fontSize: "0.75em" }} aria-hidden="true">
+                ↗
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          SECTION 4: FOOTER & CHAT
+          ===================================================================== */}
+      <footer
+        className="flow-section"
+        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
+      >
+        <div className="container">
+          <div
+            className="chat-dock"
+            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
+          >
+            {chatOpen && (
+              <div className="chat-dock__bubble">
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "var(--fs-small)",
+                    fontWeight: 400,
+                    lineHeight: 1.2,
+                    color: "#666666",
+                  }}
+                >
+                  Welcome to Innosino! Need help? Just reply to this
+                  message&mdash;we&rsquo;re online and ready to assist you.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setChatOpen(false)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: "2px",
+                    cursor: "pointer",
+                    display: "flex",
+                    flexShrink: 0,
+                  }}
+                  aria-label="Close chat bubble"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
+                      stroke="#888888"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setChatOpen(!chatOpen)}
+              className="chat-dock__toggle"
+              aria-label="Toggle chat"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
+                  fill="#000000"
+                />
+                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
+                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="footer-bar">
+            <p
               style={{
-                position: "relative",
-                width: "331px",
-                height: "81px",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                boxSizing: "border-box",
-                padding: "9px 12px",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                margin: 0,
+                fontSize: "var(--fs-small)",
+                fontWeight: 400,
+                color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              <p
-                style={{
-                  margin: 0,
-                  width: "280px",
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  lineHeight: "120%",
-                  color: "#666666",
-                }}
-              >
-                Welcome to Innosino! Need help? Just reply to this message—we’re online and ready to assist you.
-              </p>
-              <button
-                type="button"
-                onClick={() => setChatOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: "2px",
-                  cursor: "pointer",
-                  color: "#999999",
-                }}
-                aria-label="Close chat bubble"
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
+              © 2026 Innosion All Rights Reserved
+            </p>
+
+            <div className="footer-bar__links">
+              {[
+                { label: "Home", href: "/" },
+                { label: "About Us", href: "/about" },
+                { label: "Services", href: "/services" },
+                { label: "Industries", href: "/#industries" },
+                { label: "Blogs", href: "/blogs" },
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Terms & Condition", href: "#terms" },
+                { label: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    fontSize: "var(--fs-body)",
+                    fontWeight: 500,
+                    color: "#FFFFFF",
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
-          )}
-
-          <button
-            type="button"
-            onClick={() => setChatOpen(!chatOpen)}
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: "#FF6A00",
-              border: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
-            }}
-            aria-label="Toggle chat"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="#000000" />
-              <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-              <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Footer Bottom */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "156px",
-            width: "1169px",
-            height: "56px",
-            borderTop: "1px solid rgba(255, 255, 255, 0.2)",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            boxSizing: "border-box",
-          }}
-        >
-          <p style={{ margin: 0, fontFamily: "'Urbanist', sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
-            © 2026 Innosion All Rights Reserved
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "24px" }}>
-            {[
-              { label: "Home", href: "/" },
-              { label: "About Us", href: "/about" },
-              { label: "Services", href: "/services" },
-              { label: "Industries", href: "/#industries" },
-              { label: "Blogs", href: "/blogs" },
-              { label: "Privacy Policy", href: "#privacy" },
-              { label: "Terms & Condition", href: "#terms" },
-              { label: "Contact Us", href: "/contact" },
-            ].map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontFamily: "'Urbanist', sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 500,
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
           </div>
         </div>
       </footer>
