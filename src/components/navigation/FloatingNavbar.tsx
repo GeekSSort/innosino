@@ -10,10 +10,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Services", href: "#services" },
-  { label: "Industries", href: "#industries" },
-  { label: "Projects", href: "#projects" },
-  { label: "About Us", href: "#about" },
+  { label: "Services", href: "/services" },
+  { label: "Industries", href: "/#industries" },
+  { label: "Projects", href: "/#projects" },
+  { label: "About Us", href: "/about" },
   { label: "More", href: "#more", hasDropdown: true },
 ];
 
