@@ -104,11 +104,7 @@ export default function IndustrySolutionsListSection() {
   return (
     <section
       className="flow-section"
-      style={{
-        backgroundColor: "#000000",
-        /* Clearance so the floating nav pill never lands on the footer. */
-        paddingBottom: "var(--nav-safe)",
-      }}
+      style={{ backgroundColor: "#000000" }}
     >
       <div className="container">
         <h2 className="section-lede">

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavItem {
   label: string;
@@ -29,12 +30,66 @@ const moreItems = [
 /** Links that drop out of the pill on phones re-appear at the top of the menu. */
 const overflowItems = navItems.filter((item) => item.secondary);
 
-export default function FloatingNavbar() {
+/**
+ * Routes whose design composes the pill inside their own layout (Figma places
+ * it under the hero headline and again in the footer), so the floating copy
+ * mounted by the root layout stands down there.
+ */
+const ROUTES_WITH_INLINE_NAV = ["/about", "/services", "/contact"];
+
+interface FloatingNavbarProps {
+  /**
+   * "fixed" (default) floats the pill over the viewport; "inline" renders it in
+   * the surrounding document flow for pages that position it themselves.
+   */
+  variant?: "fixed" | "inline";
+}
+
+export default function FloatingNavbar({
+  variant = "fixed",
+}: FloatingNavbarProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [floating, setFloating] = useState(false);
+  const [slotHeight, setSlotHeight] = useState<number>();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const slotRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  // An inline pill rests where the page puts it, then detaches and floats in
+  // the usual bottom band once its resting place scrolls off the top.
+  useEffect(() => {
+    if (variant !== "inline") return;
+    const wrap = wrapRef.current;
+    const slot = slotRef.current;
+    if (!wrap || !slot) return;
+
+    setSlotHeight(slot.offsetHeight);
+
+    const update = () => setFloating(wrap.getBoundingClientRect().top <= 0);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [variant]);
+
+  if (variant === "fixed" && ROUTES_WITH_INLINE_NAV.includes(pathname)) {
+    return null;
+  }
+
+  const inline = variant === "inline";
 
   return (
-    <div className="dock dock--nav">
-      <div className="dock__inner">
+    <div
+      ref={wrapRef}
+      className={
+        inline ? `nav-inline${floating ? " nav-inline--floating" : ""}` : "dock dock--nav"
+      }
+      style={inline && slotHeight ? { minHeight: slotHeight } : undefined}
+    >
+      <div ref={slotRef} className={inline ? "nav-inline__slot" : "dock__inner"}>
         <nav aria-label="Main Navigation" className="nav-pill">
           <div className="nav-pill__links">
             {navItems.map((item) => (

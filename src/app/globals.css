@@ -25,7 +25,7 @@
   /* Content container: exactly 1170px (the Figma 1440 minus 2x135 gutter) once
      the viewport is wide enough, fluid gutters below that. Backgrounds stay
      full-bleed; only content is constrained. */
-  --gutter: clamp(20px, 4vw, 48px);
+  --gutter: clamp(16px, 4vw, 48px);
   --container-max: 1170px;
   --container: min(100% - (var(--gutter) * 2), var(--container-max));
 
@@ -36,6 +36,7 @@
   --fs-h3: clamp(1.5rem, 1.181rem + 1.31vw, 2.25rem);       /* 36px @1440 */
   --fs-h4: clamp(1.25rem, 1.134rem + 0.476vw, 1.5rem);      /* 24px @1440 */
   --fs-body: clamp(0.875rem, 0.798rem + 0.315vw, 1rem);     /* 16px @1024+ */
+  --fs-lead: clamp(0.9375rem, 0.82rem + 0.478vw, 1.25rem);  /* 20px @1440 */
   --fs-small: clamp(0.8125rem, 0.789rem + 0.096vw, 0.875rem);
 
   /* Floating dock (navbar + explore badge). Both are genuinely fixed overlays
@@ -45,9 +46,6 @@
        explore bottom   94 / 810 = 11.6% */
   --nav-bottom: 16.9vh;
   --explore-bottom: 11.6%;
-  /* Clearance the last in-flow section needs so the floating pill never lands
-     on the footer: the pill's band plus a little breathing room. */
-  --nav-safe: calc(var(--nav-bottom) + 6.5rem);
   --explore-size: 112px;
 }
 
@@ -108,16 +106,25 @@ body {
   display: grid;
 }
 
-/* A splash frame is a fixed 16:9 composition whose title is drawn inside the
-   animation, so it can never be cropped. Taking the artboard's aspect ratio
-   makes the animation fill the frame exactly at any width; the max/min keep it
-   from outgrowing the viewport on ultra-wide screens or collapsing to a sliver
-   on narrow ones. */
+/* Splash frames fill the viewport like the video frames do. The artboard's
+   title is vector text baked into the 1440x810 composition, so the animation is
+   always fitted whole (never cropped) and centred; the surrounding fill is the
+   artboard's own background colour, so the frame still reads edge to edge. */
 .section-frame.splash-frame {
-  aspect-ratio: 1440 / 810;
-  min-height: 360px;
-  max-height: max(100svh, 600px);
   container-type: inline-size;
+}
+
+@media (max-width: 1023px) {
+  /* On portrait the floating pill sits mid-viewport, and these artboards carry
+     their title dead centre — so the composition is seated in the band above
+     the pill rather than in the middle of the frame. */
+  .splash-frame > .section-media {
+    inset-block-end: var(--nav-bottom);
+  }
+
+  .splash-frame > .splash-headline {
+    padding-block-end: var(--nav-bottom);
+  }
 }
 
 /* Background media layer: sits under the content grid, always covers. */
@@ -293,6 +300,37 @@ body {
   }
 }
 
+/* A pill composed in a page's own flow rather than floating over the viewport.
+   Left-aligned to the container like the Figma desktop frame, centred on
+   portrait like the mobile reference. Once its resting place scrolls away it
+   detaches into the usual floating band, keeping the same alignment. */
+.nav-inline {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-inline__slot {
+  transition: opacity 160ms ease;
+}
+
+.nav-inline--floating .nav-inline__slot {
+  position: fixed;
+  inset-inline: 0;
+  bottom: var(--nav-bottom);
+  z-index: 90;
+  display: flex;
+  justify-content: flex-start;
+  padding-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+}
+
+@media (max-width: 1023px) {
+  .nav-inline,
+  .nav-inline--floating .nav-inline__slot {
+    justify-content: center;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Navigation pill
    -------------------------------------------------------------------------- */
@@ -327,7 +365,7 @@ body {
 }
 
 .nav-pill__link {
-  font-size: clamp(0.8125rem, 0.72rem + 0.38vw, 1rem);
+  font-size: clamp(0.78rem, 0.08rem + 3.5vw, 1rem);
   font-weight: 500;
   line-height: 1.2;
   color: #ffffff;
@@ -349,7 +387,7 @@ body {
   gap: 4px;
   text-decoration: none;
   color: #000000;
-  font-size: clamp(0.8125rem, 0.72rem + 0.38vw, 1rem);
+  font-size: clamp(0.78rem, 0.08rem + 3.5vw, 1rem);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -659,4 +697,1250 @@ body {
   align-items: center;
   justify-content: center;
   gap: 4px;
+}
+
+/* ===========================================================================
+   ABOUT PAGE
+   Figma frame 1440 wide. Same primitives as the homepage: full-bleed
+   backgrounds, a 1170 content container, ratio-driven placement and fluid
+   type. Nothing here is a viewport-specific coordinate.
+   ========================================================================== */
+
+.about-page {
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+
+  /* How far the gradient quote card hangs past the bottom of the hero into the
+     white section below it (Figma: card 524-908, hero ends 684). On portrait
+     the reference keeps the card wholly inside the dark hero, so it is 0 and
+     both the card and the section below follow from this one value. */
+  --about-quote-hang: 0px;
+}
+
+@media (min-width: 1024px) {
+  .about-page {
+    --about-quote-hang: 199px;
+  }
+}
+
+/* --- Hero ---------------------------------------------------------------- */
+/* `overflow-x: clip` and not `hidden`: the quote card deliberately hangs past
+   the hero's bottom edge, and `hidden` would cut it off. The video layer clips
+   itself, so nothing else needs it. */
+.about-hero {
+  position: relative;
+  width: 100%;
+  overflow-x: clip;
+  background-color: #000000;
+}
+
+.about-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding-block-start: clamp(1.75rem, 4.2vw, 60px);
+  /* Figma: 74px from the headline down to the pill, 68px from the pill down to
+     the quote card — one rhythm value covers both. */
+  gap: clamp(1.5rem, 4.9vw, 71px);
+}
+
+.about-hero__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 1.4vw, 20px);
+}
+
+.brand-logo {
+  /* 140px wide in the 393 reference, 236px in the 1440 Figma frame. The asset
+     is a 340x128 canvas whose wordmark is only 324x48, so the box is given the
+     wordmark's own proportions and the transparent padding is cropped away —
+     otherwise it adds ~54px of dead height above the breadcrumb. */
+  width: clamp(140px, 104px + 9.17vw, 236px);
+  aspect-ratio: 324 / 48;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.about-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 1.7vw, 24px);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb__mark {
+  width: clamp(18px, 1.7vw, 24px);
+  height: clamp(18px, 1.7vw, 24px);
+  flex-shrink: 0;
+  display: block;
+}
+
+.breadcrumb__link {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff7018;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.about-hero__title {
+  margin: 0;
+  font-size: clamp(1rem, 0.625rem + 1.528vw, 2rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+  text-wrap: pretty;
+}
+
+/* --- Gradient quote card ------------------------------------------------- */
+.about-quote {
+  position: relative;
+  z-index: 2;
+  /* Figma: 970 wide inside the 1440 frame, centred. */
+  width: min(100%, 970px);
+  margin-inline: auto;
+  margin-block-end: calc(var(--about-quote-hang) * -1);
+  box-sizing: border-box;
+  padding: clamp(1.5rem, 3.3vw, 48px) clamp(1.5rem, 3.9vw, 56px);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
+  box-shadow: 0 20px 60px rgba(255, 112, 24, 0.35);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-quote__mark {
+  width: clamp(34px, 3.3vw, 48px);
+  height: auto;
+  display: block;
+  color: #ffffff;
+  margin-block-end: clamp(1rem, 1.7vw, 24px);
+}
+
+.about-quote__text {
+  margin: 0;
+  /* 14px in the 393 reference, 24px in the 1440 Figma frame. */
+  font-size: clamp(0.875rem, 0.64rem + 0.955vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+.about-quote__author {
+  margin-block-start: clamp(1.25rem, 2.2vw, 32px);
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 20px);
+}
+
+.about-quote__avatar {
+  position: relative;
+  width: clamp(44px, 4.4vw, 64px);
+  height: clamp(44px, 4.4vw, 64px);
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.about-quote__name {
+  display: block;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+.about-quote__role {
+  display: block;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+/* --- Vision / Mission ---------------------------------------------------- */
+.about-vision {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  /* Clears whatever the quote card hangs down by, then the Figma 95px gap. */
+  padding-block-start: calc(var(--about-quote-hang) + clamp(2rem, 6.6vw, 95px));
+  padding-block-end: clamp(2.5rem, 5.6vw, 64px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 5.6vw, 80px);
+}
+
+.about-row {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1rem, 3.3vw, 48px);
+}
+
+.about-row--reverse {
+  justify-content: space-between;
+}
+
+.about-row__label {
+  margin: 0;
+  flex-shrink: 0;
+  /* Figma reserves a 163px label column beside the copy; it narrows with the
+     container rather than pushing the description around. */
+  min-width: min(163px, 28%);
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.about-row__desc {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #666666;
+  text-wrap: pretty;
+}
+
+.about-figure {
+  position: relative;
+  width: min(100%, 970px);
+  margin-inline: auto;
+  aspect-ratio: 970 / 400;
+  border-radius: 18px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Section heading (shared by the light/dark content sections) ---------- */
+.section-heading {
+  margin: 0;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+/* --- What drives us ------------------------------------------------------ */
+.about-split {
+  display: grid;
+  /* Figma: heading column on the left, the 570-wide card stack on the right. */
+  grid-template-columns: 1fr minmax(0, 570px);
+  gap: clamp(1.5rem, 3.3vw, 48px);
+  align-items: start;
+}
+
+@media (max-width: 1023px) {
+  .about-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.7vw, 24px);
+}
+
+.about-card {
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: clamp(1.125rem, 1.7vw, 24px) clamp(1.25rem, 2.2vw, 32px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.about-card__title {
+  margin: 0;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: #000000;
+}
+
+.about-card__desc {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #666666;
+}
+
+/* --- Testimonials -------------------------------------------------------- */
+/* Full-bleed track whose left edge lines up with the content container; it
+   overflows to the right exactly as in Figma, and scrolls on touch. */
+.about-scroller {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+  -webkit-overflow-scrolling: touch;
+}
+
+.about-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.about-scroller__track {
+  display: flex;
+  gap: clamp(16px, 2vw, 30px);
+  width: max-content;
+}
+
+.about-testimonial {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  width: clamp(260px, 78vw, 370px);
+  min-height: 270px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: #f8f8f8;
+  border: 1px solid #eaeaea;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.about-testimonial__quote {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #444444;
+}
+
+.about-testimonial__author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.about-testimonial__avatar {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+/* --- Results stats ------------------------------------------------------- */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 2vw, 30px);
+}
+
+@media (max-width: 1023px) {
+  .about-stats {
+    /* The reference lays these out two-up below the desktop breakpoint. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.about-stat {
+  min-height: 200px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: clamp(1rem, 1.7vw, 24px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.about-stat__label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.about-stat__number {
+  font-size: clamp(2rem, 1.24rem + 1.9vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ff7018 0%, #ffbe03 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: fit-content;
+}
+
+.about-stat__desc {
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 400;
+  line-height: 1.4;
+  color: #aaaaaa;
+}
+
+/* --- CTA banner ---------------------------------------------------------- */
+.cta-banner {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: clamp(240px, 27.8vw, 400px);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
+  box-shadow: 0 24px 80px rgba(255, 112, 24, 0.4);
+  padding: clamp(1.75rem, 3.3vw, 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(0.75rem, 1.4vw, 20px);
+}
+
+.cta-banner__title {
+  margin: 0;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: clamp(1.5rem, 0.95rem + 1.9vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+}
+
+.cta-banner__body {
+  margin: 0;
+  max-width: 580px;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cta-banner__button {
+  margin-block-start: 12px;
+  padding: 12px clamp(20px, 2vw, 28px);
+  border-radius: 100px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Chat widget (shared with the homepage footer) ------------------------ */
+.chat-dock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.chat-dock__bubble {
+  width: min(100%, 331px);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 9px 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.chat-dock__toggle {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: #ff6a00;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255, 106, 0, 0.4);
+}
+
+/* ===========================================================================
+   SERVICES PAGE
+   Figma frame 1440 wide. Same primitives as home/about: full-bleed background,
+   1170 content container, ratio-driven placement, fluid type.
+   ========================================================================== */
+
+.svc-page {
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+
+  /* How far the hero's video card hangs past the hero into the white band
+     below it (Figma: card 549-1095, hero ends 684). 0 on portrait, where the
+     card stays inside the dark hero. */
+  --page-hero-hang: 0px;
+}
+
+@media (min-width: 1024px) {
+  .svc-page {
+    --page-hero-hang: 411px;
+  }
+}
+
+/* --- Hero ---------------------------------------------------------------- */
+.page-hero {
+  position: relative;
+  width: 100%;
+  /* clip sideways only — the video card deliberately hangs past the bottom */
+  overflow-x: clip;
+  background-color: #000000;
+}
+
+.page-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-block-start: clamp(1.75rem, 4.2vw, 60px);
+  /* Figma: 90px from the copy down to the pill, 80px from the pill to the
+     video card — one rhythm value covers both. */
+  gap: clamp(1.5rem, 5.9vw, 85px);
+}
+
+.page-hero__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 1.4vw, 20px);
+  width: 100%;
+}
+
+.page-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.625rem, 1.1vw, 16px);
+  width: 100%;
+}
+
+.page-hero__title {
+  margin: 0;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.page-hero__sub {
+  margin: 0;
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #ffffff;
+  text-wrap: pretty;
+}
+
+/* Overlapping PCB video card (Node 1498:14585) */
+.page-hero__media {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 970px);
+  margin-inline: auto;
+  margin-block-end: calc(var(--page-hero-hang) * -1);
+  aspect-ratio: 970 / 546;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 112, 24, 0.4);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  background-color: #000000;
+}
+
+.page-hero__media > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Partners marquee ---------------------------------------------------- */
+.svc-partners {
+  position: relative;
+  width: 100%;
+  background-color: #ffffff;
+  overflow-x: clip;
+  padding-block-start: calc(var(--page-hero-hang) + clamp(2rem, 5.1vw, 74px));
+  padding-block-end: clamp(2.5rem, 5.6vw, 64px);
+}
+
+.svc-partners__title {
+  margin: 0 0 clamp(1.25rem, 2.5vw, 36px);
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: var(--fs-h4);
+  font-weight: 400;
+  color: #666666;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.svc-partners__rows {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.svc-partners__fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(60px, 14vw, 200px);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.svc-partners__fade--left {
+  left: 0;
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.svc-partners__fade--right {
+  right: 0;
+  background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.svc-partners__row {
+  display: flex;
+  align-items: center;
+  gap: clamp(32px, 4.4vw, 64px);
+  width: max-content;
+  will-change: transform;
+}
+
+.svc-partner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: clamp(1rem, 0.83rem + 0.42vw, 1.375rem);
+  letter-spacing: 0.02em;
+}
+
+/* --- Card grids (process / why-us) --------------------------------------- */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.7vw, 24px);
+}
+
+.svc-grid--pair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1023px) {
+  .svc-grid,
+  .svc-grid--pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .svc-grid,
+  .svc-grid--pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.svc-card {
+  min-height: 230px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: #ffffff;
+  padding: clamp(1.25rem, 2.2vw, 32px) clamp(1.125rem, 1.9vw, 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+}
+
+.svc-card__eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: #ff7018;
+  text-transform: uppercase;
+}
+
+.svc-card__title {
+  margin: 0 0 8px;
+  font-size: clamp(1rem, 0.9rem + 0.28vw, 1.25rem);
+  font-weight: 700;
+  color: #000000;
+}
+
+.svc-card__desc {
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #666666;
+}
+
+/* --- On-demand services list --------------------------------------------- */
+.svc-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #eaeaea;
+}
+
+.svc-list__row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 340px) minmax(0, 1fr) 32px;
+  align-items: center;
+  gap: clamp(0.75rem, 1.4vw, 20px);
+  padding-block: clamp(1.125rem, 1.9vw, 28px);
+  border-bottom: 1px solid #eaeaea;
+}
+
+@media (max-width: 899px) {
+  .svc-list__row {
+    grid-template-columns: 32px minmax(0, 1fr) 24px;
+  }
+
+  /* The description drops under the title rather than squeezing beside it. */
+  .svc-list__desc {
+    grid-column: 2 / -1;
+  }
+}
+
+.svc-list__num {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: #ff7018;
+}
+
+.svc-list__title {
+  margin: 0;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  color: #000000;
+}
+
+.svc-list__desc {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666666;
+}
+
+.svc-list__icon {
+  display: flex;
+  justify-content: flex-end;
+  color: #999999;
+}
+
+/* --- Representative work ------------------------------------------------- */
+.svc-work {
+  box-sizing: border-box;
+  border-radius: 20px;
+  background-color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  padding: clamp(1.25rem, 2.5vw, 36px) clamp(1.25rem, 2.8vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 2.8vw, 40px);
+}
+
+.svc-work__body {
+  flex: 1 1 520px;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 2.2vw, 2rem);
+}
+
+.svc-work__media {
+  position: relative;
+  flex: 0 1 520px;
+  min-width: 0;
+  aspect-ratio: 520 / 360;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #222222;
+}
+
+@media (max-width: 899px) {
+  .svc-work {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .svc-work__body {
+    flex: none;
+  }
+
+  .svc-work__media {
+    flex: none;
+    width: 100%;
+    order: -1;
+  }
+}
+
+.svc-work__eyebrow {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: #ff7018;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.svc-work__title {
+  margin: clamp(0.75rem, 1.1vw, 16px) 0;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.svc-work__desc {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #aaaaaa;
+}
+
+.svc-work__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 12px clamp(20px, 2vw, 28px);
+  border-radius: 100px;
+  background: linear-gradient(135deg, #ff7018 0%, #ffbe03 100%);
+  color: #000000;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* --- FAQ ----------------------------------------------------------------- */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.1vw, 16px);
+}
+
+.faq__item {
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.faq__button {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 1.7vw, 24px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: clamp(0.9375rem, 0.85rem + 0.24vw, 1.125rem);
+  font-weight: 600;
+  color: #000000;
+}
+
+.faq__answer {
+  padding: 0 clamp(1rem, 1.7vw, 24px) clamp(1rem, 1.7vw, 24px);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666666;
+}
+
+/* --- Industry cards ------------------------------------------------------ */
+.svc-industry {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(220px, 26vw, 370px);
+  aspect-ratio: 370 / 318;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+.svc-industry__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.svc-industry__title {
+  position: absolute;
+  left: clamp(16px, 1.7vw, 24px);
+  bottom: clamp(16px, 1.7vw, 24px);
+  z-index: 2;
+  margin: 0;
+  font-size: clamp(1rem, 0.9rem + 0.28vw, 1.25rem);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ===========================================================================
+   CONTACT PAGE
+   Reuses .page-hero* from the services page; adds the overlapping form card,
+   the global-hub cards and the form controls.
+   ========================================================================== */
+
+.ct-page {
+  position: relative;
+  width: 100%;
+  background-color: #000000;
+
+  /* How far the form card hangs past the hero into the white band below it
+     (Figma: card ends 1118, hero ends 684). 0 on portrait, where the card
+     stays inside the dark hero. */
+  --page-hero-hang: 0px;
+}
+
+@media (min-width: 1024px) {
+  .ct-page {
+    --page-hero-hang: 434px;
+  }
+}
+
+/* --- Overlapping contact form card (Node 1498:14425) --------------------- */
+.ct-card {
+  position: relative;
+  z-index: 2;
+  /* Figma: 966 wide inside the 1440 frame, centred. */
+  width: min(100%, 966px);
+  margin-inline: auto;
+  margin-block-end: calc(var(--page-hero-hang) * -1);
+  box-sizing: border-box;
+  border-radius: 18px;
+  background-color: #ffffff;
+  box-shadow: 0 0 30px rgba(30, 30, 30, 0.1);
+  padding: clamp(1.25rem, 2.5vw, 36px);
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.25rem, 1.7vw, 24px);
+}
+
+.ct-card__col {
+  flex: 1 1 435px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 44px);
+}
+
+@media (max-width: 899px) {
+  .ct-card {
+    flex-direction: column;
+  }
+
+  .ct-card__col {
+    flex: none;
+  }
+}
+
+.ct-card__title {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #000000;
+  text-wrap: balance;
+}
+
+.ct-card__lede {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #666666;
+}
+
+.ct-points {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.1vw, 16px);
+}
+
+.ct-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: #000000;
+  line-height: 1.2;
+}
+
+.ct-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ct-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: var(--fs-body);
+  color: #515151;
+}
+
+.ct-contact__label {
+  font-weight: 600;
+}
+
+.ct-copy-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ct-card__video {
+  width: 100%;
+  aspect-ratio: 435 / 310;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.ct-card__video > video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Form ---------------------------------------------------------------- */
+.ct-form-panel {
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: clamp(1rem, 1.7vw, 24px) clamp(0.875rem, 1.4vw, 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ct-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.1vw, 16px);
+  height: 100%;
+  justify-content: space-between;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ct-label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: #000000;
+}
+
+.ct-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  border-radius: 8px;
+  border: 1px solid #d1d1d1;
+  background-color: #ffffff;
+  padding: 10px 14px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: var(--fs-small);
+  color: #000000;
+  outline: none;
+}
+
+.ct-input--select {
+  cursor: pointer;
+}
+
+.ct-input--area {
+  resize: none;
+}
+
+.ct-phone {
+  display: flex;
+  gap: 8px;
+}
+
+.ct-phone__code {
+  flex: 0 0 clamp(80px, 7vw, 90px);
+}
+
+.ct-phone__number {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ct-submit {
+  min-height: 44px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #ff7018 0%, #ffbe03 100%);
+  border: none;
+  color: #ffffff;
+  font-family: 'Urbanist', sans-serif;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(255, 112, 24, 0.35);
+}
+
+/* --- Global hubs --------------------------------------------------------- */
+.ct-hubs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.7vw, 24px);
+}
+
+@media (max-width: 599px) {
+  .ct-hubs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ct-hub {
+  min-height: 180px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  background-color: #f2f2f2;
+  padding: clamp(1rem, 1.7vw, 24px) clamp(1.125rem, 1.9vw, 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.ct-hub--primary {
+  border: 1.5px solid #ff7018;
+}
+
+.ct-hub__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ct-hub__clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(0.9375rem, 0.85rem + 0.24vw, 1.125rem);
+  font-weight: 700;
+  color: #000000;
+}
+
+.ct-hub__map {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #ff7018 0%, #ffbe03 100%);
+  color: #ffffff;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ct-hub__name {
+  margin: 0 0 6px;
+  font-size: clamp(1.125rem, 0.98rem + 0.38vw, 1.375rem);
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.ct-hub__address {
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #666666;
+}
+
+/* Contact's FAQ cards sit on grey, so they carry a shadow instead of a rule. */
+.faq--elevated .faq__item {
+  border: none;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.faq--elevated .faq__button {
+  padding: clamp(1rem, 1.7vw, 24px) clamp(1.125rem, 1.9vw, 28px);
+}
+
+.faq--elevated .faq__answer {
+  padding: 0 clamp(1.125rem, 1.9vw, 28px) clamp(1rem, 1.7vw, 24px);
 }
