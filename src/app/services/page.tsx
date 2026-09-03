@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
@@ -79,19 +80,19 @@ const representativeProjects = [
     category: "SMART IoT",
     title: "Sensor Node & Gateway Boards",
     desc: "Multilayer control boards for field sensors and gateways wireless connectivity, low-power design, and connector layouts built for industrial enclosures.",
-    image: "/service_page/Sensor Node & Gateway Boards.jpg",
+    image: "/service_page/Sensor Node and Gateway Boards.jpg",
   },
   {
     category: "BIOMEDICAL",
     title: "Wearable & Monitoring Boards",
     desc: "Space-constrained PCB layouts for wearable and biomedical devices, engineered for low power consumption, reliable EMI performance, and seamless integration into compact, skin-safe enclosures.",
-    image: "/service_page/Wearable & Monitoring Boards.png",
+    image: "/service_page/Wearable and Monitoring Boards.png",
   },
   {
     category: "RENEWABLE ENERGY",
     title: "Power & Metering Boards",
     desc: "High-current PCB layouts for power conversion and smart metering systems, engineered with optimized trace routing, thermal management, and stack-up planning for reliable, long-term performance.",
-    image: "/service_page/Power & Metering Boards.png",
+    image: "/service_page/Power and Metering Boards.png",
   },
 ];
 
@@ -185,17 +186,6 @@ export default function ServicePage() {
   const [sliderX, setSliderX] = useState(0);
   const [partnersSliderX, setPartnersSliderX] = useState(0);
 
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const circuitVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-    if (circuitVideoRef.current) {
-      circuitVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   // Continuous auto-sliding for industry carousel
   useEffect(() => {
@@ -239,9 +229,12 @@ export default function ServicePage() {
           ===================================================================== */}
       <section className="page-hero">
         <div className="section-media">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline>
-            <source src="/service_page/Service sevtion Hero.mp4" type="video/mp4" />
-          </video>
+          <BackgroundVideo
+            src="/service_page/Service sevtion Hero.mp4"
+            poster="/posters/service_page/Service sevtion Hero.webp"
+            webmSrc="/service_page/Service sevtion Hero.webm"
+            loading="eager"
+          />
           <div
             className="section-media__scrim"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
@@ -257,7 +250,7 @@ export default function ServicePage() {
               width={340}
               height={128}
               className="brand-logo"
-              priority
+              preload
             />
 
             {/* Hero Content Frame: Node 1498:14574 */}
@@ -300,9 +293,11 @@ export default function ServicePage() {
 
           {/* Overlapping PCB video card (Node 1498:14585) */}
           <div className="page-hero__media">
-            <video ref={circuitVideoRef} autoPlay loop muted playsInline>
-              <source src="/service_page/Service -Video.mp4" type="video/mp4" />
-            </video>
+            <BackgroundVideo
+              src="/service_page/Service -Video.mp4"
+              poster="/posters/service_page/Service -Video.webp"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>

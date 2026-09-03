@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
@@ -123,13 +124,6 @@ export default function BlogsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [chatOpen, setChatOpen] = useState(true);
 
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   // Filter blogs
   const filteredBlogs = allBlogs.filter((b) => {
@@ -152,9 +146,11 @@ export default function BlogsPage() {
           ===================================================================== */}
       <section className="page-hero">
         <div className="section-media">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline>
-            <source src="/about_us/About Us Hero Section.mp4" type="video/mp4" />
-          </video>
+          <BackgroundVideo
+            src="/about_us/About Us Hero Section.mp4"
+            poster="/posters/about_us/About Us Hero Section.webp"
+            loading="eager"
+          />
           <div
             className="section-media__scrim"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.60)" }}
@@ -169,7 +165,7 @@ export default function BlogsPage() {
               width={340}
               height={128}
               className="brand-logo"
-              priority
+              preload
             />
 
             <div className="page-hero__copy">
@@ -266,7 +262,7 @@ export default function BlogsPage() {
                 fill
                 sizes="(max-width: 899px) 100vw, 434px"
                 style={{ objectFit: "cover" }}
-                priority
+                preload
               />
             </div>
           </div>

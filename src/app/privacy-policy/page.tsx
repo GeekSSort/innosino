@@ -1,19 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function PrivacyPolicyPage() {
   const [chatOpen, setChatOpen] = useState(true);
   const [copied, setCopied] = useState(false);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("ceo@innosino.com");
@@ -58,24 +52,17 @@ export default function PrivacyPolicyPage() {
             zIndex: 1,
           }}
         >
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
+          <BackgroundVideo
+            src="/about_us/About Us Hero Section.mp4"
+            poster="/posters/about_us/About Us Hero Section.webp"
+            loading="eager"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
               display: "block",
             }}
-          >
-            <source
-              src="/about_us/About Us Hero Section.mp4"
-              type="video/mp4"
-            />
-          </video>
+          />
           <div
             style={{
               position: "absolute",
@@ -105,7 +92,7 @@ export default function PrivacyPolicyPage() {
             width={236}
             height={32}
             style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            priority
+            preload
           />
         </div>
 

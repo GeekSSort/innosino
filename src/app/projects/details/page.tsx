@@ -1,23 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 export default function ProjectDetailsPage() {
   const [chatOpen, setChatOpen] = useState(true);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const cardVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-    if (cardVideoRef.current) {
-      cardVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   return (
     <main className="pd-page">
@@ -28,12 +18,11 @@ export default function ProjectDetailsPage() {
           ===================================================================== */}
       <section className="page-hero">
         <div className="section-media">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline>
-            <source
-              src="/project_page/Project Page-Hero Section.mp4"
-              type="video/mp4"
-            />
-          </video>
+          <BackgroundVideo
+            src="/project_page/Project Page-Hero Section.mp4"
+            poster="/posters/project_page/Project Page-Hero Section.webp"
+            loading="eager"
+          />
           <div
             className="section-media__scrim"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.60)" }}
@@ -48,7 +37,7 @@ export default function ProjectDetailsPage() {
               width={340}
               height={128}
               className="brand-logo"
-              priority
+              preload
             />
 
             <div className="page-hero__copy">
@@ -111,12 +100,11 @@ export default function ProjectDetailsPage() {
 
           {/* Overlapping hero visual card */}
           <div className="pd-hero__media">
-            <video ref={cardVideoRef} autoPlay loop muted playsInline>
-              <source
-                src="/project_page/Project Details_first card video.mp4"
-                type="video/mp4"
-              />
-            </video>
+            <BackgroundVideo
+              src="/project_page/Project Details_first card video.mp4"
+              poster="/posters/project_page/Project Details_first card video.webp"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
@@ -903,6 +891,7 @@ export default function ProjectDetailsPage() {
                   src="/project_page/image1 of from bench to shell.png"
                   alt="From bench to shell - Optical and PCB Sensor Wave"
                   fill
+                  sizes="573px"
                   style={{ objectFit: "cover" }}
                 />
               </div>
@@ -921,6 +910,7 @@ export default function ProjectDetailsPage() {
                   src="/project_page/image2 of from bench to shell.png"
                   alt="From bench to shell - Touch Architecture Stack"
                   fill
+                  sizes="573px"
                   style={{ objectFit: "cover" }}
                 />
               </div>

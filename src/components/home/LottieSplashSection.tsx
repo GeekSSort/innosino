@@ -32,6 +32,7 @@ export default function LottieSplashSection({
   useEffect(() => {
     let anim: import("lottie-web").AnimationItem | null = null;
     let isMounted = true;
+    let started = false;
 
     async function loadAnimation() {
       try {
@@ -59,10 +60,38 @@ export default function LottieSplashSection({
       }
     }
 
-    loadAnimation();
+    // Every splash section sits below the fold, but the animation JSON is
+    // 50-220KB and pulls in lottie-web on top of that. Holding both back until
+    // the section is nearly in view keeps them from competing with the hero
+    // video for the first screen; the animation is still running well before
+    // the visitor scrolls to it.
+    const start = () => {
+      if (started) return;
+      started = true;
+      loadAnimation();
+    };
+
+    const el = containerRef.current;
+    let io: IntersectionObserver | null = null;
+
+    if (!el || typeof IntersectionObserver === "undefined") {
+      start();
+    } else {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            io?.disconnect();
+            start();
+          }
+        },
+        { rootMargin: "400px 0px" }
+      );
+      io.observe(el);
+    }
 
     return () => {
       isMounted = false;
+      io?.disconnect();
       if (anim) {
         anim.destroy();
       }

@@ -86,7 +86,7 @@ const featuredProjects: FeaturedProject[] = [
     title: "Logic IC Trainer Kit",
     description:
       "An interactive digital logic training kit that helps students learn logic circuits through hands-on experiments, real-time visualization, and WebSerial connectivity for a practical engineering learning experience.",
-    image: "/homepage_assets/featured_project_images/blue & black image.png",
+    image: "/homepage_assets/featured_project_images/blue and black image.png",
     stats: [{ value: "16", label: "Logic IC Profiles" }],
   },
 ];

@@ -1,12 +1,17 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 
 export interface ServiceMediaSectionProps {
   /** Anchor id for in-page navigation. */
   id?: string;
   /** Full-bleed background video source. */
   videoSrc: string;
+  /** Poster still for `videoSrc`, shown until the video is ready. */
+  posterSrc: string;
+  /** VP9/WebM alternative, where one encodes smaller than the MP4. */
+  webmSrc?: string;
   /** Opacity of the black scrim laid over the video (from the Figma frame). */
   scrimOpacity?: number;
   title: string;
@@ -25,27 +30,19 @@ export interface ServiceMediaSectionProps {
 export default function ServiceMediaSection({
   id,
   videoSrc,
+  posterSrc,
+  webmSrc,
   scrimOpacity = 0.12,
   title,
   body,
 }: ServiceMediaSectionProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 1.0;
-      videoRef.current.play().catch((err) => {
-        console.warn("Autoplay was prevented:", err);
-      });
-    }
-  }, []);
-
   return (
     <section id={id} className="section-frame">
       <div className="section-media">
-        <video ref={videoRef} autoPlay loop muted playsInline>
-          <source src={videoSrc} type="video/mp4" />
-        </video>
+        {/* These four sections all sit below the fold, so the video waits until
+            the section is close to the viewport and the poster holds the frame
+            until then. */}
+        <BackgroundVideo src={videoSrc} poster={posterSrc} webmSrc={webmSrc} loading="lazy" />
         <div
           className="section-media__scrim"
           style={{ backgroundColor: `rgba(0, 0, 0, ${scrimOpacity})` }}

@@ -27,8 +27,19 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* Cal Sans is the display face on nearly every page, so warm up its
+            two origins as well — the stylesheet comes from api.fontshare.com
+            and the woff2 files from cdn.fontshare.com. */}
+        <link rel="preconnect" href="https://api.fontshare.com" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+          rel="preconnect"
+          href="https://cdn.fontshare.com"
+          crossOrigin="anonymous"
+        />
+        {/* Poppins is used in exactly one place (the Explore badge's circular
+            label) at weight 600, so only that variant is requested. */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:wght@600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
         <link

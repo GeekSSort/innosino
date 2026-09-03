@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,13 +10,6 @@ export default function BlogDetailsPage() {
   const [copied, setCopied] = useState(false);
   const [chatOpen, setChatOpen] = useState(true);
 
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
@@ -70,24 +64,17 @@ export default function BlogDetailsPage() {
             zIndex: 1,
           }}
         >
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
+          <BackgroundVideo
+            src="/about_us/About Us Hero Section.mp4"
+            poster="/posters/about_us/About Us Hero Section.webp"
+            loading="eager"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
               display: "block",
             }}
-          >
-            <source
-              src="/about_us/About Us Hero Section.mp4"
-              type="video/mp4"
-            />
-          </video>
+          />
           <div
             style={{
               position: "absolute",
@@ -117,7 +104,7 @@ export default function BlogDetailsPage() {
             width={236}
             height={32}
             style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            priority
+            preload
           />
         </div>
 
@@ -342,8 +329,9 @@ export default function BlogDetailsPage() {
             src="/blog_details assets/BD-01.png"
             alt="Inside the Logic IC Trainer Kit Profiles"
             fill
+            sizes="970px"
             style={{ objectFit: "cover" }}
-            priority
+            preload
           />
         </div>
       </section>
@@ -673,6 +661,7 @@ export default function BlogDetailsPage() {
                   src="/blog_details assets/BD-02.png"
                   alt="Logic Matrix Circuit Diagram"
                   fill
+                  sizes="640px"
                   style={{ objectFit: "cover" }}
                 />
               </div>
@@ -715,6 +704,7 @@ export default function BlogDetailsPage() {
                   src="/blog_details assets/BD-03.png"
                   alt="Binary Waveform and Matrix Interface"
                   fill
+                  sizes="640px"
                   style={{ objectFit: "contain" }}
                 />
               </div>
@@ -835,6 +825,7 @@ export default function BlogDetailsPage() {
                   src="/blog_details assets/BD-01.png"
                   alt="Logic IC Trainer Kit"
                   fill
+                  sizes="250px"
                   style={{ objectFit: "cover" }}
                 />
               </div>
@@ -953,6 +944,7 @@ export default function BlogDetailsPage() {
                   src={blog.img}
                   alt={blog.title}
                   fill
+                  sizes="374px"
                   style={{ objectFit: blog.img.includes("white_moontype") ? "contain" : "cover" }}
                 />
               </div>

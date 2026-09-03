@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
@@ -33,7 +34,7 @@ const testimonials = [
       "“Strong communication, fast execution, and production ready outcomes exactly what we needed.”",
     author: "Fahim Rahman",
     role: "Founder, IoTWorks",
-    avatar: "/homepage_assets/featured_project_images/blue & black image.png",
+    avatar: "/homepage_assets/featured_project_images/blue and black image.png",
   },
 ];
 
@@ -91,16 +92,6 @@ const footerLinks = [
 
 export default function AboutPage() {
   const [chatOpen, setChatOpen] = useState(true);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.playbackRate = 1.0;
-      heroVideoRef.current.play().catch((err) => {
-        console.warn("Autoplay was prevented:", err);
-      });
-    }
-  }, []);
 
   return (
     <main className="about-page">
@@ -112,9 +103,11 @@ export default function AboutPage() {
           ===================================================================== */}
       <section className="about-hero">
         <div className="section-media">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline>
-            <source src="/about_us/About Us Hero Section.mp4" type="video/mp4" />
-          </video>
+          <BackgroundVideo
+            src="/about_us/About Us Hero Section.mp4"
+            poster="/posters/about_us/About Us Hero Section.webp"
+            loading="eager"
+          />
           <div
             className="section-media__scrim"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.32)" }}
@@ -130,7 +123,7 @@ export default function AboutPage() {
               width={340}
               height={128}
               className="brand-logo"
-              priority
+              preload
             />
 
             {/* Breadcrumb & Main Heading (Node 1498:14276) */}

@@ -1,22 +1,12 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function ExpertisePage() {
   const [chatOpen, setChatOpen] = useState(true);
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const cardVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-    if (cardVideoRef.current) {
-      cardVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   const featureCards = [
     {
@@ -140,24 +130,18 @@ export default function ExpertisePage() {
             zIndex: 1,
           }}
         >
-          <video
-            ref={heroVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
+          <BackgroundVideo
+            src="/service_page/Service sevtion Hero.mp4"
+            poster="/posters/service_page/Service sevtion Hero.webp"
+            webmSrc="/service_page/Service sevtion Hero.webm"
+            loading="eager"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
               display: "block",
             }}
-          >
-            <source
-              src="/service_page/Service sevtion Hero.mp4"
-              type="video/mp4"
-            />
-          </video>
+          />
           <div
             style={{
               position: "absolute",
@@ -187,7 +171,7 @@ export default function ExpertisePage() {
             width={236}
             height={32}
             style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            priority
+            preload
           />
         </div>
 
@@ -301,24 +285,17 @@ export default function ExpertisePage() {
             backgroundColor: "#0B0B0B",
           }}
         >
-          <video
-            ref={cardVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
+          <BackgroundVideo
+            src="/expertise_page_assets/Expertise.mp4"
+            poster="/posters/expertise_page_assets/Expertise.webp"
+            loading="lazy"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
               display: "block",
             }}
-          >
-            <source
-              src="/expertise_page_assets/Expertise.mp4"
-              type="video/mp4"
-            />
-          </video>
+          />
         </div>
       </section>
 

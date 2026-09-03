@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
@@ -43,17 +44,6 @@ export default function ContactPage() {
   const [shanghaiTime, setShanghaiTime] = useState("12:24 AM");
   const [dhakaTime, setDhakaTime] = useState("10:24 AM");
 
-  const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const formCardVideoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (heroVideoRef.current) {
-      heroVideoRef.current.play().catch(() => {});
-    }
-    if (formCardVideoRef.current) {
-      formCardVideoRef.current.play().catch(() => {});
-    }
-  }, []);
 
   // Update live times
   useEffect(() => {
@@ -114,9 +104,11 @@ export default function ContactPage() {
           ===================================================================== */}
       <section className="page-hero">
         <div className="section-media">
-          <video ref={heroVideoRef} autoPlay loop muted playsInline>
-            <source src="/about_us/About Us Hero Section.mp4" type="video/mp4" />
-          </video>
+          <BackgroundVideo
+            src="/about_us/About Us Hero Section.mp4"
+            poster="/posters/about_us/About Us Hero Section.webp"
+            loading="eager"
+          />
           <div
             className="section-media__scrim"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.45)" }}
@@ -131,7 +123,7 @@ export default function ContactPage() {
               width={340}
               height={128}
               className="brand-logo"
-              priority
+              preload
             />
 
             <div className="page-hero__copy">
@@ -288,9 +280,12 @@ export default function ContactPage() {
               </div>
 
               <div className="ct-card__video">
-                <video ref={formCardVideoRef} autoPlay loop muted playsInline>
-                  <source src="/contact_us asset/Section.mp4" type="video/mp4" />
-                </video>
+                <BackgroundVideo
+                  src="/contact_us asset/Section.mp4"
+                  poster="/posters/contact_us asset/Section.webp"
+                  webmSrc="/contact_us asset/Section.webm"
+                  loading="lazy"
+                />
               </div>
             </div>
 
