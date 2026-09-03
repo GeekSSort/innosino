@@ -5,21 +5,34 @@ import Image from "next/image";
 
 interface ExploreBadgeProps {
   onClick?: () => void;
+  styleOverride?: React.CSSProperties;
 }
 
-export default function ExploreBadge({ onClick }: ExploreBadgeProps) {
+export default function ExploreBadge({ onClick, styleOverride }: ExploreBadgeProps) {
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      window.scrollBy({
+        top: window.innerHeight * 0.85,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div
-      onClick={onClick}
+      onClick={handleClick}
       style={{
-        position: "absolute",
-        left: "1149px",
-        top: "604px",
+        position: "fixed",
+        left: "min(calc(100vw - 206px), calc(50% + 429px))",
+        top: "min(604px, calc(100vh - 120px))",
         width: "186px",
         height: "112px",
         cursor: "pointer",
-        zIndex: 30,
+        zIndex: 9999,
         userSelect: "none",
+        ...styleOverride,
       }}
       role="button"
       tabIndex={0}

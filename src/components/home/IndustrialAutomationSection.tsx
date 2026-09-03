@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 export default function IndustrialAutomationSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -68,8 +67,7 @@ export default function IndustrialAutomationSection() {
           zIndex: 30,
         }}
       >
-        <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-      </div>
+              </div>
 
       {/* Text Content Frame: Node 1498:14112 (x: 835, y: 548, w: 470, h: 174, bg: rgba(255, 255, 255, 0.12), radius: 12px, padding: 24px 32px) */}
       <div

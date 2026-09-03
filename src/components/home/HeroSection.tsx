@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import ExploreBadge from "@/components/common/ExploreBadge";
 
 interface HeroSectionProps {
   onExploreClick?: () => void;
@@ -158,12 +156,6 @@ export default function HeroSection({ onExploreClick }: HeroSectionProps) {
           </p>
         </div>
       </div>
-
-      {/* Floating Header / Navbar: Node I1498:14094;1000:8993 (x: 135, y: 626, w: 582, h: 68) */}
-      <FloatingNavbar />
-
-      {/* Explore Widget: Node I1498:14094;811:2724 (x: 1149, y: 604, w: 186, h: 112) */}
-      <ExploreBadge onClick={handleScrollToNext} />
     </section>
   );
 }

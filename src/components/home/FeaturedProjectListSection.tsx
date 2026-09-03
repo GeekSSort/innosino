@@ -50,20 +50,17 @@ export default function FeaturedProjectListSection() {
       style={{
         position: "relative",
         width: "1440px",
-        height: "2132px",
-        overflow: "hidden",
         backgroundColor: "rgba(255, 190, 3, 1)", // rgb(1, 0.745, 0.012) -> #FFBE03
         margin: "0 auto",
+        paddingBottom: "132px",
       }}
     >
       {/* Section Header Text: Node 1498:14129 (x: 135, y: 64, w: 1170, h: 76) */}
       <div
         style={{
-          position: "absolute",
-          left: "135px",
-          top: "64px",
-          width: "1170px",
-          height: "76px",
+          padding: "64px 135px 0",
+          width: "1440px",
+          boxSizing: "border-box",
           display: "flex",
           alignItems: "flex-start",
         }}
@@ -86,15 +83,31 @@ export default function FeaturedProjectListSection() {
       </div>
 
       {/* ========================================================
+          STACKING CARDS CONTAINER
+          Each card is position: sticky, so as the user scrolls the lower
+          card slides up and lands on top of the card above it, leaving a
+          small offset sliver of each previous card visible.
+          ======================================================== */}
+      <div
+        style={{
+          position: "relative",
+          width: "1440px",
+          boxSizing: "border-box",
+          padding: "56px 135px 0",
+        }}
+      >
+
+      {/* ========================================================
           CARD 1: Smart Musical Instruments
           Frame 1618873613: x: 135, y: 172, w: 1170, h: 442 (inner frame at y: 48, h: 394)
           Image: /homepage_assets/featured_project_images/guitar.png
           ======================================================== */}
       <div
         style={{
-          position: "absolute",
-          left: "135px",
-          top: "220px", // 172 + 48
+          position: "sticky",
+          top: "96px",
+          marginBottom: "47px",
+          zIndex: 1,
           width: "1170px",
           height: "394px",
           borderRadius: "18px",
@@ -275,9 +288,10 @@ export default function FeaturedProjectListSection() {
           ======================================================== */}
       <div
         style={{
-          position: "absolute",
-          left: "135px",
-          top: "661px", // 613 + 48
+          position: "sticky",
+          top: "116px",
+          marginBottom: "47px",
+          zIndex: 2,
           width: "1170px",
           height: "394px",
           borderRadius: "18px",
@@ -503,9 +517,10 @@ export default function FeaturedProjectListSection() {
           ======================================================== */}
       <div
         style={{
-          position: "absolute",
-          left: "135px",
-          top: "1102px", // 1054 + 48
+          position: "sticky",
+          top: "136px",
+          marginBottom: "47px",
+          zIndex: 3,
           width: "1170px",
           height: "394px",
           borderRadius: "18px",
@@ -683,9 +698,10 @@ export default function FeaturedProjectListSection() {
           ======================================================== */}
       <div
         style={{
-          position: "absolute",
-          left: "135px",
-          top: "1543px", // 1495 + 48
+          position: "sticky",
+          top: "156px",
+          marginBottom: "0px",
+          zIndex: 4,
           width: "1170px",
           height: "394px",
           borderRadius: "18px",
@@ -856,17 +872,19 @@ export default function FeaturedProjectListSection() {
         </div>
       </div>
 
+      </div>
+
       {/* ========================================================
           BOTTOM BUTTON: View All Projects
           Node 1498:14230: x: 628, y: 2000, w: 184, h: 43.799
           ======================================================== */}
       <div
         style={{
-          position: "absolute",
-          left: "628px",
-          top: "2000px",
-          width: "184px",
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
           height: "44px",
+          marginTop: "64px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

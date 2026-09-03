@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 interface IndustryItem {
   id: string;
@@ -202,8 +201,7 @@ export default function IndustrySolutionsListSection() {
           zIndex: 30,
         }}
       >
-        <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-      </div>
+              </div>
 
       {/* Interactive Chat Widget: Node 1498:14255 (x: 974, y: 594, w: 331, h: 141) */}
       <div
