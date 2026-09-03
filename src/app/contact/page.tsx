@@ -106,7 +106,7 @@ export default function ContactPage() {
     >
       {/* =========================================================================
           SECTION 1: HERO & CONTACT FORM OVERLAP (Height 684px + Form Height 776px)
-          Top background: Hero section Contact us.mp4
+          Top background: /about_us/About Us Hero Section.mp4
           ========================================================================= */}
       <section
         style={{
@@ -144,7 +144,7 @@ export default function ContactPage() {
             }}
           >
             <source
-              src="/contact_us asset/Hero section Contact us.mp4"
+              src="/about_us/About Us Hero Section.mp4"
               type="video/mp4"
             />
           </video>
