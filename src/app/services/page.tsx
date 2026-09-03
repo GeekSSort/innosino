@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 // Process Steps Data (Section: 1498:14592)
 const processStages = [
@@ -429,8 +428,7 @@ export default function ServicePage() {
             zIndex: 30,
           }}
         >
-          <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-        </div>
+                  </div>
 
         {/* Overlapping Hero PCB Video Card: Node 1498:14585 (x: 235, y: 549, w: 970, h: 546) */}
         <div
@@ -1309,8 +1307,7 @@ export default function ServicePage() {
         }}
       >
         <div style={{ position: "absolute", left: "135px", top: "64px", zIndex: 30 }}>
-          <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-        </div>
+                  </div>
 
         <div
           style={{

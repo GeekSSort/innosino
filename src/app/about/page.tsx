@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 // Testimonials data exactly from Figma geometry
 const testimonials = [
@@ -249,8 +248,7 @@ export default function AboutPage() {
             zIndex: 30,
           }}
         >
-          <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-        </div>
+                  </div>
 
         {/* Floating Gradient Banner (Node 1498:14298 "5", x: 235, y: 524, w: 970, h: 384, overlap with next section) */}
         <div
@@ -918,8 +916,7 @@ export default function AboutPage() {
             zIndex: 30,
           }}
         >
-          <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-        </div>
+                  </div>
 
         {/* Interactive Chat Widget (Node 1498:14397, x: 973, y: 39, w: 331, h: 141) */}
         <div
