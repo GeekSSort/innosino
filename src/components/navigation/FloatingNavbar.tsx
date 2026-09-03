@@ -6,322 +6,130 @@ import Link from "next/link";
 interface NavItem {
   label: string;
   href: string;
-  hasDropdown?: boolean;
+  /** Hidden from the pill on phones (mirrors the mobile reference) and
+      surfaced inside the "More" menu instead. */
+  secondary?: boolean;
 }
 
 const navItems: NavItem[] = [
   { label: "Services", href: "/services" },
-  { label: "Industries", href: "/#industries" },
+  { label: "Industries", href: "/#industries", secondary: true },
   { label: "Projects", href: "/projects" },
-  { label: "About Us", href: "/about" },
-  { label: "More", href: "#more", hasDropdown: true },
+  { label: "About Us", href: "/about", secondary: true },
 ];
 
-interface FloatingNavbarProps {
-  styleOverride?: React.CSSProperties;
-}
+const moreItems = [
+  { label: "Our Team", href: "#team" },
+  { label: "Careers", href: "#careers" },
+  { label: "Life at INNOSINO", href: "/life-at-innosino" },
+  { label: "Expertise", href: "/expertise" },
+  { label: "Blog & Insights", href: "/blogs" },
+];
 
-export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
+/** Links that drop out of the pill on phones re-appear at the top of the menu. */
+const overflowItems = navItems.filter((item) => item.secondary);
+
+export default function FloatingNavbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <nav
-      aria-label="Main Navigation"
-      style={{
-        position: "fixed",
-        left: "max(20px, calc(50% - 585px))",
-        top: "min(626px, calc(100vh - 88px))",
-        width: "max-content",
-        maxWidth: "calc(100vw - 32px)",
-        height: "68px",
-        boxSizing: "border-box",
-        padding: "12px 16px 12px 24px",
-        borderRadius: "200px",
-        backgroundColor: "rgba(0, 0, 0, 0.92)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        gap: "24px",
-        zIndex: 9999,
-        border: "1.5px solid transparent",
-        backgroundImage:
-          "linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), linear-gradient(90deg, rgba(255,112,24,1) 26.9%, rgba(255,190,3,1) 100%)",
-        backgroundOrigin: "border-box",
-        backgroundClip: "padding-box, border-box",
-        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 112, 24, 0.25)",
-        whiteSpace: "nowrap",
-        ...styleOverride,
-      }}
-    >
-      {/* Navigation Items */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: "20px",
-          flexWrap: "nowrap",
-          whiteSpace: "nowrap",
-          flexShrink: 0,
-        }}
-      >
-        {navItems.map((item) => {
-          if (item.hasDropdown) {
-            return (
-              <div
+    <div className="dock dock--nav">
+      <div className="dock__inner">
+        <nav aria-label="Main Navigation" className="nav-pill">
+          <div className="nav-pill__links">
+            {navItems.map((item) => (
+              <Link
                 key={item.label}
-                style={{
-                  position: "relative",
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: "4px",
-                  height: "20px",
-                  flexShrink: 0,
-                }}
+                href={item.href}
+                className={
+                  item.secondary
+                    ? "nav-pill__link nav-pill__link--secondary"
+                    : "nav-pill__link"
+                }
               >
-                <button
-                  type="button"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                {item.label}
+              </Link>
+            ))}
+
+            <div className="nav-more">
+              <button
+                type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="nav-pill__link nav-more__trigger"
+                aria-expanded={dropdownOpen}
+                aria-haspopup="true"
+              >
+                <span>More</span>
+                <svg
+                  width="10"
+                  height="5"
+                  viewBox="0 0 10 5"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: "4px",
-                    background: "none",
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                    fontFamily: "'Urbanist', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "16px",
-                    lineHeight: "19px",
-                    color: "#FFFFFF",
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
+                    transform: dropdownOpen ? "rotate(180deg)" : "none",
+                    transition: "transform 0.2s ease",
                   }}
                 >
-                  <span style={{ whiteSpace: "nowrap" }}>{item.label}</span>
-                  {/* Chevron SVG */}
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <svg
-                      width="10"
-                      height="5"
-                      viewBox="0 0 10 5"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style={{
-                        transform: dropdownOpen ? "rotate(180deg)" : "none",
-                        transition: "transform 0.2s ease",
-                      }}
-                    >
-                      <path
-                        d="M1 1L5 4L9 1"
-                        stroke="#FFFFFF"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </button>
+                  <path
+                    d="M1 1L5 4L9 1"
+                    stroke="#FFFFFF"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
 
-                {/* Dropdown Menu */}
-                {dropdownOpen && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "calc(100% + 12px)",
-                      left: 0,
-                      minWidth: "160px",
-                      backgroundColor: "rgba(10, 10, 10, 0.95)",
-                      backdropFilter: "blur(12px)",
-                      WebkitBackdropFilter: "blur(12px)",
-                      border: "1px solid rgba(255, 112, 24, 0.3)",
-                      borderRadius: "12px",
-                      padding: "8px",
-                      boxShadow: "0 10px 30px rgba(0,0,0,0.8)",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "4px",
-                      zIndex: 100,
-                      whiteSpace: "nowrap",
-                    }}
-                    onMouseLeave={() => setDropdownOpen(false)}
-                  >
+              {dropdownOpen && (
+                <div
+                  className="nav-menu"
+                  onMouseLeave={() => setDropdownOpen(false)}
+                >
+                  {overflowItems.map((item) => (
                     <Link
-                      href="#team"
-                      style={{
-                        padding: "6px 12px",
-                        fontSize: "13px",
-                        fontFamily: "'Urbanist', sans-serif",
-                        color: "#CCCCCC",
-                        textDecoration: "none",
-                        borderRadius: "6px",
-                        whiteSpace: "nowrap",
-                      }}
+                      key={item.label}
+                      href={item.href}
+                      className="nav-menu__item nav-menu__item--overflow"
                     >
-                      Our Team
+                      {item.label}
                     </Link>
+                  ))}
+                  {moreItems.map((item) => (
                     <Link
-                      href="#careers"
-                      style={{
-                        padding: "6px 12px",
-                        fontSize: "13px",
-                        fontFamily: "'Urbanist', sans-serif",
-                        color: "#CCCCCC",
-                        textDecoration: "none",
-                        borderRadius: "6px",
-                        whiteSpace: "nowrap",
-                      }}
+                      key={item.label}
+                      href={item.href}
+                      className="nav-menu__item"
                     >
-                      Careers
+                      {item.label}
                     </Link>
-                    <Link
-                      href="/life-at-innosino"
-                      style={{
-                        padding: "6px 12px",
-                        fontSize: "13px",
-                        fontFamily: "'Urbanist', sans-serif",
-                        color: "#CCCCCC",
-                        textDecoration: "none",
-                        borderRadius: "6px",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Life at INNOSINO
-                    </Link>
-                    <Link
-                      href="/expertise"
-                      style={{
-                        padding: "6px 12px",
-                        fontSize: "13px",
-                        fontFamily: "'Urbanist', sans-serif",
-                        color: "#CCCCCC",
-                        textDecoration: "none",
-                        borderRadius: "6px",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Expertise
-                    </Link>
-                    <Link
-                      href="/blogs"
-                      style={{
-                        padding: "6px 12px",
-                        fontSize: "13px",
-                        fontFamily: "'Urbanist', sans-serif",
-                        color: "#CCCCCC",
-                        textDecoration: "none",
-                        borderRadius: "6px",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      Blog & Insights
-                    </Link>
-                  </div>
-                )}
-              </div>
-            );
-          }
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
 
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              style={{
-                fontFamily: "'Urbanist', sans-serif",
-                fontWeight: 500,
-                fontSize: "16px",
-                lineHeight: "19px",
-                color: "#FFFFFF",
-                textDecoration: "none",
-                display: "inline-block",
-                whiteSpace: "nowrap",
-                flexShrink: 0,
-              }}
+          <Link href="/contact" className="nav-pill__cta">
+            <span>Book a Call</span>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ flexShrink: 0 }}
             >
-              {item.label}
-            </Link>
-          );
-        })}
+              <path
+                d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
+                stroke="#000000"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </nav>
       </div>
-
-      {/* Button: width 136px, height 44px, radius 100px */}
-      <Link
-        href="/contact"
-        style={{
-          width: "136px",
-          height: "44px",
-          borderRadius: "100px",
-          background:
-            "linear-gradient(90deg, rgba(214, 89, 0, 1) 0%, rgba(255, 190, 3, 1) 100%)",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "4px",
-          padding: "12px 20px",
-          boxSizing: "border-box",
-          textDecoration: "none",
-          marginLeft: "auto",
-          cursor: "pointer",
-          flexShrink: 0,
-          whiteSpace: "nowrap",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "'Urbanist', sans-serif",
-            fontWeight: 500,
-            fontSize: "16px",
-            lineHeight: "20px",
-            color: "#000000",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Book a Call
-        </span>
-        {/* Arrow Vector (width: 12, height: 16, rotation: -45 deg) */}
-        <div
-          style={{
-            width: "14px",
-            height: "14px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
-              stroke="#000000"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </Link>
-    </nav>
+    </div>
   );
 }

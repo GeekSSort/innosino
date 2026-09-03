@@ -1,11 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import ExploreBadge from "@/components/common/ExploreBadge";
 
 export const metadata: Metadata = {
   title: "Innosino - From Concept to Mass Production",
   description: "We turn ideas into high-performance, market ready products from concept to mass production.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -31,10 +36,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col bg-black text-white overflow-x-hidden">
+      <body className="min-h-full flex flex-col bg-black text-white">
         {children}
         <FloatingNavbar />
-        <ExploreBadge />
       </body>
     </html>
   );

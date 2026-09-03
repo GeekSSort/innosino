@@ -1,12 +1,9 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
+import ExploreBadge from "@/components/common/ExploreBadge";
 
-interface HeroSectionProps {
-  onExploreClick?: () => void;
-}
-
-export default function HeroSection({ onExploreClick }: HeroSectionProps) {
+export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -18,144 +15,42 @@ export default function HeroSection({ onExploreClick }: HeroSectionProps) {
     }
   }, []);
 
-  const handleScrollToNext = () => {
-    if (onExploreClick) {
-      onExploreClick();
-    } else {
-      window.scrollTo({
-        top: window.innerHeight,
-        behavior: "smooth",
-      });
-    }
-  };
-
   return (
-    <section
-      style={{
-        position: "relative",
-        width: "1440px",
-        height: "810px",
-        overflow: "hidden",
-        backgroundColor: "#000000",
-        margin: "0 auto",
-      }}
-    >
-      {/* Background Video: Node I1498:14094;811:68 (x: 0, y: 0, w: 1440, h: 810, opacity 0.32 black overlay) */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: "1440px",
-          height: "810px",
-          overflow: "hidden",
-          pointerEvents: "none",
-          zIndex: 1,
-        }}
-      >
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        >
+    <section id="hero" className="section-frame">
+      {/* Full-bleed background layer (Figma: 1440x810 video + 32% black scrim).
+          The video always covers the section, so the crop adapts to the
+          viewport's aspect ratio instead of letterboxing. */}
+      <div className="section-media">
+        <video ref={videoRef} autoPlay loop muted playsInline>
           <source
             src="/homepage_assets/Home page Hero section.mp4"
             type="video/mp4"
           />
         </video>
-        {/* Solid fill: color black, opacity: 0.32 */}
         <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.32)",
-            pointerEvents: "none",
-          }}
+          className="section-media__scrim"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.32)" }}
         />
       </div>
 
-      {/* Hero Content Frame: Frame 1618873603 (x: 367, y: 241, w: 707, h: 147) */}
-      <div
-        style={{
-          position: "absolute",
-          left: "367px",
-          top: "241px",
-          width: "707px",
-          height: "147px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "16px",
-          zIndex: 10,
-          pointerEvents: "none",
-          boxSizing: "border-box",
-        }}
-      >
-        {/* Frame 1618873602 */}
-        <div
-          style={{
-            width: "707px",
-            height: "147px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "16px",
-          }}
-        >
-          {/* Welcome to Innosino: Node I1498:14094;811:86 (w: 707, h: 83, font: Cal Sans 64px, uppercase, text-align: center) */}
-          <h1
-            style={{
-              margin: 0,
-              width: "707px",
-              height: "83px",
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
-              fontSize: "64px",
-              fontWeight: 400,
-              lineHeight: "1.2",
-              textAlign: "center",
-              textTransform: "uppercase",
-              letterSpacing: "0px",
-              color: "#FFFFFF",
-              whiteSpace: "nowrap",
-            }}
-          >
-            WELCOME TO{" "}
-            <span
-              style={{
-                color: "#FF6A00",
-              }}
-            >
-              INNOSINO
-            </span>
+      {/* Content layer. The 241fr / auto / 422fr row rhythm keeps the copy
+          block at the same proportional height as the Figma frame. */}
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <h1 className="hero-title">
+            {"WELCOME TO "}
+            <span style={{ color: "#FF6A00" }}>INNOSINO</span>
           </h1>
-
-          {/* Subtitle: Node I1498:14094;811:87 (w: 707, h: 48, font: Urbanist 16px, weight: 500, line-height: 150%, text-align: center) */}
-          <p
-            style={{
-              margin: 0,
-              width: "707px",
-              height: "48px",
-              fontFamily: "'Urbanist', sans-serif",
-              fontSize: "16px",
-              fontWeight: 500,
-              lineHeight: "150%",
-              textAlign: "center",
-              color: "#FFFFFF",
-              whiteSpace: "pre-line",
-            }}
-          >
-            {`We turn ideas into high-performance, market ready products from \nconcept to mass production.`}
+          <p className="hero-subtitle">
+            We turn ideas into high-performance, market ready products from
+            concept to mass production.
           </p>
         </div>
       </div>
+
+      {/* Scroll affordance — part of the hero composition in Figma, so it is
+          anchored to this section rather than pinned to the viewport. */}
+      <ExploreBadge />
     </section>
   );
 }

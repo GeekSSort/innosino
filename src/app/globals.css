@@ -1,8 +1,54 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   INNOSINO RESPONSIVE DESIGN SYSTEM
+
+   The Figma source frames are 1440 x 810 (desktop) and 744 x 1133 (portrait /
+   mobile). Every value below is derived from those frames as a *relationship*
+   (ratio, container fraction, or fluid range) rather than as a fixed
+   coordinate, so the same composition survives any viewport.
+
+   Reference anchors used throughout:
+     desktop frame width .............. 1440
+     desktop side gutter .............. 135   -> content container = 1170
+     desktop frame height ............. 810
+   ========================================================================== */
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
+
+  --brand-orange: #ff7018;
+  --brand-orange-deep: #ff6a00;
+  --brand-amber: #ffbe03;
+
+  /* Content container: exactly 1170px (the Figma 1440 minus 2x135 gutter) once
+     the viewport is wide enough, fluid gutters below that. Backgrounds stay
+     full-bleed; only content is constrained. */
+  --gutter: clamp(20px, 4vw, 48px);
+  --container-max: 1170px;
+  --container: min(100% - (var(--gutter) * 2), var(--container-max));
+
+  /* Fluid type scale. Each ramp is anchored to its Figma size at 1440 and to a
+     legible floor at 390. */
+  --fs-display: clamp(2rem, 1.257rem + 3.048vw, 4rem);      /* 64px @1440 */
+  --fs-h2: clamp(1.375rem, 1.143rem + 0.952vw, 2rem);       /* 32px @1440 */
+  --fs-h3: clamp(1.5rem, 1.181rem + 1.31vw, 2.25rem);       /* 36px @1440 */
+  --fs-h4: clamp(1.25rem, 1.134rem + 0.476vw, 1.5rem);      /* 24px @1440 */
+  --fs-body: clamp(0.875rem, 0.798rem + 0.315vw, 1rem);     /* 16px @1024+ */
+  --fs-small: clamp(0.8125rem, 0.789rem + 0.096vw, 0.875rem);
+
+  /* Floating dock (navbar + explore badge). Both are genuinely fixed overlays
+     in the design, so their offsets are a share of the viewport height taken
+     from the reference frames:
+       nav bottom      137 / 810 = 16.9%
+       explore bottom   94 / 810 = 11.6% */
+  --nav-bottom: 16.9vh;
+  --explore-bottom: 11.6%;
+  /* Clearance the last in-flow section needs so the floating pill never lands
+     on the footer: the pill's band plus a little breathing room. */
+  --nav-safe: calc(var(--nav-bottom) + 6.5rem);
+  --explore-size: 112px;
 }
 
 @theme inline {
@@ -13,8 +59,604 @@
   --font-poppins: 'Poppins', sans-serif;
 }
 
+/* Portrait tablet / mobile composition. The reference mobile frame places the
+   pill roughly mid-viewport and drops the explore badge into the bottom-right
+   corner, so those two anchors move together at a single breakpoint. */
+@media (max-width: 1023px) {
+  :root {
+    --nav-bottom: 45vh;
+    --explore-bottom: 5%;
+  }
+}
+
+/* Only true phones need the badge to shrink; the portrait-tablet reference
+   keeps it at its full size. */
+@media (max-width: 599px) {
+  :root {
+    --explore-size: clamp(84px, 24vw, 112px);
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: #000000;
   color: #ffffff;
+  /* `clip` rather than `hidden`: hidden would force overflow-y to auto, making
+     the body a scroll container, which silently disables every `position:
+     sticky` descendant (the stacking project cards). */
+  overflow-x: clip;
   font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Section primitives
+   -------------------------------------------------------------------------- */
+
+/* A full-bleed section that fills the viewport the way the 1440x810 Figma frame
+   does. `min-height` (never `height`) so content can always grow instead of
+   overlapping the next section. `svh` keeps mobile browser chrome from
+   resizing the composition mid-scroll. */
+.section-frame {
+  position: relative;
+  width: 100%;
+  min-height: max(100svh, 600px);
+  overflow: hidden;
+  background-color: #000000;
+  display: grid;
+}
+
+/* A splash frame is a fixed 16:9 composition whose title is drawn inside the
+   animation, so it can never be cropped. Taking the artboard's aspect ratio
+   makes the animation fill the frame exactly at any width; the max/min keep it
+   from outgrowing the viewport on ultra-wide screens or collapsing to a sliver
+   on narrow ones. */
+.section-frame.splash-frame {
+  aspect-ratio: 1440 / 810;
+  min-height: 360px;
+  max-height: max(100svh, 600px);
+  container-type: inline-size;
+}
+
+/* Background media layer: sits under the content grid, always covers. */
+.section-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.section-media > video,
+.section-media > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.section-media__scrim {
+  position: absolute;
+  inset: 0;
+}
+
+/* Constrained content container, centred inside a full-bleed section. */
+.container {
+  width: var(--container);
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Hero: proportional row rhythm from the 1440x810 frame.
+     241 above the copy block | copy (auto) | 422 below
+   The copy block's optical centre therefore stays at 38.8% of the section
+   height at every viewport, which is where both the desktop and the mobile
+   reference put it.
+   -------------------------------------------------------------------------- */
+.hero-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 241fr auto 422fr;
+  align-items: center;
+  width: var(--container);
+  margin-inline: auto;
+}
+
+.hero-copy {
+  grid-row: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1.1vw, 1rem);
+  text-align: center;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-size: var(--fs-display);
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: #ffffff;
+}
+
+.hero-subtitle {
+  margin: 0;
+  /* Typographic measure, in em so it tracks the fluid type size. This is what
+     puts the sentence on the two lines the reference shows, at every width. */
+  max-width: min(100%, 34em);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+   Service media sections (Embedded / Hardware / Product / Industrial).
+   Figma: card 470x174 pinned to the container's right edge, 552 above and 84
+   below inside the 810 frame -> a 552 : auto : 84 row ratio.
+   -------------------------------------------------------------------------- */
+.service-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 552fr auto 84fr;
+  width: var(--container);
+  margin-inline: auto;
+}
+
+.service-card {
+  grid-row: 2;
+  justify-self: end;
+  width: min(100%, 470px);
+  box-sizing: border-box;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.6vw, 2rem);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.625rem, 1.1vw, 1rem);
+}
+
+.service-card__title {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  line-height: 1.2;
+  color: #ffffff;
+  text-wrap: balance;
+}
+
+.service-card__body {
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+   Fixed floating dock layer (navbar + explore badge).
+   A zero-height full-width rail carries the shared content container so both
+   overlays align to exactly the same gutters as in-flow content.
+   -------------------------------------------------------------------------- */
+.dock {
+  position: fixed;
+  inset-inline: 0;
+  z-index: 90;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.dock__inner {
+  width: var(--container);
+  display: flex;
+}
+
+.dock__inner > * {
+  pointer-events: auto;
+}
+
+.dock--nav {
+  bottom: var(--nav-bottom);
+}
+
+.dock--nav .dock__inner {
+  justify-content: flex-start;
+}
+
+/* The explore badge belongs to the hero frame only, so it is anchored to the
+   section rather than to the viewport — that is what kept it from colliding
+   with the service card further down the page. */
+.dock--explore {
+  position: absolute;
+  bottom: var(--explore-bottom);
+}
+
+.dock--explore .dock__inner {
+  justify-content: flex-end;
+}
+
+@media (max-width: 1023px) {
+  /* Reference mobile frame centres the pill and keeps the badge hard right. */
+  .dock--nav .dock__inner {
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Navigation pill
+   -------------------------------------------------------------------------- */
+.nav-pill {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: clamp(52px, 4.7vw, 68px);
+  padding: 12px 16px 12px clamp(16px, 1.7vw, 24px);
+  border: 1.5px solid transparent;
+  border-radius: 200px;
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.7vw, 24px);
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.92);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)),
+    linear-gradient(90deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 112, 24, 0.25);
+}
+
+.nav-pill__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.4vw, 20px);
+  min-width: 0;
+}
+
+.nav-pill__link {
+  font-size: clamp(0.8125rem, 0.72rem + 0.38vw, 1rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-pill__cta {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  min-height: clamp(36px, 3vw, 44px);
+  padding-inline: clamp(14px, 1.4vw, 20px);
+  border-radius: 100px;
+  background: linear-gradient(90deg, rgba(214, 89, 0, 1) 0%, rgba(255, 190, 3, 1) 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #000000;
+  font-size: clamp(0.8125rem, 0.72rem + 0.38vw, 1rem);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* The mobile reference pill carries a reduced link set; the hidden entries stay
+   in the DOM and surface inside the "More" menu so nothing becomes
+   unreachable. */
+.nav-pill__link--secondary {
+  display: inline-block;
+}
+
+.nav-menu__item--overflow {
+  display: none;
+}
+
+@media (max-width: 599px) {
+  .nav-pill__link--secondary {
+    display: none;
+  }
+
+  .nav-menu__item--overflow {
+    display: block;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Explore badge -- two overlapping circles, sized by one token.
+   Figma: 112px circles overlapping by 38px (33.9% of the circle).
+   -------------------------------------------------------------------------- */
+.explore-badge {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.explore-badge__circle {
+  position: relative;
+  width: var(--explore-size);
+  height: var(--explore-size);
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.explore-badge__circle + .explore-badge__circle {
+  margin-inline-start: calc(var(--explore-size) * -0.339);
+}
+
+/* ---------------------------------------------------------------------------
+   Content sections (project list, industry list)
+   -------------------------------------------------------------------------- */
+.flow-section {
+  position: relative;
+  width: 100%;
+  /* Clips the full-bleed marquee horizontally without creating a scroll
+     container, so sticky children keep working. */
+  overflow-x: clip;
+  padding-block: clamp(2.5rem, 5.6vw, 4rem);
+}
+
+.section-lede {
+  margin: 0;
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+/* Stacking project cards */
+.stack-card {
+  position: sticky;
+  top: var(--stack-top, 96px);
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background-color: #fffdf9;
+  border: 0.6px solid rgba(255, 214, 98, 1);
+  box-shadow: 0 0 60px rgba(255, 228, 151, 0.5);
+  padding: clamp(1.25rem, 2.2vw, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1.25rem, 2.6vw, 2rem);
+}
+
+.stack-card__body {
+  flex: 1 1 566px;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.stack-card__media {
+  position: relative;
+  flex: 0 1 476px;
+  min-width: 0;
+  aspect-ratio: 476 / 330;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+@media (max-width: 899px) {
+  .stack-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stack-card__media {
+    flex: none;
+    width: 100%;
+    order: -1;
+  }
+
+  /* In a column flex container `flex-basis` sizes the *height*, so the
+     desktop `1 1 566px` basis has to be released here. */
+  .stack-card__body {
+    flex: none;
+    justify-content: flex-start;
+  }
+}
+
+/* A card taller than the viewport cannot pin without clipping, so short
+   (landscape-phone) viewports get a plain vertical list instead. */
+@media (max-height: 560px) {
+  .stack-card {
+    position: static;
+  }
+}
+
+/* Auto-scrolling industry carousel */
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-inline-start: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+}
+
+.marquee__track {
+  display: flex;
+  gap: clamp(16px, 2vw, 30px);
+  will-change: transform;
+}
+
+.marquee__item {
+  flex-shrink: 0;
+  width: clamp(220px, 26vw, 370px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.625rem, 1.1vw, 1rem);
+}
+
+.marquee__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 370 / 270;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+/* Site footer bar */
+.footer-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: clamp(1rem, 2vw, 1.25rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+.footer-bar__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    transform: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Navigation "More" menu
+   -------------------------------------------------------------------------- */
+.nav-more {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-more__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav-menu {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  min-width: 170px;
+  padding: 8px;
+  border: 1px solid rgba(255, 112, 24, 0.3);
+  border-radius: 12px;
+  background-color: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.nav-menu__item {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  color: #cccccc;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-menu__item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+   Splash headline overlay (Industry Solutions)
+   -------------------------------------------------------------------------- */
+.splash-headline {
+  position: relative;
+  z-index: 1;
+  width: var(--container);
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.splash-headline__text {
+  margin: 0;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  /* This headline lives on the same 1440x810 artboard as the animation, so it
+     scales with the frame (64/1440 = 4.444%) rather than with the viewport —
+     that keeps it locked to the artwork and stops it overflowing on phones.
+     Capped at the Figma size for very wide frames. */
+  font-size: min(4.444cqw, 4rem);
+  white-space: nowrap;
+  font-weight: 400;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  text-wrap: balance;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------------------
+   Stacking card list + shared pill button
+   -------------------------------------------------------------------------- */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3.3vw, 47px);
+  /* Where the first card pins. Each card adds a 20px sliver on top of this so
+     the ones underneath stay visible as the stack builds. */
+  --stack-base: 96px;
+}
+
+@media (max-width: 899px) {
+  .stack {
+    --stack-base: clamp(16px, 4vw, 96px);
+  }
+}
+
+.pill-button {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 10px clamp(16px, 1.4vw, 20px) 10px clamp(18px, 1.7vw, 24px);
+  border: none;
+  border-radius: 100px;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Urbanist', sans-serif;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
