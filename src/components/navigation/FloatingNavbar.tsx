@@ -12,7 +12,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/#industries" },
-  { label: "Projects", href: "/#projects" },
+  { label: "Projects", href: "/projects" },
   { label: "About Us", href: "/about" },
   { label: "More", href: "#more", hasDropdown: true },
 ];
@@ -25,29 +25,34 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
-    <div
+    <nav
+      aria-label="Main Navigation"
       style={{
-        position: "absolute",
-        left: "135px",
-        top: "626px",
-        width: "582px",
+        position: "fixed",
+        left: "max(20px, calc(50% - 585px))",
+        top: "min(626px, calc(100vh - 88px))",
+        width: "max-content",
+        maxWidth: "calc(100vw - 32px)",
         height: "68px",
         boxSizing: "border-box",
-        padding: "12px 16px 12px 20px",
+        padding: "12px 16px 12px 24px",
         borderRadius: "200px",
-        backgroundColor: "rgba(0, 0, 0, 1)",
+        backgroundColor: "rgba(0, 0, 0, 0.92)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "flex-start",
-        gap: "20px",
-        zIndex: 30,
+        gap: "24px",
+        zIndex: 9999,
         border: "1.5px solid transparent",
         backgroundImage:
-          "linear-gradient(rgba(0,0,0,1), rgba(0,0,0,1)), linear-gradient(90deg, rgba(255,112,24,1) 26.9%, rgba(255,190,3,1) 100%)",
+          "linear-gradient(rgba(0,0,0,0.92), rgba(0,0,0,0.92)), linear-gradient(90deg, rgba(255,112,24,1) 26.9%, rgba(255,190,3,1) 100%)",
         backgroundOrigin: "border-box",
         backgroundClip: "padding-box, border-box",
-        boxShadow: "0 0 24px rgba(255, 112, 24, 0.25)",
+        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 112, 24, 0.25)",
+        whiteSpace: "nowrap",
         ...styleOverride,
       }}
     >
@@ -58,6 +63,9 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
           flexDirection: "row",
           alignItems: "center",
           gap: "20px",
+          flexWrap: "nowrap",
+          whiteSpace: "nowrap",
+          flexShrink: 0,
         }}
       >
         {navItems.map((item) => {
@@ -72,6 +80,7 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                   alignItems: "center",
                   gap: "4px",
                   height: "20px",
+                  flexShrink: 0,
                 }}
               >
                 <button
@@ -91,9 +100,11 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                     fontSize: "16px",
                     lineHeight: "19px",
                     color: "#FFFFFF",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                 >
-                  <span>{item.label}</span>
+                  <span style={{ whiteSpace: "nowrap" }}>{item.label}</span>
                   {/* Chevron SVG */}
                   <div
                     style={{
@@ -102,6 +113,7 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
+                      flexShrink: 0,
                     }}
                   >
                     <svg
@@ -133,9 +145,10 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                       position: "absolute",
                       bottom: "calc(100% + 12px)",
                       left: 0,
-                      minWidth: "150px",
+                      minWidth: "160px",
                       backgroundColor: "rgba(10, 10, 10, 0.95)",
                       backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
                       border: "1px solid rgba(255, 112, 24, 0.3)",
                       borderRadius: "12px",
                       padding: "8px",
@@ -144,6 +157,7 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                       flexDirection: "column",
                       gap: "4px",
                       zIndex: 100,
+                      whiteSpace: "nowrap",
                     }}
                     onMouseLeave={() => setDropdownOpen(false)}
                   >
@@ -156,6 +170,7 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                         color: "#CCCCCC",
                         textDecoration: "none",
                         borderRadius: "6px",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       Our Team
@@ -169,12 +184,13 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                         color: "#CCCCCC",
                         textDecoration: "none",
                         borderRadius: "6px",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       Careers
                     </Link>
                     <Link
-                      href="#blog"
+                      href="/life-at-innosino"
                       style={{
                         padding: "6px 12px",
                         fontSize: "13px",
@@ -182,6 +198,35 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                         color: "#CCCCCC",
                         textDecoration: "none",
                         borderRadius: "6px",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Life at INNOSINO
+                    </Link>
+                    <Link
+                      href="/expertise"
+                      style={{
+                        padding: "6px 12px",
+                        fontSize: "13px",
+                        fontFamily: "'Urbanist', sans-serif",
+                        color: "#CCCCCC",
+                        textDecoration: "none",
+                        borderRadius: "6px",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Expertise
+                    </Link>
+                    <Link
+                      href="/blogs"
+                      style={{
+                        padding: "6px 12px",
+                        fontSize: "13px",
+                        fontFamily: "'Urbanist', sans-serif",
+                        color: "#CCCCCC",
+                        textDecoration: "none",
+                        borderRadius: "6px",
+                        whiteSpace: "nowrap",
                       }}
                     >
                       Blog & Insights
@@ -204,6 +249,8 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
                 color: "#FFFFFF",
                 textDecoration: "none",
                 display: "inline-block",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
               }}
             >
               {item.label}
@@ -231,6 +278,8 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
           textDecoration: "none",
           marginLeft: "auto",
           cursor: "pointer",
+          flexShrink: 0,
+          whiteSpace: "nowrap",
         }}
       >
         <span
@@ -253,6 +302,7 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            flexShrink: 0,
           }}
         >
           <svg
@@ -272,6 +322,6 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
           </svg>
         </div>
       </Link>
-    </div>
+    </nav>
   );
 }

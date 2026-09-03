@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import FloatingNavbar from "@/components/navigation/FloatingNavbar";
+import ExploreBadge from "@/components/common/ExploreBadge";
 
 export const metadata: Metadata = {
   title: "Innosino - From Concept to Mass Production",
@@ -31,6 +33,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-black text-white overflow-x-hidden">
         {children}
+        <FloatingNavbar />
+        <ExploreBadge />
       </body>
     </html>
   );
