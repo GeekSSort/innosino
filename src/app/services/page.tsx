@@ -1208,21 +1208,24 @@ export default function ServicePage() {
       </section>
 
       {/* =========================================================================
-          SECTION 9: CTA GLASS BANNER (Node 1498:14815, y: 6963, w: 1440, h: 464)
+          SECTION 9: CTA GLASS BANNER (Node 1498:14815, y: 6963, w: 1440, h: 528)
+          Card is perfectly centered horizontally and vertically on pure white background.
           ========================================================================= */}
       <section
         style={{
           position: "relative",
           width: "1440px",
-          height: "464px",
-          backgroundColor: "#000000",
+          minHeight: "528px",
+          backgroundColor: "#FFFFFF",
           boxSizing: "border-box",
-          paddingTop: "64px",
+          padding: "64px 135px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <div
           style={{
-            margin: "0 auto",
             width: "1170px",
             height: "400px",
             borderRadius: "24px",

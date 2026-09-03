@@ -214,7 +214,7 @@ export default function FloatingNavbar({ styleOverride }: FloatingNavbarProps) {
 
       {/* Button: width 136px, height 44px, radius 100px */}
       <Link
-        href="#contact"
+        href="/contact"
         style={{
           width: "136px",
           height: "44px",
