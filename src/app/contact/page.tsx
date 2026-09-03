@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 const contactFaqs = [
   {
@@ -1086,8 +1085,7 @@ export default function ContactPage() {
         }}
       >
         <div style={{ position: "absolute", left: "135px", top: "64px", zIndex: 30 }}>
-          <FloatingNavbar styleOverride={{ position: "relative", left: "auto", top: "auto" }} />
-        </div>
+                  </div>
 
         {/* Interactive Chat Widget */}
         <div
