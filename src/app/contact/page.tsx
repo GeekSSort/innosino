@@ -14,6 +14,18 @@ gsap.registerPlugin(CustomEase, useGSAP);
 /** The transition's own easing, cubic-bezier(.42, 0, .58, 1). */
 const CARD_EASE = CustomEase.create("ctCardInOut", "M0,0 C0.42,0 0.58,1 1,1");
 
+/**
+ * Where each hub card starts, by column. The set's first variant parks
+ * Shanghai off the left edge at (-285, 278) against a resting (135, 646) and
+ * Dhaka past the bottom right at (1026, 826) against (735, 646), so they close
+ * on the row from opposite corners. Taken against the 570x270 card so they
+ * hold at any width.
+ */
+const HUB_ENTRY = [
+  { x: -73.7, y: -136.3 },
+  { x: 51.05, y: 66.7 },
+];
+
 const contactFaqs = [
   {
     q: "How long until I hear back?",
@@ -68,6 +80,66 @@ export default function ContactPage() {
    * card is nearly the full viewport width, it just rises: a 46deg tilt there
    * would swing most of it outside the hero's clip.
    */
+  const hubsRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * The hub row closes in, which is the difference between this set's two
+   * variants: the two cards arrive from opposite corners while the lede above
+   * them rises the 141px between its two positions, all over the transition's
+   * own 1600ms and easing.
+   *
+   * Below 900px the cards are near the full container width and the frame's
+   * vectors would sling them most of a viewport away, so they just rise. The
+   * page already clips (see .ct-page), which is what keeps Dhaka's arc down
+   * and to the right from touching the scroll range.
+   */
+  useGSAP(
+    () => {
+      const root = hubsRef.current;
+      if (!root) return;
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          wide: "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
+          narrow: "(max-width: 899px) and (prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const wide = context.conditions?.wide;
+          const trigger = { trigger: root, start: "top 85%", once: true };
+
+          const lede = root.querySelector(".ct-lede");
+          if (lede) {
+            gsap.from(lede, {
+              y: wide ? 141 : 24,
+              opacity: 0,
+              duration: 1.6,
+              ease: CARD_EASE,
+              scrollTrigger: trigger,
+            });
+          }
+
+          gsap.utils
+            .toArray<HTMLElement>(root.querySelectorAll(".ct-hub"))
+            .forEach((hub, i) => {
+              const from = wide ? HUB_ENTRY[i % HUB_ENTRY.length] : undefined;
+              gsap.from(hub, {
+                xPercent: from?.x ?? 0,
+                yPercent: from?.y ?? 0,
+                y: from ? 0 : 24,
+                opacity: 0,
+                duration: 1.6,
+                ease: CARD_EASE,
+                scrollTrigger: trigger,
+              });
+            });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: hubsRef },
+  );
+
   useGSAP(
     () => {
       const card = cardRef.current;
@@ -523,18 +595,21 @@ export default function ContactPage() {
       >
         <div
           className="container"
+          ref={hubsRef}
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "clamp(1.5rem, 2.8vw, 40px)",
+            /* Figma: lede ends 594, cards start 646. */
+            gap: "clamp(24px, 13.76px + 2.732vw, 52px)",
           }}
         >
           <h2
+            className="ct-lede"
             style={{
               margin: 0,
-              fontSize: "var(--fs-h4)",
-              fontWeight: 500,
-              color: "#444444",
+              fontSize: "clamp(1.25rem, 0.976rem + 1.171vw, 2rem)",
+              fontWeight: 600,
+              color: "#666666",
               lineHeight: 1.5,
               textWrap: "pretty",
             }}
@@ -552,7 +627,6 @@ export default function ContactPage() {
                 address:
                   "INNOSINO (上海) Technology Co., Ltd. — Headquarters, Shanghai, China",
                 map: "https://maps.google.com/?q=Shanghai",
-                primary: true,
               },
               {
                 city: "DHAKA",
@@ -560,16 +634,24 @@ export default function ContactPage() {
                 address:
                   "DBTECH Technology Co. Ltd. — Partner Office, Dhaka, Bangladesh",
                 map: "https://maps.google.com/?q=Dhaka",
-                primary: false,
               },
             ].map((hub) => (
-              <div
-                key={hub.city}
-                className={hub.primary ? "ct-hub ct-hub--primary" : "ct-hub"}
-              >
+              <div key={hub.city} className="ct-hub">
                 <div className="ct-hub__head">
                   <span className="ct-hub__clock">
-                    <span aria-hidden="true">☀️</span>
+                    {/* The frame's 32px mark: a plain black sun, not the
+                        colour emoji the platform substitutes. */}
+                    <svg viewBox="0 0 32 32" aria-hidden="true" fill="none">
+                      <circle cx="16" cy="16" r="6" fill="currentColor" />
+                      <g
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                      >
+                        <path d="M16 3v4M16 25v4M3 16h4M25 16h4" />
+                        <path d="M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M25.2 6.8l-2.8 2.8M9.6 22.4l-2.8 2.8" />
+                      </g>
+                    </svg>
                     <span>{hub.time}</span>
                   </span>
 
@@ -581,10 +663,8 @@ export default function ContactPage() {
                   </Link>
                 </div>
 
-                <div>
-                  <h3 className="ct-hub__name">{hub.city}</h3>
-                  <p className="ct-hub__address">{hub.address}</p>
-                </div>
+                <h3 className="ct-hub__name">{hub.city}</h3>
+                <p className="ct-hub__address">{hub.address}</p>
               </div>
             ))}
           </div>
