@@ -25,7 +25,7 @@
   /* Content container: exactly 1170px (the Figma 1440 minus 2x135 gutter) once
      the viewport is wide enough, fluid gutters below that. Backgrounds stay
      full-bleed; only content is constrained. */
-  --gutter: clamp(16px, 4vw, 48px);
+  --gutter: clamp(16px, 6.78vw - 10.4px, 48px);
   --container-max: 1170px;
   --container: min(100% - (var(--gutter) * 2), var(--container-max));
 
@@ -130,11 +130,11 @@ body {
   /* On portrait the floating pill sits mid-viewport, and these artboards carry
      their title dead centre — so the composition is seated in the band above
      the pill rather than in the middle of the frame. */
-  .splash-frame > .section-media {
+  .splash-frame .section-media {
     inset-block-end: var(--nav-bottom);
   }
 
-  .splash-frame > .splash-headline {
+  .splash-frame .splash-headline {
     padding-block-end: var(--nav-bottom);
   }
 }
@@ -654,6 +654,31 @@ body {
   gap: clamp(0.75rem, 1.6vw, 1.5rem);
 }
 
+@media (max-width: 1023px) {
+  .footer-bar {
+    flex-direction: column;
+    align-items: stretch;
+    border-top: none;
+    padding-top: 0;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .footer-bar__links {
+    order: -1;
+    justify-content: space-between;
+    border-block: 1px solid rgba(255, 255, 255, 0.35);
+    padding-block: 24px;
+  }
+}
+
+@media (max-width: 743px) {
+  .footer-bar__links {
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee__track {
     transform: none !important;
@@ -870,7 +895,7 @@ body {
 
 @media (min-width: 1024px) {
   .about-page {
-    --about-quote-hang: 199px;
+    --about-quote-hang: 224px;
   }
 }
 
@@ -908,7 +933,7 @@ body {
      is a 340x128 canvas whose wordmark is only 324x48, so the box is given the
      wordmark's own proportions and the transparent padding is cropped away —
      otherwise it adds ~54px of dead height above the breadcrumb. */
-  width: clamp(140px, 104px + 9.17vw, 236px);
+  width: clamp(140px, 90px + 15.6vw, 236px);
   aspect-ratio: 324 / 48;
   height: auto;
   object-fit: cover;
@@ -936,7 +961,7 @@ body {
 }
 
 .breadcrumb__link {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   font-weight: 600;
   color: #ff7018;
   text-transform: uppercase;
@@ -946,7 +971,7 @@ body {
 
 .about-hero__title {
   margin: 0;
-  font-size: clamp(1rem, 0.625rem + 1.528vw, 2rem);
+  font-size: clamp(1rem, 0.449rem + 2.26vw, 2rem);
   font-weight: 600;
   line-height: 1.5;
   color: #ffffff;
@@ -964,8 +989,7 @@ body {
   box-sizing: border-box;
   padding: clamp(1.25rem, 3.2vw, 36px);
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
-  box-shadow: 0 20px 60px rgba(255, 112, 24, 0.35);
+  background: linear-gradient(180deg, #ff7018 26.92%, #ffbe03 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -983,7 +1007,7 @@ body {
   margin: 0;
   /* 14px in the 393 reference, 24px in the 1440 Figma frame. */
   font-size: clamp(0.875rem, 0.64rem + 0.955vw, 1.5rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
   color: #ffffff;
 }
@@ -992,13 +1016,13 @@ body {
   margin-block-start: clamp(1.25rem, 2.2vw, 32px);
   display: flex;
   align-items: center;
-  gap: clamp(12px, 1.4vw, 20px);
+  gap: 12px;
 }
 
 .about-quote__avatar {
   position: relative;
-  width: clamp(44px, 4.4vw, 64px);
-  height: clamp(44px, 4.4vw, 64px);
+  width: clamp(32px, 6.45vw, 64px);
+  height: clamp(32px, 6.45vw, 64px);
   flex-shrink: 0;
   border-radius: 50%;
   background-color: #ffffff;
@@ -1007,7 +1031,7 @@ body {
 
 .about-quote__name {
   display: block;
-  font-size: var(--fs-h4);
+  font-size: clamp(1rem, 0.814rem + 0.762vw, 1.5rem);
   font-weight: 600;
   line-height: 1.3;
   color: #ffffff;
@@ -1015,7 +1039,7 @@ body {
 
 .about-quote__role {
   display: block;
-  font-size: var(--fs-body);
+  font-size: clamp(0.75rem, 0.654rem + 0.38vw, 1rem);
   font-weight: 500;
   line-height: 1.3;
   color: #ffffff;
@@ -1032,13 +1056,13 @@ body {
   padding-block-end: clamp(2.5rem, 5.6vw, 64px);
   display: flex;
   flex-direction: column;
-  gap: clamp(1.75rem, 5.6vw, 80px);
+  gap: clamp(16px, 5.6vw, 80px);
 }
 
 .about-row {
   display: flex;
   align-items: flex-start;
-  gap: clamp(1rem, 3.3vw, 48px);
+  gap: clamp(12px, 3.3vw, 48px);
 }
 
 .about-row--reverse {
@@ -1048,11 +1072,10 @@ body {
 .about-row__label {
   margin: 0;
   flex-shrink: 0;
-  /* Figma reserves a 163px label column beside the copy; it narrows with the
-     container rather than pushing the description around. */
-  min-width: min(163px, 28%);
+  /* The label column is its own text width plus the row gap on both reference
+     frames (163 at 1440, 117 at 744) — no reserved column needed. */
   font-family: 'Cal Sans', 'Outfit', sans-serif;
-  font-size: var(--fs-h3);
+  font-size: clamp(1.125rem, 4.56px + 3.42vw, 2.25rem);
   font-weight: 400;
   line-height: 1.3;
   color: #000000;
@@ -1061,7 +1084,8 @@ body {
 
 .about-row__desc {
   margin: 0;
-  font-size: var(--fs-h2);
+  flex: 1;
+  font-size: clamp(0.875rem, 2.8px + 2.85vw, 2rem);
   font-weight: 500;
   line-height: 1.5;
   color: #666666;
@@ -1076,7 +1100,7 @@ body {
   border-radius: 18px;
   overflow: hidden;
   background-color: #f0f0f0;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.12);
 }
 
 /* --- Section heading (shared by the light/dark content sections) ---------- */
@@ -1087,6 +1111,23 @@ body {
   font-weight: 400;
   line-height: 1.3;
   text-wrap: balance;
+}
+
+/* The phone frame uppercases the section headings; the wider frames do not. */
+@media (max-width: 743px) {
+  .section-heading {
+    text-transform: uppercase;
+  }
+}
+
+/* Figma paints some accent words with the brand gradient rather than flat
+   orange. */
+.section-heading__accent {
+  background: linear-gradient(180deg, #ff7018 26.92%, #ffbe03);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* --- What drives us ------------------------------------------------------ */
@@ -1100,6 +1141,13 @@ body {
 
 @media (max-width: 1023px) {
   .about-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 390px);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 743px) {
+  .about-split {
     grid-template-columns: 1fr;
   }
 }
@@ -1107,25 +1155,36 @@ body {
 .about-cards {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.75rem, 1.7vw, 24px);
+  gap: clamp(16px, 3.3vw, 24px);
 }
 
 .about-card {
   border-radius: 16px;
   background-color: #ffffff;
   box-sizing: border-box;
-  padding: clamp(1.125rem, 1.7vw, 24px) clamp(1.25rem, 2.2vw, 32px);
+  padding: clamp(1.125rem, 1.7vw, 24px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  gap: 16px;
+}
+
+/* Only the first card carries the gradient hairline and its glow. */
+.about-card--featured {
+  border: 0.6px solid transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(180deg, #ff7018 26.92%, #ffbe03) border-box;
+  box-shadow: 0 0 15px rgba(105, 105, 105, 0.25);
 }
 
 .about-card__title {
   margin: 0;
-  font-size: var(--fs-h4);
+  /* 28px at 1440. */
+  font-size: clamp(1.25rem, 1.06rem + 0.83vw, 1.75rem);
   font-weight: 600;
+  line-height: 1.5;
+  text-transform: capitalize;
   color: #000000;
 }
 
@@ -1146,7 +1205,11 @@ body {
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  padding-inline: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+  --scroller-inset: max(var(--gutter), calc((100% - var(--container-max)) / 2));
+  padding-inline: var(--scroller-inset);
+  /* Without this the snap point ignores the padding and the first card can
+     never rest at the container's left edge. */
+  scroll-padding-inline-start: var(--scroller-inset);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -1156,24 +1219,29 @@ body {
 
 .about-scroller__track {
   display: flex;
-  gap: clamp(16px, 2vw, 30px);
+  gap: clamp(16px, 5.6vw, 30px);
   width: max-content;
 }
 
 .about-testimonial {
   flex-shrink: 0;
   scroll-snap-align: start;
-  width: clamp(260px, 78vw, 370px);
-  min-height: 270px;
+  width: clamp(260px, 68vw, 370px);
   box-sizing: border-box;
-  border-radius: 16px;
-  background-color: #f8f8f8;
-  border: 1px solid #eaeaea;
-  padding: 24px;
+  border-radius: 8px;
+  background-color: #f1f1f1;
+  padding: clamp(16px, 3.3vw, 24px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 32px;
+}
+
+@media (min-width: 744px) {
+  .about-testimonial {
+    min-height: 270px;
+    gap: 20px;
+  }
 }
 
 .about-testimonial__quote {
@@ -1181,7 +1249,7 @@ body {
   font-size: var(--fs-body);
   font-weight: 500;
   line-height: 1.5;
-  color: #444444;
+  color: #666666;
 }
 
 .about-testimonial__author {
@@ -1192,8 +1260,8 @@ body {
 
 .about-testimonial__avatar {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: clamp(32px, 6.45vw, 48px);
+  height: clamp(32px, 6.45vw, 48px);
   flex-shrink: 0;
   border-radius: 50%;
   overflow: hidden;
@@ -1204,7 +1272,7 @@ body {
 .about-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(12px, 2vw, 30px);
+  gap: clamp(16px, 4vw, 30px);
 }
 
 @media (max-width: 1023px) {
@@ -1215,11 +1283,10 @@ body {
 }
 
 .about-stat {
-  min-height: 200px;
+  min-height: clamp(172px, 27vw, 200px);
   box-sizing: border-box;
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #292929;
   padding: clamp(1rem, 1.7vw, 24px);
   display: flex;
   flex-direction: column;
@@ -1227,17 +1294,28 @@ body {
   gap: 0.75rem;
 }
 
+/* Only the first metric is highlighted in the reference. */
+.about-stat--featured {
+  border: 0.6px solid transparent;
+  background:
+    linear-gradient(#292929, #292929) padding-box,
+    linear-gradient(180deg, #ff7018 26.92%, #ffbe03) border-box;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.25);
+}
+
 .about-stat__label {
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);
   font-weight: 600;
   color: #ffffff;
 }
 
 .about-stat__number {
-  font-size: clamp(2rem, 1.24rem + 1.9vw, 3rem);
-  font-weight: 700;
+  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  /* 48 on both reference frames, so it hits the cap from 744 up. */
+  font-size: clamp(1.75rem, 6.45vw, 3rem);
+  font-weight: 400;
   line-height: 1.1;
-  background: linear-gradient(135deg, #ff7018 0%, #ffbe03 100%);
+  background: linear-gradient(180deg, #ff7018 26.92%, #ffbe03);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1246,10 +1324,10 @@ body {
 
 .about-stat__desc {
   margin: 0;
-  font-size: var(--fs-small);
-  font-weight: 400;
-  line-height: 1.4;
-  color: #aaaaaa;
+  font-size: clamp(0.75rem, 0.475rem + 1.13vw, 1rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
 }
 
 /* --- CTA banner ---------------------------------------------------------- */
@@ -1257,9 +1335,10 @@ body {
   width: 100%;
   box-sizing: border-box;
   min-height: clamp(240px, 27.8vw, 400px);
+  position: relative;
+  overflow: hidden;
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
-  box-shadow: 0 24px 80px rgba(255, 112, 24, 0.4);
+  background: linear-gradient(180deg, #ff7018 26.92%, #ffbe03 100%);
   padding: clamp(1.75rem, 3.3vw, 48px);
   display: flex;
   flex-direction: column;
@@ -1269,10 +1348,33 @@ body {
   gap: clamp(0.75rem, 1.4vw, 20px);
 }
 
+/* The reference lays 14 glass panes over the gradient; one tiled flute is the
+   same picture without 14 image requests. */
+.cta-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.04) 22%,
+    rgba(0, 0, 0, 0.04) 62%,
+    rgba(0, 0, 0, 0.09) 88%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
+  background-size: calc(100% / 14) 100%;
+  pointer-events: none;
+}
+
+.cta-banner > * {
+  position: relative;
+  z-index: 1;
+}
+
 .cta-banner__title {
   margin: 0;
   font-family: 'Cal Sans', 'Outfit', sans-serif;
-  font-size: clamp(1.5rem, 0.95rem + 1.9vw, 2.5rem);
+  font-size: clamp(1.5rem, 0.966rem + 1.149vw, 2rem);
   font-weight: 400;
   line-height: 1.25;
   color: #ffffff;
@@ -1302,7 +1404,20 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 744px) and (max-width: 1023px) {
+  /* The 744 frame insets the quote card 24 a side inside the container. */
+  .about-quote {
+    width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 743px) {
+  .about-quote,
+  .cta-banner {
+    border-radius: 16px;
+  }
 }
 
 /* --- Chat widget (shared with the homepage footer) ------------------------ */

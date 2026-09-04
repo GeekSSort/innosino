@@ -254,8 +254,11 @@ export default function AboutPage() {
 
           {/* 4 Feature Cards Vertical Stack (Node 1498:14302) */}
           <div className="about-cards">
-            {driveCards.map((card) => (
-              <div key={card.title} className="about-card">
+            {driveCards.map((card, idx) => (
+              <div
+                key={card.title}
+                className={idx === 0 ? "about-card about-card--featured" : "about-card"}
+              >
                 <h3 className="about-card__title">{card.title}</h3>
                 <p className="about-card__desc">{card.desc}</p>
               </div>
@@ -270,7 +273,7 @@ export default function AboutPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            WHAT OUR CLIENTS <span style={{ color: "#FF7018" }}>SAY</span>
+            WHAT OUR CLIENTS <span className="section-heading__accent">SAY</span>
           </h2>
         </div>
 
@@ -301,7 +304,7 @@ export default function AboutPage() {
                     <span
                       style={{
                         display: "block",
-                        fontSize: "var(--fs-body)",
+                        fontSize: "var(--fs-lead)",
                         fontWeight: 600,
                         color: "#000000",
                       }}
@@ -310,8 +313,9 @@ export default function AboutPage() {
                     </span>
                     <span
                       style={{
-                        fontSize: "var(--fs-small)",
-                        color: "#777777",
+                        fontSize: "0.75rem",
+                        fontWeight: 500,
+                        color: "#666666",
                       }}
                     >
                       {t.role}
@@ -334,7 +338,7 @@ export default function AboutPage() {
         <div className="container">
           <h2 className="section-heading" style={{ color: "#FFFFFF" }}>
             DRIVING INNOVATION THROUGH{" "}
-            <span style={{ color: "#FF7018" }}>RESULTS</span>
+            <span className="section-heading__accent">RESULTS</span>
           </h2>
 
           {/* 4 Metrics Cards (Node 1498:14406 - 14418) */}
@@ -342,8 +346,11 @@ export default function AboutPage() {
             className="about-stats"
             style={{ marginBlockStart: "clamp(1.5rem, 4.4vw, 64px)" }}
           >
-            {stats.map((stat) => (
-              <div key={stat.title} className="about-stat">
+            {stats.map((stat, idx) => (
+              <div
+                key={stat.title}
+                className={idx === 0 ? "about-stat about-stat--featured" : "about-stat"}
+              >
                 <span className="about-stat__label">{stat.title}</span>
                 <span className="about-stat__number">{stat.number}</span>
                 <p className="about-stat__desc">{stat.desc}</p>
@@ -358,7 +365,7 @@ export default function AboutPage() {
           ===================================================================== */}
       <section
         className="flow-section"
-        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
+        style={{ backgroundColor: "#ffffff" }}
       >
         <div className="container">
           <div className="cta-banner">
