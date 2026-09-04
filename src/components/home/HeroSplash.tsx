@@ -246,9 +246,17 @@ export default function HeroSplash() {
           tl.to(el(name), { ...props, duration, ease }, at);
         }
         // Once the disc has swallowed the frame the ground really is black, so
-        // the overlay stops being white behind it. Hidden under the disc.
+        // the overlay stops being white behind it. The disc is clipped to the
+        // artboard, which on portrait is only a band of the screen, so this
+        // carries the black out to the edges rather than leaving white margins.
+        // It runs over the tail of the step, by which point the spring has
+        // already taken the disc to full size and covered it on landscape.
         if (step.to === 6) {
-          tl.set(root, { backgroundColor: "#000000" }, at + duration);
+          tl.to(
+            root,
+            { backgroundColor: "#000000", duration: duration * 0.35, ease: "power2.in" },
+            at + duration * 0.65,
+          );
         }
       }
 
