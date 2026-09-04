@@ -7,6 +7,18 @@
   // served straight from Cloudflare's edge without invoking a Worker, which is
   // why they cost nothing: static asset requests are free and unmetered on
   // every plan, including Workers Free.
+  // Worker logging. Valid against wrangler's schema, but nothing is collected
+  // while this config ships no Worker: static asset requests never invoke one,
+  // so there are no invocations to log. It takes effect the moment a Worker
+  // does exist here — which is what adding Sanity through OpenNext would mean.
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  },
+
   "assets": {
     "directory": "./out",
     // Next's export writes /about.html for /about, so serve extensionless URLs

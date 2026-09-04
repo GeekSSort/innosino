@@ -1861,6 +1861,10 @@ body {
 .page-hero__media {
   position: relative;
   z-index: 2;
+  /* It holds a background video and nothing else, and once it turns out of the
+     hero it sweeps straight across the pill -- without this it takes the click
+     meant for Book a Call on the way past. */
+  pointer-events: none;
   width: min(100%, 970px);
   margin-inline: auto;
   margin-block-end: calc(var(--page-hero-hang) * -1);

@@ -1,10 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+/**
+ * The hero card's two states, from the Service Hero Section set (Figma node
+ * 1057:8832). Variant 01 rests it centred and hanging below the hero at
+ * (234.7, 548.7), 970.6x546.6, 18px radius; variant 02 has it at (944, -856),
+ * turned 45deg and dissolved out.
+ *
+ * The move is expressed against the card's own size rather than the 1440 frame
+ * -- 709/970.6 across and 1405/546.6 up -- so it travels the same way at any
+ * width.
+ */
+const CARD_EXIT = { xPercent: 73, yPercent: -257, rotation: 45 };
 
 // Process Steps Data (Section: 1498:14592)
 const processStages = [
@@ -217,6 +234,37 @@ export default function ServicePage() {
     return () => cancelAnimationFrame(animId);
   }, []);
 
+  const heroMediaRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * The card turns out of the hero as you scroll it away: 45deg, up and to the
+   * right, corners opening from 18 to 0, dissolving as it goes. Figma states it
+   * as a 1600ms variant change with no trigger recorded, and scrubbing it on the
+   * hero's own scroll is what keeps variant 01 -- the card centred, which is the
+   * page at rest -- as what you actually land on.
+   */
+  useGSAP(() => {
+    const el = heroMediaRef.current;
+    if (!el) return;
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.to(el, {
+        ...CARD_EXIT,
+        opacity: 0,
+        borderRadius: 0,
+        // Figma's own ease on the transition.
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: ".page-hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+    return () => mm.revert();
+  }, []);
+
   const displayIndustries = [...industriesList, ...industriesList, ...industriesList];
   const displayPartners = [...partnerLogos, ...partnerLogos, ...partnerLogos, ...partnerLogos];
 
@@ -294,7 +342,7 @@ export default function ServicePage() {
           <FloatingNavbar variant="inline" />
 
           {/* Overlapping PCB video card (Node 1498:14585) */}
-          <div className="page-hero__media">
+          <div className="page-hero__media" ref={heroMediaRef}>
             <BackgroundVideo
               src="/service_page/Service -Video.mp4"
               poster="/posters/service_page/Service -Video.webp"
