@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/schema";
 import {
   allBlogs,
   authorInitials,
@@ -420,6 +422,13 @@ export default function BlogsPage() {
           </div>
         </div>
       </footer>
+      <JsonLd
+        data={breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blogs" },
+        ])}
+      />
+
     </main>
   );
 }

@@ -666,7 +666,13 @@ export default function ContactPage() {
                       +
                     </span>
                   </button>
-                  {isOpen && <div className="faq__answer">{faq.a}</div>}
+                  {/* Always in the markup, hidden when closed: an answer that only
+                      exists once someone clicks is absent from the served page,
+                      which would make this page's FAQPage schema describe text it
+                      does not contain. */}
+                  <div className="faq__answer" hidden={!isOpen}>
+                    {faq.a}
+                  </div>
                 </div>
               );
             })}

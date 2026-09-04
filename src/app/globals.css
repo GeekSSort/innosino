@@ -2406,6 +2406,13 @@ body {
   }
 }
 
+/* The closed answers stay in the markup for crawlers and for the page's own
+   FAQPage schema; `hidden` is what takes them out of the layout and the
+   accessibility tree. Stated explicitly so no reset can override it. */
+.faq__answer[hidden] {
+  display: none;
+}
+
 .faq__answer {
   font-size: clamp(0.875rem, 0.82rem + 0.24vw, 1rem);
   font-weight: 500;

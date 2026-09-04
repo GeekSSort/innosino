@@ -7,6 +7,8 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { services } from "@/content/services";
 import { servicesIndex } from "@/content/servicesIndex";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/schema";
 
 /**
  * The services index. This URL used to be the Hardware & PCB Design page
@@ -100,6 +102,13 @@ export default function ServicesIndexPage() {
           </div>
         </div>
       </section>
+      <JsonLd
+        data={breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+        ])}
+      />
+
     </main>
   );
 }

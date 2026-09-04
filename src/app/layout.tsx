@@ -9,6 +9,8 @@ import {
 } from "./shared-metadata";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { SPLASH_SEEN_KEY } from "@/content/splash";
+import JsonLd from "@/components/seo/JsonLd";
+import { organizationSchema, websiteSchema } from "@/content/schema";
 
 /**
  * Self-hosted through next/font rather than linked from Google and Fontshare.
@@ -99,6 +101,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-black text-white">
         {children}
         <FloatingNavbar />
+        {/* The entity, declared once for the whole site. */}
+        <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
       </body>
     </html>
   );
