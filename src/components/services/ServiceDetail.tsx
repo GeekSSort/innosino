@@ -26,6 +26,12 @@ gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 /** The transition's easing, cubic-bezier(0, 0, 0.58, 1). */
 const FIGMA_EASE = CustomEase.create("figmaOut", "M0,0 C0,0 0.58,1 1,1");
 
+/** The on-demand transition's easing, cubic-bezier(0.42, 0, 0.58, 1). */
+const FIGMA_EASE_IN_OUT = CustomEase.create(
+  "figmaInOut",
+  "M0,0 C0.42,0 0.58,1 1,1",
+);
+
 const CARD_EXIT = { xPercent: 73, yPercent: -257, rotation: 45 };
 
 
@@ -126,6 +132,36 @@ export default function ServiceDetail({ service }: { service: Service }) {
     });
     return () => mm.revert();
   }, []);
+
+  const listClipRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * The on-demand list rises into place as one block. Its transition moves
+   * every one of the seven rows by exactly -820 -- checked, the delta is
+   * identical for all of them -- against a 995 frame that clips them, so it is
+   * the whole list travelling up from below rather than rows arriving
+   * separately. Expressed as its own height so it always starts just out of the
+   * clip, whatever the row count.
+   */
+  useGSAP(
+    () => {
+      const clip = listClipRef.current;
+      if (!clip) return;
+      const list = clip.querySelector(".svc-list");
+      if (!list) return;
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(list, {
+          yPercent: 100,
+          duration: 1.6,
+          ease: FIGMA_EASE_IN_OUT,
+          scrollTrigger: { trigger: clip, start: "top 85%", once: true },
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: listClipRef, dependencies: [service.slug] },
+  );
 
   const processRef = useRef<HTMLDivElement>(null);
 
@@ -409,9 +445,11 @@ export default function ServiceDetail({ service }: { service: Service }) {
           </h2>
 
           <div
-            className="svc-list"
+            className="svc-list-clip"
+            ref={listClipRef}
             style={{ marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)" }}
           >
+          <div className="svc-list">
             {service.onDemandServices.map((item) => (
               <div key={item.num} className="svc-list__row">
                 <span className="svc-list__num">{item.num}</span>
@@ -436,6 +474,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                 </span>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </section>

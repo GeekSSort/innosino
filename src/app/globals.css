@@ -2083,6 +2083,11 @@ body {
 }
 
 /* --- On-demand services list ---------------------------------------------- */
+/* The list rises into this from below on entry, so it has to clip. */
+.svc-list-clip {
+  overflow: hidden;
+}
+
 .svc-list {
   display: flex;
   flex-direction: column;
