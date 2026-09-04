@@ -2443,6 +2443,12 @@ body {
   position: relative;
   width: 100%;
   background-color: #000000;
+  /* The form card's entry swings it past the foot of the page, which would
+     otherwise grow the scroll range for the 1.6s it takes to land. `clip`
+     rather than `hidden` so this never becomes a scroll container, and on
+     main rather than on .page-hero, whose bottom the card deliberately
+     hangs past. */
+  overflow: clip;
 
   /* How far the form card hangs past the hero into the white band below it
      (Figma: card ends 1118, hero ends 684). 0 on portrait, where the card

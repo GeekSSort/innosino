@@ -1,10 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { CustomEase } from "gsap/CustomEase";
+import { useGSAP } from "@gsap/react";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
+
+gsap.registerPlugin(CustomEase, useGSAP);
+
+/** The transition's own easing, cubic-bezier(.42, 0, .58, 1). */
+const CARD_EASE = CustomEase.create("ctCardInOut", "M0,0 C0.42,0 0.58,1 1,1");
 
 const contactFaqs = [
   {
@@ -43,6 +51,50 @@ export default function ContactPage() {
   // Live clocks for Shanghai and Dhaka
   const [shanghaiTime, setShanghaiTime] = useState("12:24 AM");
   const [dhakaTime, setDhakaTime] = useState("10:24 AM");
+
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * The form card arrives, which is the difference between the set's two
+   * variants: the hero alone, then the hero with the card over it. The
+   * transition carries the card from (-507.05, 1558.64) at 0.81 rad to its
+   * resting (234, 342) upright, so it swings up from below and to the left,
+   * unwinding a 46deg tilt over 1600ms. Figma measures rotation
+   * counter-clockwise, so its 0.81 rad is -46.4 in CSS, and the offsets are
+   * taken against the 966x776 card so they hold at any width.
+   *
+   * The card is the reason anyone is on this page, so it plays on load rather
+   * than on scroll -- it sits above the fold -- and below 1024px, where the
+   * card is nearly the full viewport width, it just rises: a 46deg tilt there
+   * would swing most of it outside the hero's clip.
+   */
+  useGSAP(
+    () => {
+      const card = cardRef.current;
+      if (!card) return;
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          wide: "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+          narrow: "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const wide = context.conditions?.wide;
+          gsap.from(card, {
+            xPercent: wide ? -76.7 : 0,
+            yPercent: wide ? 156.8 : 6,
+            rotation: wide ? -46.4 : 0,
+            opacity: 0,
+            duration: 1.6,
+            ease: CARD_EASE,
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: cardRef },
+  );
 
 
   // Update live times
@@ -167,7 +219,7 @@ export default function ContactPage() {
           <FloatingNavbar variant="inline" />
 
           {/* Overlapping Contact Form Card (Node 1498:14425) */}
-          <div className="ct-card">
+          <div className="ct-card" ref={cardRef}>
             {/* Left column */}
             <div className="ct-card__col">
               <div
