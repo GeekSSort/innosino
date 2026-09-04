@@ -1,3 +1,4 @@
+import HeroSplash from "@/components/home/HeroSplash";
 import StoryScroll from "@/components/home/StoryScroll";
 import HeroSection from "@/components/home/HeroSection";
 import CoreServicesSection from "@/components/home/CoreServicesSection";
@@ -13,6 +14,10 @@ import IndustrySolutionsListSection from "@/components/home/IndustrySolutionsLis
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white selection:bg-orange-500 selection:text-white">
+      {/* The nine-variant intro from Figma, over the top of the hero until it
+          finishes. Skipped outright for reduced-motion, and by any input. */}
+      <HeroSplash />
+
       {/* Views 1-7 are all single-viewport frames, so they run as one story
           scroll: each pins while the next swings in over it. Views 8-10 carry
           their own sticky/marquee behaviour and scroll normally after it. */}

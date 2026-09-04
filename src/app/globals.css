@@ -906,6 +906,110 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   Hero intro splash (Figma component set 811:11)
+
+   A fixed overlay carrying the 1440x810 artboard as a fixed-size stage, which
+   HeroSplash scales to the viewport. Everything inside keeps its Figma
+   coordinates: elements sit at 0,0 and are placed by transform, so the whole
+   composition is one `scale` away from the design at any size.
+   -------------------------------------------------------------------------- */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+  background-color: #ffffff;
+  /* Nothing in here is interactive; a click anywhere skips it. */
+  cursor: default;
+}
+
+.splash__stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1440px;
+  height: 810px;
+  /* Nothing is placed until the first gsap.set, so the stage stays hidden for
+     that frame rather than flashing a pile of shapes in the corner. Variant 1
+     is a blank white frame anyway, which is what the overlay already shows. */
+  visibility: hidden;
+}
+
+.splash__shape,
+.splash__bar,
+.splash__disc,
+.splash__mark,
+.splash__lockup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+/* The disc changes plane partway through: it is an object sitting on the white
+   page for variants 3-5, then becomes the ground everything else draws on from
+   variant 6, which is exactly how the Figma variants are layered. HeroSplash
+   drops it to 0 at that point. */
+.splash__shape,
+.splash__bar {
+  z-index: 1;
+}
+
+.splash__disc {
+  z-index: 2;
+}
+
+.splash__mark,
+.splash__lockup {
+  z-index: 3;
+}
+
+.splash__shape {
+  border: 4px solid #d9d9d9;
+}
+
+.splash__rect {
+  border-radius: 40px 40px 40px 80px;
+}
+
+.splash__pill {
+  border-radius: 1000px;
+}
+
+.splash__ring {
+  border-radius: 50%;
+}
+
+/* The two diagonals are these same bars pivoted -72deg on their top-left. */
+.splash__bar {
+  width: 516px;
+  height: 4px;
+  background-color: #d9d9d9;
+}
+
+.splash__disc {
+  border-radius: 50%;
+}
+
+/* One flat colour, so the mark is a mask rather than three coloured PNGs: it
+   is grey while it is a ghost and brand orange once the disc catches it. */
+.splash__mark {
+  -webkit-mask-image: url("/homepage_assets/splash-logomark-mask.png");
+  mask-image: url("/homepage_assets/splash-logomark-mask.png");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+/* Two-tone (orange mark, white wordmark), so this one stays a real image. */
+.splash__lockup {
+  width: 840px;
+  height: 280px;
+  object-fit: contain;
+}
+
+/* ---------------------------------------------------------------------------
    Stacking card list + shared pill button
    -------------------------------------------------------------------------- */
 .stack {
