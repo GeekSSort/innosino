@@ -464,24 +464,16 @@ body {
   white-space: nowrap;
 }
 
-/* The mobile reference pill carries a reduced link set; the hidden entries stay
-   in the DOM and surface inside the "More" menu so nothing becomes
+/* The mobile reference pill carries a reduced link set; the hidden entries are
+   reachable from the "More" panel, which always lists them, so nothing becomes
    unreachable. */
 .nav-pill__link--secondary {
   display: inline-block;
 }
 
-.nav-menu__item--overflow {
-  display: none;
-}
-
 @media (max-width: 599px) {
   .nav-pill__link--secondary {
     display: none;
-  }
-
-  .nav-menu__item--overflow {
-    display: block;
   }
 }
 
@@ -543,13 +535,6 @@ body {
       justify-content: flex-start;
       gap: clamp(12px, 2.7vw, 20px);
     }
-  }
-
-  /* Right-hand menu would overflow the full-width bar; anchor it to the trigger's
-     right edge instead. */
-  .nav-menu {
-    left: auto;
-    right: 0;
   }
 }
 
@@ -789,12 +774,6 @@ body {
     opacity 180ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* The "More" menu escapes the pill, so the clip has to lift while it is open —
-   which only ever happens once the reveal is fully expanded. */
-.nav-pill__reveal--menu-open {
-  overflow: visible;
-}
-
 .nav-pill__toggle {
   flex-shrink: 0;
   width: clamp(36px, 3vw, 44px);
@@ -816,10 +795,13 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   Navigation "More" menu
+   Navigation panels ("Services" and "More")
+
+   Both stand above the pill as a white card spanning its full width, exactly
+   like the reference frames, so the arrow -- not the card edge -- is what
+   points back at the trigger that opened it.
    -------------------------------------------------------------------------- */
-.nav-more {
-  position: relative;
+.nav-trigger {
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -835,36 +817,121 @@ body {
   cursor: pointer;
 }
 
-.nav-menu {
+.nav-panel {
   position: absolute;
-  bottom: calc(100% + 12px);
+  bottom: 100%;
   left: 0;
-  min-width: 170px;
-  padding: 8px;
-  border: 1px solid rgba(255, 112, 24, 0.3);
-  border-radius: 12px;
-  background-color: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  z-index: 10;
+  right: 0;
+  /* Bridges the gap the arrow lives in, so a hovering pointer travelling from
+     the trigger up to the card never leaves the pill. */
+  padding-bottom: 14px;
+  z-index: 20;
+  animation: nav-panel-in 200ms cubic-bezier(0.2, 0, 0.1, 1);
 }
 
-.nav-menu__item {
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 0.8125rem;
-  color: #cccccc;
+@keyframes nav-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.nav-panel__card {
+  position: relative;
+  box-sizing: border-box;
+  padding: 16px 20px 18px;
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(90deg, rgba(255, 112, 24, 1) 0%, rgba(255, 190, 3, 1) 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35);
+}
+
+/* Clamped so the arrow keeps clear of the card's rounded corners even when its
+   trigger sits right at one end of the pill. */
+.nav-panel__caret {
+  position: absolute;
+  bottom: -12px;
+  left: clamp(22px, var(--caret-x, 50%), calc(100% - 22px));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.nav-panel__title {
+  margin: 0 0 10px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0a0a0a;
+}
+
+.nav-panel__grid,
+.nav-panel__stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px clamp(16px, 4vw, 32px);
+}
+
+/* The last two offers sit under the first column on their own lines. */
+.nav-panel__stack {
+  margin-top: 12px;
+}
+
+.nav-panel__stack > * {
+  grid-column: 1;
+}
+
+.nav-panel__link {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: #4a4a4a;
   text-decoration: none;
-  white-space: nowrap;
 }
 
-.nav-menu__item:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
+.nav-panel__link--strong {
+  color: #0a0a0a;
+  font-weight: 500;
+}
+
+.nav-panel__link:hover {
+  color: #ff7018;
+}
+
+.nav-panel__cloud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px clamp(12px, 3vw, 22px);
+}
+
+.nav-panel__label {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: #0a0a0a;
+}
+
+/* Breaks to its own line under "Follow Us" and centres across the card. */
+.nav-panel__social {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+  color: #8a8a8a;
+}
+
+.nav-panel__social:hover {
+  color: #0077b5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-panel {
+    animation: none;
+  }
 }
 
 @media (max-width: 1023px) {
