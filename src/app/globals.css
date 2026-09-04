@@ -1322,7 +1322,10 @@ body {
   height: auto;
   display: block;
   color: #ffffff;
-  margin-block-end: clamp(1rem, 1.7vw, 24px);
+  /* The frame reserves a 64 square here and starts the quote at 116. This glyph
+     is 4:3, so it draws 48 tall in that 64 width -- the gap carries the
+     difference rather than stretching the mark to fill the square. */
+  margin-block-end: clamp(1rem, 2.22vw, 32px);
 }
 
 .about-quote__text {
@@ -1335,7 +1338,9 @@ body {
 }
 
 .about-quote__author {
-  margin-block-start: clamp(1.25rem, 2.2vw, 32px);
+  /* 24 from the quote's last line to the avatar puts the author row at 284 and
+     the card at the frame's 384 exactly. */
+  margin-block-start: clamp(1rem, 1.67vw, 24px);
   display: flex;
   align-items: center;
   gap: 12px;
