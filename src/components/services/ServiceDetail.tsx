@@ -123,6 +123,52 @@ export default function ServiceDetail({ service }: { service: Service }) {
     return () => mm.revert();
   }, []);
 
+  const workStackRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Representative Work stacks: each card pins 20px below the one before it and
+   * the covered card eases back as its successor rides up over it, so the pile
+   * reads as depth rather than as cards simply overlapping.
+   *
+   * Scrubbed rather than played, so it tracks the scroll exactly, and skipped
+   * where a card is pinned taller than the viewport or motion is unwanted.
+   */
+  useGSAP(
+    () => {
+      const root = workStackRef.current;
+      if (!root) return;
+      const mm = gsap.matchMedia();
+      mm.add(
+        "(min-height: 561px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const cards = gsap.utils.toArray<HTMLElement>(
+            root.querySelectorAll(".svc-work"),
+          );
+          cards.forEach((card, i) => {
+            if (i === cards.length - 1) return;
+            gsap.to(card, {
+              scale: 0.94,
+              opacity: 0.55,
+              ease: "none",
+              scrollTrigger: {
+                trigger: cards[i + 1],
+                // The recede runs over the actual overlap: from where the next
+                // card's top meets this card's pinned bottom edge, to where it
+                // settles into its own pinned slot. Anything earlier dims a card
+                // while it is still the one being read.
+                start: () => `top ${96 + i * 20 + card.offsetHeight}px`,
+                end: () => `top ${96 + (i + 1) * 20}px`,
+                scrub: true,
+              },
+            });
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: workStackRef, dependencies: [service.slug] },
+  );
+
   const displayIndustries = [...industriesList, ...industriesList, ...industriesList];
   const displayPartners = [...partnerLogos, ...partnerLogos, ...partnerLogos, ...partnerLogos];
 
@@ -350,16 +396,17 @@ export default function ServiceDetail({ service }: { service: Service }) {
               REPRESENTATIVE <span style={{ color: "#FF7018" }}>WORK</span>
             </h2>
 
-            <div
-              style={{
-                marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "clamp(1.5rem, 2.8vw, 40px)",
-              }}
-            >
-              {service.projects.map((proj) => (
-                <article key={proj.title} className="svc-work">
+            <div className="svc-stack" ref={workStackRef}>
+              {service.projects.map((proj, index) => (
+                <article
+                  key={proj.title}
+                  className="svc-work"
+                  style={
+                    {
+                      "--stack-top": `calc(var(--stack-base) + ${index * 20}px)`,
+                    } as React.CSSProperties
+                  }
+                >
                   <div className="svc-work__body">
                     <div>
                       <span className="svc-work__eyebrow">● {proj.category}</span>

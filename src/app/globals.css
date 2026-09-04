@@ -2187,7 +2187,24 @@ body {
 }
 
 /* --- Representative work ------------------------------------------------- */
+/* Representative Work stacks the way the homepage's featured cards do: each
+   card sticks 20px lower than the one before, so the pile stays readable as it
+   builds. ServiceDetail eases the covered card back as its successor rides up. */
+.svc-stack {
+  margin-block-start: clamp(1.5rem, 3.3vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.8vw, 40px);
+  --stack-base: 96px;
+}
+
 .svc-work {
+  position: sticky;
+  top: var(--stack-top, 96px);
+  /* Its own stacking context, so a later card always paints over an earlier
+     one no matter what order the transforms create. */
+  z-index: 1;
+  transform-origin: 50% 0%;
   box-sizing: border-box;
   border-radius: 20px;
   background-color: #111111;
@@ -2218,6 +2235,12 @@ body {
   border-radius: 16px;
   overflow: hidden;
   background-color: #222222;
+}
+
+@media (max-height: 560px) {
+  .svc-work {
+    position: static;
+  }
 }
 
 @media (max-width: 899px) {
