@@ -16,10 +16,18 @@ export const siteName = "INNOSINO";
 /** Rendered in the bottom bar of every page. */
 export const copyright = "© 2026 Innosion All Rights Reserved";
 
+/*
+ * Expertise and Life at INNOSINO are here because their only other links live
+ * in the navbar's More panel, which is rendered on client state and so reaches
+ * no crawler and no no-JS visitor: both pages had zero inbound links in every
+ * served page.
+ */
 export const footerLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "Expertise", href: "/expertise" },
+  { label: "Life at INNOSINO", href: "/life-at-innosino" },
   { label: "Industries", href: "/#industries" },
   { label: "Blogs", href: "/blogs" },
   { label: "Privacy Policy", href: "/privacy-policy" },
