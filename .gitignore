@@ -42,3 +42,6 @@ next-env.d.ts
 
 # playwright mcp output (screenshots, console logs)
 .playwright-mcp/
+
+# static export output
+/out/

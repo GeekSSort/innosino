@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "innosino",
+  "compatibility_date": "2026-09-04",
+
+  // No Worker script — just the static export. Requests for these files are
+  // served straight from Cloudflare's edge without invoking a Worker, which is
+  // why they cost nothing: static asset requests are free and unmetered on
+  // every plan, including Workers Free.
+  "assets": {
+    "directory": "./out",
+    // Next's export writes /about.html for /about, so serve extensionless URLs
+    // and redirect the .html form to the canonical path.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -2,16 +2,27 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+
+  /**
+   * The site has no server-side code at all — no data fetching, no cookies or
+   * headers, no route handlers — so it builds to plain HTML/CSS/JS in `out/`.
+   * That is what makes it free to host: static assets are served without ever
+   * invoking a Worker, so they cost no requests and no bandwidth.
+   *
+   * Adding anything that needs a server later (Sanity draft mode / visual
+   * editing, on-demand revalidation) means dropping this line and deploying
+   * through @opennextjs/cloudflare instead.
+   */
+  output: "export",
+
   images: {
-    // AVIF first, WebP as the fallback: both are markedly smaller than the
-    // source PNG/JPEG, and the source format is still used when neither is
-    // accepted. Next picks per request from the Accept header.
-    formats: ["image/avif", "image/webp"],
-    // These sources are static files in /public that only change on deploy, so
-    // a long TTL keeps Vercel from re-running the same transforms every 4 hours
-    // (the Next 16 default). Bump a filename if an image ever needs to change
-    // before this expires.
-    minimumCacheTTL: 2678400, // 31 days
+    /**
+     * A static export has no image optimizer to call at request time, so the
+     * files in /public are served as authored. The AVIF/WebP negotiation this
+     * used to do would need a paid service (Cloudflare Images) or a build-time
+     * conversion step; neither is worth it while the whole image set is ~7 MB.
+     */
+    unoptimized: true,
   },
 };
 
