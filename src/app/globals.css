@@ -45,7 +45,7 @@
        nav bottom      137 / 810 = 16.9%
        explore bottom   94 / 810 = 11.6% */
   --nav-bottom: 16.9vh;
-  --nav-height: clamp(52px, 4.7vw, 68px);
+  --nav-height: clamp(64px, 4.7vw, 68px);
   --explore-bottom: 11.6%;
   --explore-size: 112px;
 }
@@ -66,15 +66,16 @@
     /* The pill becomes a floating bottom tab bar, so it hugs the bottom edge
        (clear of the home indicator) and the badge is lifted above it. */
     --nav-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    --explore-bottom: calc(var(--nav-bottom) + var(--nav-height) + 16px);
-  }
-}
-
-/* Only true phones need the badge to shrink; the portrait-tablet reference
-   keeps it at its full size. */
-@media (max-width: 599px) {
-  :root {
-    --explore-size: clamp(84px, 24vw, 112px);
+    /* The badge is anchored to the *section* while the pill is anchored to the
+       *viewport*. A frame is sized in `lvh` so it still covers when mobile
+       browser chrome retracts, which means its bottom edge sits (lvh - dvh)
+       below the fold whenever that chrome is showing. Adding that difference
+       back keeps the badge's clearance over the pill identical in both states. */
+    --explore-bottom: calc(
+      var(--nav-bottom) + var(--nav-height) + 16px + (100lvh - 100dvh)
+    );
+    /* Full size is a desktop proportion; on portrait it crowds the pill. */
+    --explore-size: clamp(72px, 12vw, 88px);
   }
 }
 
@@ -98,12 +99,15 @@ body {
 
 /* A full-bleed section that fills the viewport the way the 1440x810 Figma frame
    does. `min-height` (never `height`) so content can always grow instead of
-   overlapping the next section. `svh` keeps mobile browser chrome from
-   resizing the composition mid-scroll. */
+   overlapping the next section. `lvh` (not `svh`/`dvh`): it is static, so mobile
+   browser chrome never resizes the composition mid-scroll, and it is the
+   *largest* viewport, so a pinned frame still covers the screen once that
+   chrome retracts instead of exposing the frame scrolling behind it. */
 .section-frame {
   position: relative;
   width: 100%;
-  min-height: max(100svh, 600px);
+  min-height: max(100vh, 600px); /* pre-lvh browsers; 100vh == lvh on iOS */
+  min-height: max(100lvh, 600px);
   overflow: hidden;
   display: grid;
 }

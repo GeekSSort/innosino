@@ -7,6 +7,11 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
+/* Showing/hiding mobile browser chrome fires a resize, which would otherwise
+   re-measure and re-pin every frame mid-scroll — a visible jump. The frames are
+   sized in `lvh`, so their geometry does not actually change. */
+ScrollTrigger.config({ ignoreMobileResize: true });
+
 /**
  * Turns a run of full-viewport `.section-frame`s into a story scroll: each
  * frame pins while the next one swings in from 30deg and settles flat over it,
