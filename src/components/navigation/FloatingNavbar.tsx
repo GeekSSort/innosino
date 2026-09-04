@@ -61,11 +61,12 @@ const ROUTES_WITH_INLINE_NAV = [
 ];
 
 /**
- * Project detail routes are dynamic and every one of them composes the pill
- * itself, so they are matched by prefix. The blog detail routes deliberately
- * are NOT here: they never compose one, so they need the floating copy.
+ * Project and service detail routes are dynamic and every one of them composes
+ * the pill itself, so they are matched by prefix. The blog detail routes
+ * deliberately are NOT here: they never compose one, so they need the floating
+ * copy.
  */
-const PREFIXES_WITH_INLINE_NAV = ["/projects/"];
+const PREFIXES_WITH_INLINE_NAV = ["/projects/", "/services/"];
 
 interface FloatingNavbarProps {
   /**
