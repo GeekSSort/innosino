@@ -22,15 +22,15 @@ const navItems: NavItem[] = [
 /** The Services panel: four disciplines in two columns, then the two broader
     offers on their own lines — the arrangement of the reference frame. */
 const serviceGridLinks = [
-  { label: "Embedded System Design", href: "/services#embedded-system-design" },
-  { label: "Software Integration", href: "/services#software-integration" },
-  { label: "Hardware & PCB Design", href: "/services#hardware-pcb-design" },
-  { label: "Manufacturing Support", href: "/services#manufacturing-support" },
+  { label: "Embedded System Design", href: "/services" },
+  { label: "Software Integration", href: "/services" },
+  { label: "Hardware & PCB Design", href: "/services" },
+  { label: "Manufacturing Support", href: "/services" },
 ];
 
 const serviceStackLinks = [
-  { label: "Product Development", href: "/services#product-development" },
-  { label: "Industrial Automation", href: "/services#industrial-automation" },
+  { label: "Product Development", href: "/services" },
+  { label: "Industrial Automation", href: "/services" },
 ];
 
 /** The More panel carries everything the pill has no room for, including the
@@ -57,9 +57,7 @@ const ROUTES_WITH_INLINE_NAV = [
   "/contact",
   "/projects",
   "/projects/details",
-  "/project/details",
   "/blogs",
-  "/blog",
 ];
 
 /**
@@ -67,7 +65,7 @@ const ROUTES_WITH_INLINE_NAV = [
  * itself, so they are matched by prefix. The blog detail routes deliberately
  * are NOT here: they never compose one, so they need the floating copy.
  */
-const PREFIXES_WITH_INLINE_NAV = ["/projects/", "/project/"];
+const PREFIXES_WITH_INLINE_NAV = ["/projects/"];
 
 interface FloatingNavbarProps {
   /**

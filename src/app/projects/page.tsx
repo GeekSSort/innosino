@@ -223,7 +223,7 @@ export default function ProjectsPage() {
                 </span>
               </div>
 
-              <Link href="#featured-details" className="pj-featured__cta">
+              <Link href="/projects/details" className="pj-featured__cta">
                 <span>Know Details</span>
                 <span style={{ fontSize: "0.8em" }} aria-hidden="true">
                   ↗

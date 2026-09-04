@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Sparkle Icon matching Figma node 1498:14140 / 1498:14163 (color: #D65900)
 function SparkleIcon() {
@@ -220,10 +221,10 @@ export default function FeaturedProjectListSection() {
                   ))}
                 </div>
 
-                <button type="button" className="pill-button">
+                <Link href="/projects/details" className="pill-button">
                   <span>Know Details</span>
                   <ArrowUpRightIcon />
-                </button>
+                </Link>
               </div>
 
               <div className="stack-card__media">

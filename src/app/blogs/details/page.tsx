@@ -1243,7 +1243,7 @@ export default function BlogDetailsPage() {
               { label: "Services", href: "/services" },
               { label: "Industries", href: "/#industries" },
               { label: "Blogs", href: "/blogs" },
-              { label: "Privacy Policy", href: "#privacy" },
+              { label: "Privacy Policy", href: "/privacy-policy" },
               { label: "Terms & Condition", href: "#terms" },
               { label: "Contact Us", href: "/contact" },
             ].map((link) => (
