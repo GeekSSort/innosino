@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { SPLASH_SEEN_KEY } from "@/content/splash";
 
 /**
  * The hero intro, from the "Splash Animation For Hero Section" component set
@@ -164,9 +165,27 @@ function springEase(mass: number, stiffness: number, damping: number, ms: number
   return (p: number) => raw(p) / end;
 }
 
+/** Storage can throw outright (Safari private mode); an intro is not worth it. */
+function seen() {
+  try {
+    return sessionStorage.getItem(SPLASH_SEEN_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
 export default function HeroSplash() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [done, setDone] = useState(false);
+  /**
+   * Whether this instance is the one playing the intro, decided once and then
+   * held. The effect can run more than once for a single mount -- StrictMode
+   * does exactly that in development -- and without this the second run would
+   * read back the flag the first run had just written and skip its own intro.
+   * A genuine remount is a new instance with a fresh ref, so returning to the
+   * home page still skips.
+   */
+  const playing = useRef<boolean | null>(null);
 
   useGSAP(
     () => {
@@ -177,6 +196,27 @@ export default function HeroSplash() {
       // Someone who asked for less motion gets the hero, not a five-second
       // intro. Nothing here has to run for the page to work.
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setDone(true);
+        return;
+      }
+
+      // Once a tab. Coming back to the home page from anywhere else in the
+      // site goes straight to the hero, and so does a reload. useGSAP runs
+      // this before the browser paints, so a return from another page never
+      // shows the overlay at all.
+      if (playing.current === null) {
+        playing.current = !seen();
+        if (playing.current) {
+          // Marked on the way in, not on completion: someone who leaves
+          // halfway through has still seen it.
+          try {
+            sessionStorage.setItem(SPLASH_SEEN_KEY, "1");
+          } catch {
+            // Storage unavailable. The intro just plays every time.
+          }
+        }
+      }
+      if (!playing.current) {
         setDone(true);
         return;
       }

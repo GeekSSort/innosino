@@ -1051,6 +1051,13 @@ body {
    coordinates: elements sit at 0,0 and are placed by transform, so the whole
    composition is one `scale` away from the design at any size.
    -------------------------------------------------------------------------- */
+/* Set by the layout's pre-paint script when the intro has already played this
+   session. The component unmounts itself too; this only stops the static HTML
+   painting the overlay in the gap before React runs. */
+[data-splash-seen] .splash {
+  display: none;
+}
+
 .splash {
   position: fixed;
   inset: 0;

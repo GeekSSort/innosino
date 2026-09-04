@@ -7,6 +7,7 @@ import {
   HOME_DESCRIPTION,
 } from "./shared-metadata";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
+import { SPLASH_SEEN_KEY } from "@/content/splash";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -44,7 +45,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased dark">
+    <html
+      lang="en"
+      className="h-full antialiased dark"
+      /* The script below stamps data-splash-seen on this element before React
+         ever runs, which React otherwise reports as a hydration mismatch. */
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -70,6 +77,17 @@ export default function RootLayout({
         <link
           href="https://api.fontshare.com/v2/css?f[]=cal-sans@400,600,700&display=swap"
           rel="stylesheet"
+        />
+        {/* The hero intro plays once a tab, but the static HTML always carries
+            its overlay, so the flag has to be read before the first paint --
+            by the time React hydrates and unmounts it, a reload has already
+            flashed a white screen. Blocking and tiny, in the head on purpose. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              `try{if(sessionStorage.getItem(${JSON.stringify(SPLASH_SEEN_KEY)})==="1")` +
+              `document.documentElement.setAttribute("data-splash-seen","")}catch(e){}`,
+          }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-black text-white">
