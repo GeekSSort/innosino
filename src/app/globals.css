@@ -767,8 +767,19 @@ body {
 .nav-pill.nav-pill--compact {
   width: auto;
   justify-content: flex-start;
-  gap: 8px;
-  padding-inline: 8px;
+  /* The reveal is still a flex item at zero width, so any gap would sit
+     between the button and nothing. */
+  gap: 0;
+  /* Matching the 12px block padding squares the button against its own height
+     whatever the button measures, which the 200px radius rounds into a circle.
+     Width is still left to the content, so it keeps shrinking on the padding
+     transition rather than jumping the way a fixed width or aspect-ratio
+     would. */
+  padding-inline: 12px;
+}
+
+.nav-pill--compact .nav-pill__toggle {
+  margin-inline-end: 0;
 }
 
 /* The links stay mounted and the wrapper collapses instead, so the pill can
@@ -786,6 +797,21 @@ body {
 
 .nav-pill__reveal > * {
   min-width: 0;
+}
+
+/* Links and the CTA collapse together, so they share one row inside the
+   reveal. It fills the pill so the CTA's auto margin still lands it on the
+   right edge. */
+.nav-pill__reveal {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nav-pill__group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: clamp(10px, 1.7vw, 24px);
 }
 
 .nav-pill--compact .nav-pill__reveal {

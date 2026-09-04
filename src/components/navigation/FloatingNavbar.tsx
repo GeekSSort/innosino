@@ -205,6 +205,7 @@ export default function FloatingNavbar({
             /* Nothing inside is reachable while it is collapsed. */
             inert={collapsed}
           >
+          <div className="nav-pill__group">
           <div className="nav-pill__links">
             {navItems.map((item) => (
               <Link
@@ -277,9 +278,10 @@ export default function FloatingNavbar({
               )}
             </div>
           </div>
-          </div>
 
           {cta}
+          </div>
+          </div>
         </nav>
       </div>
     </div>
