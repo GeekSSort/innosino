@@ -7,14 +7,22 @@
   // served straight from Cloudflare's edge without invoking a Worker, which is
   // why they cost nothing: static asset requests are free and unmetered on
   // every plan, including Workers Free.
-  // Worker logging. Valid against wrangler's schema, but nothing is collected
-  // while this config ships no Worker: static asset requests never invoke one,
-  // so there are no invocations to log. It takes effect the moment a Worker
-  // does exist here — which is what adding Sanity through OpenNext would mean.
+  // Worker logging and tracing. Valid against wrangler's schema, but nothing is
+  // collected while this config ships no Worker: static asset requests never
+  // invoke one, so there is nothing to log or trace. It takes effect the moment
+  // a Worker does exist here — which is what adding Sanity through OpenNext
+  // would mean. head_sampling_rate 1 and persist true are both the defaults;
+  // they are written out so the intent survives a change of default.
   "observability": {
     "logs": {
       "enabled": true,
+      "head_sampling_rate": 1,
       "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": false,
+      "head_sampling_rate": 1,
       "persist": true
     }
   },
