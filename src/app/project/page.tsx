@@ -179,14 +179,16 @@ export default function ProjectsPage() {
             alignItems: "center",
           }}
         >
-          <Image
-            src="/about_us/IS-Logo.png"
-            alt="INNOSINO"
-            width={236}
-            height={32}
-            style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            preload
-          />
+          <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
+            <Image
+              src="/about_us/IS-Logo.png"
+              alt="INNOSINO"
+              width={236}
+              height={32}
+              style={{ objectFit: "contain", height: "32px", width: "auto" }}
+              preload
+            />
+          </Link>
         </div>
 
         {/* Hero Title & Subtitle Frame */}

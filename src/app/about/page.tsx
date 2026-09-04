@@ -117,14 +117,16 @@ export default function AboutPage() {
         <div className="container about-hero__inner">
           <div className="about-hero__head">
             {/* Brand Logo (Node 1498:14274 Logo) */}
-            <Image
-              src="/about_us/IS-Logo.png"
-              alt="INNOSINO"
-              width={340}
-              height={128}
-              className="brand-logo"
-              preload
-            />
+            <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
+              <Image
+                src="/about_us/IS-Logo.png"
+                alt="INNOSINO"
+                width={340}
+                height={128}
+                className="brand-logo"
+                preload
+              />
+            </Link>
 
             {/* Breadcrumb & Main Heading (Node 1498:14276) */}
             <div className="about-hero__copy">

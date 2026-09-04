@@ -31,14 +31,16 @@ export default function ProjectDetailsPage() {
 
         <div className="container page-hero__inner">
           <div className="page-hero__head">
-            <Image
-              src="/about_us/IS-Logo.png"
-              alt="INNOSINO"
-              width={340}
-              height={128}
-              className="brand-logo"
-              preload
-            />
+            <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
+              <Image
+                src="/about_us/IS-Logo.png"
+                alt="INNOSINO"
+                width={340}
+                height={128}
+                className="brand-logo"
+                preload
+              />
+            </Link>
 
             <div className="page-hero__copy">
               <div className="breadcrumb">

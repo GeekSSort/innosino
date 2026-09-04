@@ -105,8 +105,17 @@ body {
   width: 100%;
   min-height: max(100svh, 600px);
   overflow: hidden;
-  background-color: #000000;
   display: grid;
+}
+
+/* Everything a frame paints lives in this one box so the story-scroll can
+   swing the whole composition — background included — as a single panel, with
+   the section itself staying put as the clip. */
+.section-frame__inner {
+  position: relative;
+  display: grid;
+  background-color: #000000;
+  transform-origin: bottom left;
 }
 
 /* Splash frames fill the viewport like the video frames do. The artboard's
@@ -629,7 +638,7 @@ body {
 
 /* Site footer bar */
 .footer-bar {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
   padding-top: clamp(1rem, 2vw, 1.25rem);
   display: flex;
   flex-wrap: wrap;
@@ -649,6 +658,76 @@ body {
   .marquee__track {
     transform: none !important;
   }
+
+  .nav-pill,
+  .nav-pill__reveal,
+  .nav-pill__toggle svg {
+    transition: none !important;
+  }
+
+  .nav-inline--floating .nav-inline__slot {
+    animation: none !important;
+  }
+}
+
+/* Once the pill has left the hero it collapses to a click-to-open trigger.
+   The double class beats the full-width tab-bar rule further up. */
+.nav-pill.nav-pill--compact {
+  width: auto;
+  justify-content: flex-start;
+  gap: 8px;
+  padding-inline: 8px;
+}
+
+/* The links stay mounted and the wrapper collapses instead, so the pill can
+   animate between the two widths. `0fr -> 1fr` is the one way to transition to
+   an intrinsic width; the child needs min-width:0 for the grid track to win. */
+.nav-pill__reveal {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    grid-template-columns 440ms cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 260ms cubic-bezier(0.65, 0, 0.35, 1) 140ms;
+}
+
+.nav-pill__reveal > * {
+  min-width: 0;
+}
+
+.nav-pill--compact .nav-pill__reveal {
+  grid-template-columns: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-columns 380ms cubic-bezier(0.65, 0, 0.35, 1),
+    opacity 180ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* The "More" menu escapes the pill, so the clip has to lift while it is open —
+   which only ever happens once the reveal is fully expanded. */
+.nav-pill__reveal--menu-open {
+  overflow: visible;
+}
+
+.nav-pill__toggle {
+  flex-shrink: 0;
+  width: clamp(36px, 3vw, 44px);
+  height: clamp(36px, 3vw, 44px);
+  margin-inline-end: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 100px;
+  background: none;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-pill__toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ---------------------------------------------------------------------------
@@ -883,7 +962,7 @@ body {
   margin-inline: auto;
   margin-block-end: calc(var(--about-quote-hang) * -1);
   box-sizing: border-box;
-  padding: clamp(1.5rem, 3.3vw, 48px) clamp(1.5rem, 3.9vw, 56px);
+  padding: clamp(1.25rem, 3.2vw, 36px);
   border-radius: 18px;
   background: linear-gradient(135deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
   box-shadow: 0 20px 60px rgba(255, 112, 24, 0.35);

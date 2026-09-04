@@ -86,14 +86,16 @@ export default function PrivacyPolicyPage() {
             alignItems: "center",
           }}
         >
-          <Image
-            src="/about_us/IS-Logo.png"
-            alt="INNOSINO"
-            width={236}
-            height={32}
-            style={{ objectFit: "contain", height: "32px", width: "auto" }}
-            preload
-          />
+          <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
+            <Image
+              src="/about_us/IS-Logo.png"
+              alt="INNOSINO"
+              width={236}
+              height={32}
+              style={{ objectFit: "contain", height: "32px", width: "auto" }}
+              preload
+            />
+          </Link>
         </div>
 
         {/* Hero Title & Breadcrumb Block (x: 134, y: 112) */}

@@ -244,14 +244,16 @@ export default function ServicePage() {
         <div className="container page-hero__inner">
           <div className="page-hero__head">
             {/* Logo: Node 1498:14573 */}
-            <Image
-              src="/about_us/IS-Logo.png"
-              alt="INNOSINO"
-              width={340}
-              height={128}
-              className="brand-logo"
-              preload
-            />
+            <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
+              <Image
+                src="/about_us/IS-Logo.png"
+                alt="INNOSINO"
+                width={340}
+                height={128}
+                className="brand-logo"
+                preload
+              />
+            </Link>
 
             {/* Hero Content Frame: Node 1498:14574 */}
             <div className="page-hero__copy">
