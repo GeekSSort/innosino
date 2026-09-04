@@ -1,4 +1,5 @@
 import LottieSplashSection from "./LottieSplashSection";
+import { splashFrames } from "@/content/home";
 
 export default function FeaturedProjectSection() {
   return (
@@ -6,8 +7,8 @@ export default function FeaturedProjectSection() {
       id="featured-projects"
       path="/featured_project_animation.json"
       backgroundColor="#FFBE03"
-      title="Featured Project"
-      loopSeconds={2.667}
+      title={splashFrames.featuredProject.title}
+      loopSeconds={splashFrames.featuredProject.loopSeconds}
     />
   );
 }

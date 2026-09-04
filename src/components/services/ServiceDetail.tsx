@@ -11,6 +11,7 @@ import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import type { Service } from "@/content/services";
 import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import { industriesLede } from "@/content/home";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 
@@ -743,8 +744,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
             className="section-lede"
             style={{ fontFamily: "var(--font-cal-sans), sans-serif", fontWeight: 400 }}
           >
-            Discover the industries we serve with innovative technology and smart
-            engineering solutions for real-world challenges.
+            {industriesLede}
           </h2>
         </div>
 

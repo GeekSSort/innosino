@@ -3,6 +3,7 @@
 import React from "react";
 import ExploreBadge from "@/components/common/ExploreBadge";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
+import { heroCopy } from "@/content/home";
 
 export default function HeroSection() {
   return (
@@ -33,10 +34,7 @@ export default function HeroSection() {
             {"WELCOME TO "}
             <span style={{ color: "#FF6A00" }}>INNOSINO</span>
           </h1>
-          <p className="hero-subtitle">
-            We turn ideas into high-performance, market ready products from
-            concept to mass production.
-          </p>
+          <p className="hero-subtitle">{heroCopy.subtitle}</p>
         </div>
       </div>
 

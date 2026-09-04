@@ -9,6 +9,14 @@ import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { chatWidget, copyright, footerLinks } from "@/content/site";
+import {
+  contactFaqs,
+  contactForm,
+  contactHeadings,
+  contactHero,
+  contactHubs,
+  hubsLede,
+} from "@/content/contact";
 
 gsap.registerPlugin(CustomEase, useGSAP);
 
@@ -27,24 +35,6 @@ const HUB_ENTRY = [
   { x: 51.05, y: 66.7 },
 ];
 
-const contactFaqs = [
-  {
-    q: "How long until I hear back?",
-    a: "We review inquiries as they come in and respond within 24 hours on business days. If you provide schematics or a project brief upfront, our engineers can often return initial feasibility notes in the very first response.",
-  },
-  {
-    q: "Do I need a finished spec before reaching out?",
-    a: "Not at all. Whether you have a rough block diagram, a BOM draft, or just a concept napkin sketch, our engineering team can help formalize specifications, select viable architectures, and scope the development roadmap.",
-  },
-  {
-    q: "Can you sign an NDA before reviewing project details?",
-    a: "Yes. We regularly execute non-disclosure agreements before reviewing confidential schematics, proprietary firmware requirements, or industrial designs.",
-  },
-  {
-    q: "Do you work with clients outside Bangladesh?",
-    a: "Yes! We work with global clients across North America, Europe, East Asia, and Australia. Our headquarters in Shanghai and partner office in Dhaka enable direct coordination with global supply chains and fabrication facilities.",
-  },
-];
 
 export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -275,15 +265,9 @@ export default function ContactPage() {
                 </span>
               </div>
 
-              <h1 className="page-hero__title">
-                LET&apos;S BUILD BETTER HARDWARE.
-              </h1>
+              <h1 className="page-hero__title">{contactHero.title}</h1>
 
-              <p className="page-hero__sub">
-                Turn your hardware concept into a production-ready product with
-                expert engineering, precision PCB design, and end-to-end
-                development support.
-              </p>
+              <p className="page-hero__sub">{contactHero.sub}</p>
             </div>
           </div>
 
@@ -309,22 +293,12 @@ export default function ContactPage() {
                     gap: "clamp(0.75rem, 1.1vw, 16px)",
                   }}
                 >
-                  <h2 className="ct-card__title">
-                    Tell us what you&apos;re building
-                  </h2>
-                  <p className="ct-card__lede">
-                    The more context you give us up front, the faster we can
-                    scope the engineering work and get back to you with a real
-                    answer.
-                  </p>
+                  <h2 className="ct-card__title">{contactForm.title}</h2>
+                  <p className="ct-card__lede">{contactForm.lede}</p>
                 </div>
 
                 <div className="ct-points">
-                  {[
-                    "Expect a response from us within 24 hours.",
-                    "We're happy to sign an NDA upon request.",
-                    "Dedicated Hardware Experts.",
-                  ].map((item) => (
+                  {contactForm.points.map((item) => (
                     <div key={item} className="ct-point">
                       <svg
                         width="18"
@@ -615,28 +589,11 @@ export default function ContactPage() {
               textWrap: "pretty",
             }}
           >
-            From concept to production, INNOSINO delivers embedded systems,
-            hardware, PCB design, software integration, and industrial
-            automation.
+            {hubsLede}
           </h2>
 
           <div className="ct-hubs">
-            {[
-              {
-                city: "SHANGHAI",
-                time: shanghaiTime,
-                address:
-                  "INNOSINO (上海) Technology Co., Ltd. — Headquarters, Shanghai, China",
-                map: "https://maps.google.com/?q=Shanghai",
-              },
-              {
-                city: "DHAKA",
-                time: dhakaTime,
-                address:
-                  "DBTECH Technology Co. Ltd. — Partner Office, Dhaka, Bangladesh",
-                map: "https://maps.google.com/?q=Dhaka",
-              },
-            ].map((hub) => (
+            {contactHubs.map((hub, hubIdx) => (
               <div key={hub.city} className="ct-hub">
                 <div className="ct-hub__head">
                   <span className="ct-hub__clock">
@@ -653,7 +610,7 @@ export default function ContactPage() {
                         <path d="M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M25.2 6.8l-2.8 2.8M9.6 22.4l-2.8 2.8" />
                       </g>
                     </svg>
-                    <span>{hub.time}</span>
+                    <span>{hubIdx === 0 ? shanghaiTime : dhakaTime}</span>
                   </span>
 
                   <Link href={hub.map} target="_blank" className="ct-hub__map">
@@ -678,8 +635,8 @@ export default function ContactPage() {
       <section className="flow-section" style={{ backgroundColor: "#F6F6F6" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            HOW LONG UNTIL I HEAR{" "}
-            <span style={{ color: "#FF7018" }}>BACK?</span>
+            {contactHeadings.faq.lead}
+            <span style={{ color: "#FF7018" }}>{contactHeadings.faq.accent}</span>
           </h2>
 
           <div

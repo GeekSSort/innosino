@@ -4,60 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { chatWidget, copyright, footerLinks } from "@/content/site";
+import { industriesLede, industriesList } from "@/content/home";
 
-interface IndustryItem {
-  id: string;
-  title: string;
-  image: string;
-}
-
-const industriesList: IndustryItem[] = [
-  {
-    id: "1",
-    title: "Consumer Electronics",
-    image: "/homepage_assets/industries/Consumer Electronics.jpg",
-  },
-  {
-    id: "2",
-    title: "Renewable Energy",
-    image: "/homepage_assets/industries/Renewable Energy.jpg",
-  },
-  {
-    id: "3",
-    title: "Industrial Automation",
-    image: "/homepage_assets/industries/Industrial Automation.png",
-  },
-  {
-    id: "4",
-    title: "Smart IOT",
-    image: "/homepage_assets/industries/Smart IOT.png",
-  },
-  {
-    id: "5",
-    title: "Engineering Education",
-    image: "/homepage_assets/industries/Engineering Education.png",
-  },
-  {
-    id: "6",
-    title: "Digital Musical Instruments",
-    image: "/homepage_assets/industries/Digital Musical Instruments.png",
-  },
-  {
-    id: "7",
-    title: "Biomedical Electronics",
-    image: "/homepage_assets/industries/Biomedical Electronics.png",
-  },
-  {
-    id: "8",
-    title: "NFC and RFID Technology",
-    image: "/homepage_assets/industries/NFC and RFID Technology.png",
-  },
-  {
-    id: "9",
-    title: "Wireless Communication",
-    image: "/homepage_assets/industries/Wireless Communication.jpg",
-  },
-];
 
 
 export default function IndustrySolutionsListSection() {
@@ -113,10 +61,7 @@ export default function IndustrySolutionsListSection() {
       style={{ backgroundColor: "#000000" }}
     >
       <div className="container">
-        <h2 className="section-lede">
-          Discover the industries we serve with innovative technology and smart
-          engineering solutions for real-world challenges.
-        </h2>
+        <h2 className="section-lede">{industriesLede}</h2>
       </div>
 
       {/* Full-bleed marquee: its left edge lines up with the content container

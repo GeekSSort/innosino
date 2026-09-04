@@ -6,6 +6,7 @@ import Image from "next/image";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { services } from "@/content/services";
+import { servicesIndex } from "@/content/servicesIndex";
 
 /**
  * The services index. This URL used to be the Hardware & PCB Design page
@@ -56,18 +57,17 @@ export default function ServicesIndexPage() {
                     fill="#FF7018"
                   />
                 </svg>
-                <span className="breadcrumb__link">SERVICES</span>
+                <span className="breadcrumb__link">{servicesIndex.breadcrumb}</span>
               </div>
 
               <h1 className="page-hero__title">
-                WHAT WE <span className="brand-gradient-text">DO</span>
+                {servicesIndex.titleLead}
+                <span className="brand-gradient-text">
+                  {servicesIndex.titleAccent}
+                </span>
               </h1>
 
-              <p className="page-hero__sub">
-                Six engineering disciplines that take a product from an early
-                requirement through to a stable production line. Take one, or
-                the whole programme.
-              </p>
+              <p className="page-hero__sub">{servicesIndex.sub}</p>
             </div>
 
             <FloatingNavbar variant="inline" />

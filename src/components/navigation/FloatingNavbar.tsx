@@ -3,48 +3,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-interface NavItem {
-  label: string;
-  href: string;
-  /** Hidden from the pill on phones (mirrors the mobile reference) and
-      reachable from the "More" panel instead. */
-  secondary?: boolean;
-}
-
-const navItems: NavItem[] = [
-  { label: "Services", href: "/services" },
-  { label: "Industries", href: "/#industries", secondary: true },
-  { label: "Projects", href: "/projects" },
-  { label: "About Us", href: "/about", secondary: true },
-];
-
-/** The Services panel: four disciplines in two columns, then the two broader
-    offers on their own lines — the arrangement of the reference frame. */
-const serviceGridLinks = [
-  { label: "Embedded System Design", href: "/services/embedded-system-design" },
-  { label: "Software Integration", href: "/services/software-integration" },
-  { label: "Hardware & PCB Design", href: "/services/hardware-pcb-design" },
-  { label: "Manufacturing Support", href: "/services/manufacturing-support" },
-];
-
-const serviceStackLinks = [
-  { label: "Product Development", href: "/services/product-development" },
-  { label: "Industrial Automation", href: "/services/industrial-automation" },
-];
-
-/** The More panel carries everything the pill has no room for, including the
-    two links the phone pill drops. */
-const moreLinks = [
-  { label: "Home", href: "/" },
-  { label: "Industries", href: "/#industries" },
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Expertise", href: "/expertise" },
-  { label: "Life at Innosino", href: "/life-at-innosino" },
-  { label: "Blog", href: "/blogs" },
-  { label: "Career", href: "#careers" },
-];
+import {
+  moreLinks,
+  navItems,
+  serviceGridLinks,
+  serviceStackLinks,
+} from "@/content/navigation";
 
 /**
  * Routes whose design composes the pill inside their own layout (Figma places
