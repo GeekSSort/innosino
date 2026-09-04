@@ -19,6 +19,11 @@ export interface LottieSplashSectionProps {
    * because it draws only the shapes.
    */
   title?: string;
+  /**
+   * Loop length of the animation's shape drift, which the portrait composition
+   * reuses so it moves at the same pace as the landscape one.
+   */
+  loopSeconds?: number;
   children?: React.ReactNode;
 }
 
@@ -31,8 +36,9 @@ export interface LottieSplashSectionProps {
  *
  * A portrait viewport is far taller than 16:9, so fitting that artboard whole
  * left most of the frame as flat background. Frames given a `title` swap to the
- * portrait layout from Figma below 1024px instead, and skip the animation
- * entirely there — which also keeps a 200KB+ JSON and lottie-web off phones.
+ * portrait layout from Figma below 1024px instead. The JSON is never fetched
+ * there — SplashShapes carries the drift from the same layer keyframes, so the
+ * motion survives without 200KB+ of JSON and lottie-web on a phone.
  */
 export default function LottieSplashSection({
   id,
@@ -40,6 +46,7 @@ export default function LottieSplashSection({
   backgroundColor,
   speed = 0.5,
   title,
+  loopSeconds,
   children,
 }: LottieSplashSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -139,7 +146,7 @@ export default function LottieSplashSection({
         <div ref={containerRef} className="section-media" aria-hidden="true" />
         {title && (
           <>
-            <SplashShapes />
+            <SplashShapes loopSeconds={loopSeconds} />
             <div className="splash-headline splash-headline--portrait">
               <h2 className="splash-headline__text">{title}</h2>
             </div>

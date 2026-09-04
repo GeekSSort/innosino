@@ -7,6 +7,7 @@ export default function FeaturedProjectSection() {
       path="/featured_project_animation.json"
       backgroundColor="#FFBE03"
       title="Featured Project"
+      loopSeconds={2.667}
     />
   );
 }
