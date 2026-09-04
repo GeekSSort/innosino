@@ -46,8 +46,12 @@ const ROUTES_WITH_INLINE_NAV = [
   "/blog",
 ];
 
-/** Detail routes are dynamic, so they are matched by prefix as well. */
-const PREFIXES_WITH_INLINE_NAV = ["/projects/", "/project/", "/blogs/", "/blog/"];
+/**
+ * Project detail routes are dynamic and every one of them composes the pill
+ * itself, so they are matched by prefix. The blog detail routes deliberately
+ * are NOT here: they never compose one, so they need the floating copy.
+ */
+const PREFIXES_WITH_INLINE_NAV = ["/projects/", "/project/"];
 
 interface FloatingNavbarProps {
   /**
@@ -62,22 +66,32 @@ export default function FloatingNavbar({
 }: FloatingNavbarProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [floating, setFloating] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [slotHeight, setSlotHeight] = useState<number>();
   const wrapRef = useRef<HTMLDivElement>(null);
   const slotRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // An inline pill rests where the page puts it, then detaches and floats in
-  // the usual bottom band once its resting place scrolls off the top.
+  // "Has the pill left the hero?" — the one condition that drives both the
+  // detach and the collapse. An inline pill rests where the page puts it until
+  // that resting place scrolls off the top; the fixed copy has no resting
+  // place, so it is the hero frame scrolling away instead.
   useEffect(() => {
-    if (variant !== "inline") return;
     const wrap = wrapRef.current;
     const slot = slotRef.current;
-    if (!wrap || !slot) return;
 
-    setSlotHeight(slot.offsetHeight);
+    if (variant === "inline") {
+      if (!wrap || !slot) return;
+      setSlotHeight(slot.offsetHeight);
+    }
 
-    const update = () => setFloating(wrap.getBoundingClientRect().top <= 0);
+    const update = () =>
+      setFloating(
+        variant === "inline"
+          ? wrap!.getBoundingClientRect().top <= 0
+          : window.scrollY > window.innerHeight * 0.8,
+      );
+
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
@@ -86,6 +100,14 @@ export default function FloatingNavbar({
       window.removeEventListener("resize", update);
     };
   }, [variant]);
+
+  // Back inside the hero, the pill is open again by definition.
+  useEffect(() => {
+    if (!floating) {
+      setExpanded(false);
+      setDropdownOpen(false);
+    }
+  }, [floating]);
 
   const pageOwnsNav =
     ROUTES_WITH_INLINE_NAV.includes(pathname) ||
@@ -96,6 +118,68 @@ export default function FloatingNavbar({
   }
 
   const inline = variant === "inline";
+  // Away from the hero the pill is a click-to-open trigger: just the menu
+  // button and the CTA, so the page keeps its space back.
+  const collapsed = floating && !expanded;
+
+  const cta = (
+    <Link href="/contact" className="nav-pill__cta">
+      <span>Book a Call</span>
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 12 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ flexShrink: 0 }}
+      >
+        <path
+          d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
+          stroke="#000000"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </Link>
+  );
+
+  const toggle = (
+    <button
+      type="button"
+      className="nav-pill__toggle"
+      onClick={() => setExpanded((open) => !open)}
+      aria-expanded={expanded}
+      aria-label={expanded ? "Close menu" : "Open menu"}
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        aria-hidden="true"
+        style={{
+          transform: expanded ? "rotate(180deg)" : "none",
+          transition: "transform 440ms cubic-bezier(0.65, 0, 0.35, 1)",
+        }}
+      >
+        {expanded ? (
+          <path
+            d="M4 4L14 14M14 4L4 14"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        ) : (
+          <path
+            d="M2.5 5h13M2.5 9h13M2.5 13h13"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+          />
+        )}
+      </svg>
+    </button>
+  );
 
   return (
     <div
@@ -106,7 +190,21 @@ export default function FloatingNavbar({
       style={inline && slotHeight ? { minHeight: slotHeight } : undefined}
     >
       <div ref={slotRef} className={inline ? "nav-inline__slot" : "dock__inner"}>
-        <nav aria-label="Main Navigation" className="nav-pill">
+        <nav
+          aria-label="Main Navigation"
+          className={collapsed ? "nav-pill nav-pill--compact" : "nav-pill"}
+        >
+          {floating && toggle}
+
+          <div
+            className={
+              dropdownOpen
+                ? "nav-pill__reveal nav-pill__reveal--menu-open"
+                : "nav-pill__reveal"
+            }
+            /* Nothing inside is reachable while it is collapsed. */
+            inert={collapsed}
+          >
           <div className="nav-pill__links">
             {navItems.map((item) => (
               <Link
@@ -179,26 +277,9 @@ export default function FloatingNavbar({
               )}
             </div>
           </div>
+          </div>
 
-          <Link href="/contact" className="nav-pill__cta">
-            <span>Book a Call</span>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ flexShrink: 0 }}
-            >
-              <path
-                d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8"
-                stroke="#000000"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Link>
+          {cta}
         </nav>
       </div>
     </div>

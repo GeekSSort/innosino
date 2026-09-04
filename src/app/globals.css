@@ -164,6 +164,9 @@ body {
 /* Constrained content container, centred inside a full-bleed section. */
 .container {
   width: var(--container);
+  /* Tailwind ships its own `.container` utility whose breakpoint max-widths
+     would otherwise clamp this to 640 across the whole 640-1023 range. */
+  max-width: none;
   margin-inline: auto;
 }
 
@@ -326,6 +329,19 @@ body {
   transition: opacity 160ms ease;
 }
 
+@media (min-width: 1024px) {
+  .nav-inline--floating .nav-inline__slot {
+    animation: nav-dock-in 320ms cubic-bezier(0.65, 0, 0.35, 1);
+  }
+}
+
+@keyframes nav-dock-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
 .nav-inline--floating .nav-inline__slot {
   position: fixed;
   inset-inline: 0;
@@ -367,6 +383,9 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 112, 24, 0.25);
+  transition:
+    gap 440ms cubic-bezier(0.65, 0, 0.35, 1),
+    padding 440ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .nav-pill__links {
