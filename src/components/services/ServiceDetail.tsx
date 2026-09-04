@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CustomEase } from "gsap/CustomEase";
 import { useGSAP } from "@gsap/react";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
@@ -10,7 +11,7 @@ import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import type { Service } from "@/content/services";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 
 /**
  * The hero card's two states, from the Service Hero Section set (Figma node
@@ -22,6 +23,9 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * -- 709/970.6 across and 1405/546.6 up -- so it travels the same way at any
  * width.
  */
+/** The transition's easing, cubic-bezier(0, 0, 0.58, 1). */
+const FIGMA_EASE = CustomEase.create("figmaOut", "M0,0 C0,0 0.58,1 1,1");
+
 const CARD_EXIT = { xPercent: 73, yPercent: -257, rotation: 45 };
 
 
@@ -122,6 +126,56 @@ export default function ServiceDetail({ service }: { service: Service }) {
     });
     return () => mm.revert();
   }, []);
+
+  const processRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * The process cards fly into the grid, which is what the set's two variants
+   * describe: the first holds Stage 01 at x -185 against a final 135 and Stage
+   * 04 at y 713 against a final 451, so the top row arrives across and the
+   * bottom row up from underneath. 320 and 262 on the 1440 frame are one card
+   * width and one card height, so they are applied as percentages of the card
+   * and hold at any width.
+   *
+   * Plays once on entry over the transition's own 1600ms and easing, rather
+   * than scrubbing: it is an entrance, not a scroll-linked effect.
+   */
+  useGSAP(
+    () => {
+      const root = processRef.current;
+      if (!root) return;
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          wide: "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
+          narrow: "(max-width: 899px) and (prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const wide = context.conditions?.wide;
+          const cards = gsap.utils.toArray<HTMLElement>(
+            root.querySelectorAll(".svc-card"),
+          );
+          cards.forEach((card, i) => {
+            // Stacked into one column below the breakpoint, where a sideways
+            // entrance would just be every card arriving from the same edge.
+            const acrossRow = wide && i < 3;
+            gsap.from(card, {
+              xPercent: acrossRow ? -86.5 : 0,
+              yPercent: acrossRow ? 0 : wide ? 100 : 24,
+              opacity: 0,
+              duration: 1.6,
+              ease: FIGMA_EASE,
+              delay: i * 0.08,
+              scrollTrigger: { trigger: root, start: "top 85%", once: true },
+            });
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: processRef, dependencies: [service.slug] },
+  );
 
   const workStackRef = useRef<HTMLDivElement>(null);
 
@@ -312,7 +366,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
             <span className="brand-gradient-text">PROCESS</span>
           </h2>
 
-          <div className="svc-process">
+          <div className="svc-process" ref={processRef}>
             <div className="svc-grid">
               {service.processStages.slice(0, 3).map((item, index) => (
                 <div
