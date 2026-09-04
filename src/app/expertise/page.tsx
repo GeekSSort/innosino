@@ -5,94 +5,17 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import {
+  expertiseHeadings,
+  expertiseHero,
+  featureCards,
+  processStagesRow1,
+  processStagesRow2,
+  toolsAndTech,
+} from "@/content/expertise";
 
 export default function ExpertisePage() {
   const [chatOpen, setChatOpen] = useState(true);
-
-  const featureCards = [
-    {
-      title: "Embedded Firmware",
-      desc: "C/C++ on bare-metal and RTOS targets.",
-    },
-    {
-      title: "Schematic & PCB Design",
-      desc: "Multi-layer boards built for signal integrity.",
-    },
-    {
-      title: "Signal Processing",
-      desc: "Real-time DSP for audio and sensor data.",
-    },
-    {
-      title: "Wireless Connectivity",
-      desc: "BLE and WebSerial links tuned for low latency.",
-    },
-    {
-      title: "Embedded UI & Graphics",
-      desc: "Interfaces for constrained hardware.",
-    },
-    {
-      title: "Sensor Integration",
-      desc: "Capacitive, mmWave, and inductive sensing.",
-    },
-  ];
-
-  const toolsAndTech = [
-    {
-      title: "Altium Designer",
-      desc: "Schematic capture · PCB layout",
-    },
-    {
-      title: "STM32 · ARM Cortex-M",
-      desc: "Primary MCU family",
-    },
-    {
-      title: "FreeRTOS",
-      desc: "Real-time task scheduling",
-    },
-    {
-      title: "Relentless iteration",
-      desc: "Embedded graphics & UI",
-    },
-    {
-      title: "LVGL",
-      desc: "Embedded graphics & UI",
-    },
-    {
-      title: "C / C++",
-      desc: "Application & driver layer",
-    },
-  ];
-
-  const processStagesRow1 = [
-    {
-      stage: "Stage 01",
-      title: "Requirements & Schematic",
-      desc: "We lock the electrical requirements, select components against cost and availability, and produce a reviewed schematic.",
-    },
-    {
-      stage: "Stage 02",
-      title: "Layout & Routing",
-      desc: "Stack-up, placement, and routing with impedance, thermal, and EMI considerations built into the layout itself.",
-    },
-    {
-      stage: "Stage 03",
-      title: "Prototype Fabrication",
-      desc: "Fast-turn boards are fabricated and assembled so the design meets hardware before it meets a customer.",
-    },
-  ];
-
-  const processStagesRow2 = [
-    {
-      stage: "Stage 04",
-      title: "Bring-up & Testing",
-      desc: "We power on with current-limited supplies, validate each power rail, flash test firmware, and run functional diagnostics.",
-    },
-    {
-      stage: "Stage 05",
-      title: "DFM Review & Production Handoff",
-      desc: "A final manufacturability pass, then a documentation package your contract manufacturer can build from directly.",
-    },
-  ];
 
   return (
     <main
@@ -227,7 +150,7 @@ export default function ExpertisePage() {
                   textTransform: "uppercase",
                 }}
               >
-                Expertise
+                {expertiseHero.breadcrumb}
               </span>
             </div>
           </div>
@@ -244,7 +167,7 @@ export default function ExpertisePage() {
               textTransform: "uppercase",
             }}
           >
-            OUR EXPERTISE
+            {expertiseHero.title}
           </h1>
 
           {/* Subtitle */}
@@ -259,7 +182,7 @@ export default function ExpertisePage() {
               color: "#FFFFFF",
             }}
           >
-            End-to-end embedded hardware development from system architecture and PCB design to firmware development, testing, and manufacturing handoff delivered through a unified, reliable, and efficient engineering toolchain.
+            {expertiseHero.sub}
           </p>
         </div>
 
@@ -334,7 +257,8 @@ export default function ExpertisePage() {
             lineHeight: "1.2",
           }}
         >
-          WHY IS INNOSINO THE RIGHT HARDWARE & PCB DESIGN <span style={{ color: "#FF7018" }}>PARTNER?</span>
+          {expertiseHeadings.why.lead}
+          <span style={{ color: "#FF7018" }}>{expertiseHeadings.why.accent}</span>
         </h2>
 
         {/* 3x2 Feature Cards Grid */}
@@ -430,7 +354,8 @@ export default function ExpertisePage() {
               lineHeight: "1.2",
             }}
           >
-            TOOLS & <span style={{ color: "#FF7018" }}>TECHNOLOGIES</span>
+            {expertiseHeadings.tools.lead}
+            <span style={{ color: "#FF7018" }}>{expertiseHeadings.tools.accent}</span>
           </h2>
         </div>
 
@@ -519,7 +444,8 @@ export default function ExpertisePage() {
             lineHeight: "1.2",
           }}
         >
-          OUR HARDWARE & PCB DESIGN <span style={{ color: "#FF7018" }}>PROCESS</span>
+          {expertiseHeadings.process.lead}
+          <span style={{ color: "#FF7018" }}>{expertiseHeadings.process.accent}</span>
         </h2>
 
         {/* Process Cards Rows */}

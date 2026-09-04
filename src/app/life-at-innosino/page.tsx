@@ -5,6 +5,7 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import { lifeAtInnosino } from "@/content/lifeAtInnosino";
 
 export default function LifeAtInnosinoPage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -42,7 +43,7 @@ export default function LifeAtInnosinoPage() {
       }}
     >
       {/* =========================================================================
-          SECTION 1: HERO SECTION & OVERLAPPING CAROUSEL CARDS (Height: 684px)
+          {lifeAtInnosino.section1HeroSection}
           Video: /service_page/Service sevtion Hero.mp4
           ========================================================================= */}
       <section
@@ -163,7 +164,7 @@ export default function LifeAtInnosinoPage() {
                   textTransform: "uppercase",
                 }}
               >
-                Life at Innosino
+                {lifeAtInnosino.lifeAtInnosino}
               </span>
             </div>
           </div>
@@ -180,7 +181,7 @@ export default function LifeAtInnosinoPage() {
               textTransform: "uppercase",
             }}
           >
-            LIFE AT INNOSINO
+            {lifeAtInnosino.lifeAtInnosino2}
           </h1>
 
           {/* Subtitle */}
@@ -195,7 +196,7 @@ export default function LifeAtInnosinoPage() {
               color: "#FFFFFF",
             }}
           >
-            Get a glimpse of life at INNOSINO—from team moments and office events to behind-the-scenes innovation and everyday collaboration.
+            {lifeAtInnosino.getAGlimpseOf}
           </p>
         </div>
 
@@ -204,7 +205,7 @@ export default function LifeAtInnosinoPage() {
                   </div>
 
         {/* =========================================================================
-            OVERLAPPING CAROUSEL (Left: -451, Center: 335, Right: 1121)
+            {lifeAtInnosino.overlappingCarouselLeft451}
             ========================================================================= */}
         {/* Left Side Inactive Card (x: -451, y: 594, w: 770, h: 380) */}
         <div
@@ -380,7 +381,7 @@ export default function LifeAtInnosinoPage() {
             letterSpacing: "-0.01em",
           }}
         >
-          Our ambition is to create intelligent technologies that solve real-world challenges, empower businesses, and shape a smarter, more connected future through engineering excellence.
+          {lifeAtInnosino.ourAmbitionIsTo}
         </p>
       </section>
 
@@ -464,7 +465,7 @@ export default function LifeAtInnosinoPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 4: NEWS & INSIGHTS (y: 1945, w: 1169, h: 703)
+          {lifeAtInnosino.section4NewsInsights}
           ========================================================================= */}
       <section
         style={{
@@ -547,7 +548,7 @@ export default function LifeAtInnosinoPage() {
                   lineHeight: "1.3",
                 }}
               >
-                Rev C Bring-Up Succeeded on the First Try.
+                {lifeAtInnosino.revCBringUp}
               </h3>
               <p
                 style={{
@@ -559,7 +560,7 @@ export default function LifeAtInnosinoPage() {
                   lineHeight: "150%",
                 }}
               >
-                The entire PolyPan board powered up cleanly on the very first flash—a proud milestone and a big high-five moment for the whole team.
+                {lifeAtInnosino.theEntirePolypanBoard}
               </p>
             </div>
 
@@ -643,7 +644,7 @@ export default function LifeAtInnosinoPage() {
                       lineHeight: "1.3",
                     }}
                   >
-                    16 Projects Shipped This Month Successfully
+                    {lifeAtInnosino.n16ProjectsShippedThis}
                   </h4>
                   <p
                     style={{
@@ -655,7 +656,7 @@ export default function LifeAtInnosinoPage() {
                       lineHeight: "150%",
                     }}
                   >
-                    This month, we successfully shipped 16 projects, from smart instruments to the Logic IC Trainer Kit. Every delivery reflects our commitment to quality engineering.
+                    {lifeAtInnosino.thisMonthWeSuccessfully}
                   </p>
                 </div>
 
@@ -730,7 +731,7 @@ export default function LifeAtInnosinoPage() {
                       lineHeight: "1.3",
                     }}
                   >
-                    BLE MIDI Latency Now Under 8 ms Our Cleanest Performance Yet.
+                    {lifeAtInnosino.bleMidiLatencyNow}
                   </h4>
                   <p
                     style={{
@@ -742,7 +743,7 @@ export default function LifeAtInnosinoPage() {
                       lineHeight: "150%",
                     }}
                   >
-                    After extensive testing and optimization, we reduced BLE MIDI latency to under 8 ms. The latest measurements delivered our cleanest signal trace yet.
+                    {lifeAtInnosino.afterExtensiveTestingAnd}
                   </p>
                 </div>
 
@@ -798,7 +799,7 @@ export default function LifeAtInnosinoPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 5: CTA BANNER (x: 135, y: 2712, w: 1170, h: 400)
+          {lifeAtInnosino.section5CtaBanner}
           ========================================================================= */}
       <section
         style={{
@@ -908,7 +909,7 @@ export default function LifeAtInnosinoPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 6: FOOTER & INTERACTIVE CHAT (y: 3176, Height: 275px)
+          {lifeAtInnosino.section6FooterInteractive}
           ========================================================================= */}
       <footer
         style={{

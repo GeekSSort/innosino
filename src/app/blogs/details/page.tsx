@@ -5,6 +5,7 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import { blogPost } from "@/content/blogPost";
 
 export default function BlogDetailsPage() {
   const [activeSection, setActiveSection] = useState("the-hardcoding-problem");
@@ -40,7 +41,7 @@ export default function BlogDetailsPage() {
       }}
     >
       {/* =========================================================================
-          SECTION 1: HERO SECTION & OVERLAPPING FEATURED IMAGE (Height: 684px)
+          {blogPost.section1HeroSection}
           Hero video: /about_us/About Us Hero Section.mp4
           ========================================================================= */}
       <section
@@ -174,7 +175,7 @@ export default function BlogDetailsPage() {
                   textTransform: "uppercase",
                 }}
               >
-                Blog Details
+                {blogPost.blogDetails}
               </span>
             </div>
           </div>
@@ -192,7 +193,7 @@ export default function BlogDetailsPage() {
               maxWidth: "1171px",
             }}
           >
-            Inside the Logic IC Trainer Kit's 16 profiles
+            {blogPost.insideTheLogicIc}
           </h1>
 
           {/* Subtitle */}
@@ -207,7 +208,7 @@ export default function BlogDetailsPage() {
               color: "#FFFFFF",
             }}
           >
-            Why we chose a profile-based architecture over hardcoded logic families to improve flexibility, scalability, maintainability, and long-term adaptability across diverse applications.
+            {blogPost.whyWeChoseA}
           </p>
 
           {/* Meta Information Bar (Author + Categories) */}
@@ -248,7 +249,7 @@ export default function BlogDetailsPage() {
                     color: "#FFFFFF",
                   }}
                 >
-                  Innosino Team
+                  {blogPost.innosinoTeam}
                 </span>
                 <span
                   style={{
@@ -258,7 +259,7 @@ export default function BlogDetailsPage() {
                     color: "rgba(255, 255, 255, 0.7)",
                   }}
                 >
-                  8 min read
+                  {blogPost.n8MinRead}
                 </span>
               </div>
             </div>
@@ -280,7 +281,7 @@ export default function BlogDetailsPage() {
                 border: "1px solid rgba(255, 255, 255, 0.2)",
               }}
             >
-              Embedded Systems
+              {blogPost.embeddedSystems}
             </span>
 
             <span
@@ -340,7 +341,7 @@ export default function BlogDetailsPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 2: ARTICLE BODY WITH 3-COLUMN LAYOUT
+          {blogPost.section2ArticleBody}
           Left: Table of contents & Share | Center: Blog Prose | Right: Related Project
           ========================================================================= */}
       <section
@@ -408,7 +409,7 @@ export default function BlogDetailsPage() {
                     color: "#111111",
                   }}
                 >
-                  Table of Content
+                  {blogPost.tableOfContent}
                 </span>
               </div>
 
@@ -478,7 +479,7 @@ export default function BlogDetailsPage() {
                   color: "#111111",
                 }}
               >
-                Share this post
+                {blogPost.shareThisPost}
               </span>
 
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -573,7 +574,7 @@ export default function BlogDetailsPage() {
           >
             {/* Intro Paragraph */}
             <p style={{ margin: 0, fontSize: "17px", color: "#444444" }}>
-              When engineering the Logic IC Trainer Kit, our main engineering goal was clear: creating a seamless, error-resilient learning platform where students and embedded engineers could experiment with digital logic without the constant friction of fragile wiring, confusing pinouts, or burnt integrated circuits.
+              {blogPost.whenEngineeringTheLogic}
             </p>
 
             {/* Section 1: The Hardcoding Problem */}
@@ -588,7 +589,7 @@ export default function BlogDetailsPage() {
                   textTransform: "uppercase",
                 }}
               >
-                The Hardcoding Problem
+                {blogPost.theHardcodingProblem}
               </h2>
               <p style={{ margin: 0 }}>
                 Early prototypes relied on static, hardwired PCB traces mapping 74-series logic chips to fixed I/O headers. While straightforward to construct, this approach revealed severe limitations within hours of test deployments:
@@ -621,7 +622,7 @@ export default function BlogDetailsPage() {
                   lineHeight: "1.5",
                 }}
               >
-                “Hardware should adapt to the learner. The learner should not have to adapt to the kit.”
+                {blogPost.hardwareShouldAdaptTo}
               </p>
             </div>
 
@@ -637,7 +638,7 @@ export default function BlogDetailsPage() {
                   textTransform: "uppercase",
                 }}
               >
-                The Profile Schema
+                {blogPost.theProfileSchema}
               </h2>
               <p style={{ margin: 0 }}>
                 To solve this, we decoupled physical pin headers from direct logic lines by inserting an intelligent multiplexed matrix driver controlled by a low-power Cortex-M4 microcontroller. Each test configuration is stored as an immutable profile schema containing:
@@ -682,10 +683,10 @@ export default function BlogDetailsPage() {
                   textTransform: "uppercase",
                 }}
               >
-                The 16 Profiles
+                {blogPost.the16Profiles}
               </h2>
               <p style={{ margin: 0 }}>
-                We pre-loaded 16 core profile presets covering standard combinational and sequential ICs—from NAND/NOR clusters to dual D-type flip-flops and 4-bit binary counters. Learners can toggle between these modes via an intuitive rotary encoder with OLED visual feedback.
+                {blogPost.wePreLoaded16}
               </p>
 
               {/* Matrix Code / Visual Box from blog_details assets */}
@@ -725,10 +726,10 @@ export default function BlogDetailsPage() {
                   textTransform: "uppercase",
                 }}
               >
-                Real-Time Visualization
+                {blogPost.realTimeVisualization}
               </h2>
               <p style={{ margin: 0 }}>
-                Every gate input and output transition is buffered and rendered on a two-tier LED status ring around the socket. When an invalid logic combination or bus contention is detected, the board immediately flags the error zone in amber without cutting system power, facilitating active troubleshooting.
+                {blogPost.everyGateInputAnd}
               </p>
             </div>
 
@@ -744,10 +745,10 @@ export default function BlogDetailsPage() {
                   textTransform: "uppercase",
                 }}
               >
-                What It Taught Us
+                {blogPost.whatItTaughtUs}
               </h2>
               <p style={{ margin: 0 }}>
-                Moving from fixed-function hardware to a profile-centric architecture shortened testing setup cycles by over 70% and eliminated 95% of accidental chip burnouts during lab sessions. This modular principle has now become a standard cornerstone across all Innosino educational and testing devices.
+                {blogPost.movingFromFixedFunction}
               </p>
             </div>
 
@@ -811,7 +812,7 @@ export default function BlogDetailsPage() {
                   color: "#000000",
                 }}
               >
-                Logic IC Trainer Kit
+                {blogPost.logicIcTrainerKit}
               </span>
 
               <div
@@ -1089,7 +1090,7 @@ export default function BlogDetailsPage() {
               lineHeight: "150%",
             }}
           >
-            We turn ambitious concepts from single proof of concept through to production readiness.
+            {blogPost.weTurnAmbitiousConcepts}
           </p>
           <Link
             href="/contact"

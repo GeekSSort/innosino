@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { chatWidget, copyright, footerLinks } from "@/content/site";
+import { projectDetail } from "@/content/projectDetail";
 
 export default function ProjectDetailsPage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -13,9 +14,9 @@ export default function ProjectDetailsPage() {
   return (
     <main className="pd-page">
       {/* =====================================================================
-          SECTION 1: HERO & OVERLAPPING MEDIA CARD
-          The video card is the hero's last flow child and hangs into the white
-          body below it by --page-hero-hang.
+          {projectDetail.section1HeroOverlapping}
+          {projectDetail.theVideoCardIs}
+          {projectDetail.bodyBelowItBy}
           ===================================================================== */}
       <section className="page-hero">
         <div className="section-media">
@@ -75,9 +76,9 @@ export default function ProjectDetailsPage() {
               <h1 className="page-hero__title">POLYPAN ELECTRONIC HANDPAN</h1>
 
               <p className="page-hero__sub">
-                An intelligent electronic handpan combining 9-zone capacitive
-                touch sensing, gesture control, and wireless MIDI built to give
-                a 4,000-year-old instrument family a stage-ready, wireless
+                {projectDetail.anIntelligentElectronicHandpan}
+                {projectDetail.touchSensingGestureControl}
+                {projectDetail.a4000Year}
                 voice.
               </p>
 
@@ -113,10 +114,10 @@ export default function ProjectDetailsPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 2: MAIN WHITE CONTENT BODY
+          {projectDetail.section2MainWhite}
           Contains: Project Overview, The Challenge, Engineering Approach,
                     Technical Specifications, Signal Path, Project Timeline,
-                    What Shipped, From Bench To Shell, and CTA Card
+                    {projectDetail.whatShippedFromBench}
           ========================================================================= */}
       <section className="pd-body">
         <div
@@ -151,7 +152,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            The PolyPan is an electronic handpan designed to combine the rich harmonic acoustics of traditional handpans with the modern flexibility of a digital synthesizer and MIDI controller. Built from the ground up for stage performance and studio production, it features high-precision multi-zone touch sensing, motion-based expression, and zero-latency wireless connectivity.
+            {projectDetail.thePolypanIsAn}
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", marginTop: "8px" }}>
@@ -296,7 +297,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            We developed an integrated hardware-firmware architecture that decouples physical touch acquisition from high-level MIDI synthesis, ensuring clean trigger detection and seamless gesture control.
+            {projectDetail.weDevelopedAnIntegrated}
           </p>
 
           <div
@@ -387,7 +388,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            Comprehensive breakdown of hardware components, processing specifications, wireless performance, and mechanical design.
+            {projectDetail.comprehensiveBreakdownOfHardware}
           </p>
 
           <div
@@ -472,7 +473,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            From the moment a musician's fingertip strikes the surface to the transmission of MIDI data packets, the signal path is optimized for speed and accuracy.
+            {projectDetail.fromTheMomentA}
           </p>
 
           <div
@@ -505,7 +506,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                TOUCH LAYER
+                {projectDetail.touchLayer}
               </div>
               <span style={{ color: "#FF7018", fontSize: "18px" }}>➔</span>
               <div
@@ -520,7 +521,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                SIGNAL FILTERING
+                {projectDetail.signalFiltering}
               </div>
               <span style={{ color: "#FF7018", fontSize: "18px" }}>➔</span>
               <div
@@ -535,7 +536,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                MCU / FIRMWARE DSP
+                {projectDetail.mcuFirmwareDsp}
               </div>
             </div>
 
@@ -553,7 +554,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                GESTURE SENSING
+                {projectDetail.gestureSensing}
               </div>
               <span style={{ color: "#FF7018", fontSize: "18px" }}>➔</span>
               <div
@@ -598,7 +599,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            The end-to-end development cycle from initial proof-of-concept to pilot production and mass manufacturing readiness.
+            {projectDetail.theEndToEnd}
           </p>
 
           <div
@@ -667,7 +668,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Architecture & Feasibility
+                  {projectDetail.architectureFeasibility}
                 </div>
               </div>
 
@@ -685,7 +686,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Electronics & PCB v1
+                  {projectDetail.electronicsPcbV1}
                 </div>
                 <div
                   style={{
@@ -699,7 +700,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Case CAD & Ergonomics
+                  {projectDetail.caseCadErgonomics}
                 </div>
               </div>
 
@@ -717,7 +718,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Firmware & Touch Tuning
+                  {projectDetail.firmwareTouchTuning}
                 </div>
                 <div
                   style={{
@@ -731,7 +732,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  BOM Optimization & Testing
+                  {projectDetail.bomOptimizationTesting}
                 </div>
               </div>
 
@@ -749,7 +750,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Pilot Run & Mass Mfg
+                  {projectDetail.pilotRunMassMfg}
                 </div>
               </div>
             </div>
@@ -951,7 +952,7 @@ export default function ProjectDetailsPage() {
               lineHeight: "1.2",
             }}
           >
-            HAVE A HARDWARE IDEA WORTH PROTOTYPING?
+            {projectDetail.haveAHardwareIdea}
           </h2>
           <p
             style={{
@@ -964,7 +965,7 @@ export default function ProjectDetailsPage() {
               lineHeight: "150%",
             }}
           >
-            Tell us what you're building, whether it's on paper, in CAD, or half-coded, and we'll help you bring it to life.
+            {projectDetail.tellUsWhatYou}
           </p>
           <Link
             href="/contact"
@@ -991,7 +992,7 @@ export default function ProjectDetailsPage() {
       </section>
 
       {/* =========================================================================
-          SECTION 3: FOOTER & INTERACTIVE CHAT WIDGET
+          {projectDetail.section3FooterInteractive}
           Black #000000 background
           ========================================================================= */}
       <footer

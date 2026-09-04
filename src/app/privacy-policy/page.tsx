@@ -5,6 +5,7 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import { chatWidget, copyright, footerLinks } from "@/content/site";
+import { privacyPolicy } from "@/content/privacyPolicy";
 
 export default function PrivacyPolicyPage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -28,7 +29,7 @@ export default function PrivacyPolicyPage() {
       }}
     >
       {/* =========================================================================
-          SECTION 1: HERO SECTION (Height: 520px)
+          {privacyPolicy.section1HeroSection}
           Video: /about_us/About Us Hero Section.mp4
           ========================================================================= */}
       <section
@@ -146,7 +147,7 @@ export default function PrivacyPolicyPage() {
                   textTransform: "uppercase",
                 }}
               >
-                Privacy Policy
+                {privacyPolicy.privacyPolicy}
               </span>
             </div>
           </div>
@@ -165,7 +166,7 @@ export default function PrivacyPolicyPage() {
                 letterSpacing: "-0.01em",
               }}
             >
-              PRIVACY POLICY
+              {privacyPolicy.privacyPolicy2}
             </h1>
             <span style={{ fontSize: "32px", color: "#FFFFFF", opacity: 0.85 }}>✦</span>
           </div>
@@ -182,7 +183,7 @@ export default function PrivacyPolicyPage() {
               textTransform: "uppercase",
             }}
           >
-            LAST UPDATED · JULY 1, 2026
+            {privacyPolicy.lastUpdatedJuly1}
           </p>
         </div>
 
@@ -218,7 +219,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Privacy Policy
+            {privacyPolicy.privacyPolicy3}
           </h2>
           <p
             style={{
@@ -230,7 +231,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            INNOSINO builds hardware and embedded systems. This policy explains what information we collect through our website and how we use it. By using this site, you agree to what’s described below.
+            {privacyPolicy.innosinoBuildsHardwareAnd}
           </p>
         </div>
 
@@ -246,7 +247,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Information We Collect
+            {privacyPolicy.informationWeCollect}
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
@@ -333,7 +334,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            How We Use It
+            {privacyPolicy.howWeUseIt}
           </h2>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
@@ -356,7 +357,7 @@ export default function PrivacyPolicyPage() {
                   color: "#444444",
                 }}
               >
-                Respond to project inquiries and provide support.
+                {privacyPolicy.respondToProjectInquiries}
               </p>
             </div>
 
@@ -379,7 +380,7 @@ export default function PrivacyPolicyPage() {
                   color: "#444444",
                 }}
               >
-                Improve the website and understand how it’s used.
+                {privacyPolicy.improveTheWebsiteAnd}
               </p>
             </div>
 
@@ -402,7 +403,7 @@ export default function PrivacyPolicyPage() {
                   color: "#444444",
                 }}
               >
-                Send updates only if you’ve opted in—never sold to third parties.
+                {privacyPolicy.sendUpdatesOnlyIf}
               </p>
             </div>
           </div>
@@ -420,7 +421,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Data Sharing
+            {privacyPolicy.dataSharing}
           </h2>
           <p
             style={{
@@ -432,7 +433,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            We don’t sell your data. We may share it with service providers who help us run the site (e.g. hosting, analytics), bound by confidentiality, or when required by law.
+            {privacyPolicy.weDonTSell}
           </p>
         </div>
 
@@ -448,7 +449,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Data Retention & Security
+            {privacyPolicy.dataRetentionSecurity}
           </h2>
           <p
             style={{
@@ -460,7 +461,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            We keep personal data only as long as needed for the purposes above, and use reasonable technical safeguards to protect it. No method of transmission is 100% secure, so we can’t guarantee absolute security.
+            {privacyPolicy.weKeepPersonalData}
           </p>
         </div>
 
@@ -476,7 +477,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Your Rights
+            {privacyPolicy.yourRights}
           </h2>
           <p
             style={{
@@ -488,7 +489,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            You can request access to, correction of, or deletion of your personal data at any time by contacting us below.
+            {privacyPolicy.youCanRequestAccess}
           </p>
         </div>
 
@@ -504,7 +505,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Children’s Privacy
+            {privacyPolicy.childrenSPrivacy}
           </h2>
           <p
             style={{
@@ -516,7 +517,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            Our site isn’t directed at children under 13, and we don’t knowingly collect data from them.
+            {privacyPolicy.ourSiteIsnT}
           </p>
         </div>
 
@@ -532,7 +533,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Changes To This Policy
+            {privacyPolicy.changesToThisPolicy}
           </h2>
           <p
             style={{
@@ -544,7 +545,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            Questions about this policy? Reach out any time.
+            {privacyPolicy.questionsAboutThisPolicy}
           </p>
         </div>
 
@@ -560,7 +561,7 @@ export default function PrivacyPolicyPage() {
               letterSpacing: "-0.01em",
             }}
           >
-            Contact Us
+            {privacyPolicy.contactUs}
           </h2>
           <p
             style={{
@@ -572,7 +573,7 @@ export default function PrivacyPolicyPage() {
               color: "#666666",
             }}
           >
-            Questions about this policy? Reach out any time.
+            {privacyPolicy.questionsAboutThisPolicy2}
           </p>
 
           {/* Email row with Copy Button */}
