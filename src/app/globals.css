@@ -2330,42 +2330,79 @@ body {
 }
 
 /* --- FAQ ----------------------------------------------------------------- */
+/* The rows settle out of a tilt that swings them well past the list's own box,
+   so the list clips. `clip` rather than `hidden`: it must not become a scroll
+   container. */
+.faq-clip {
+  overflow: clip;
+}
+
 .faq {
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.1vw, 16px);
+  gap: clamp(12px, 1.67vw, 24px);
 }
 
+/* The frame's row is a padding box holding the question and, when open, the
+   answer under it -- so the padding sits on the item and the button fills it,
+   which is what keeps the answer inside the same box. */
 .faq__item {
-  border-radius: 12px;
-  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  border-radius: 16px;
   background-color: #ffffff;
-  overflow: hidden;
+  padding: clamp(12px, 1.11vw, 16px) clamp(16px, 1.67vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.11vw, 16px);
 }
 
 .faq__button {
   width: 100%;
-  box-sizing: border-box;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: clamp(1rem, 1.7vw, 24px);
+  gap: 20px;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
-  font-size: clamp(0.9375rem, 0.85rem + 0.24vw, 1.125rem);
+  font-size: clamp(1rem, 0.926rem + 0.32vw, 1.25rem);
+  line-height: 1.5;
   font-weight: 600;
   color: #000000;
 }
 
+/* A plus that loses its upright to become a minus, which is the frame's pair
+   of 48px states -- cheaper than swapping two icons and it animates for free. */
+.faq__icon {
+  flex-shrink: 0;
+  width: clamp(32px, 3.34vw, 48px);
+  height: clamp(32px, 3.34vw, 48px);
+  stroke: #000000;
+  stroke-width: 1.5;
+}
+
+.faq__icon-bar {
+  transform-origin: 24px 24px;
+  transition: transform 0.25s ease;
+}
+
+.faq__button[aria-expanded="true"] .faq__icon-bar {
+  transform: scaleY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__icon-bar {
+    transition: none;
+  }
+}
+
 .faq__answer {
-  padding: 0 clamp(1rem, 1.7vw, 24px) clamp(1rem, 1.7vw, 24px);
-  font-size: var(--fs-body);
-  font-weight: 400;
+  font-size: clamp(0.875rem, 0.82rem + 0.24vw, 1rem);
+  font-weight: 500;
   line-height: 1.5;
-  color: #666666;
+  color: #444444;
 }
 
 /* --- Industry cards ------------------------------------------------------ */
@@ -2699,11 +2736,7 @@ body {
 
 /* Contact's FAQ cards sit on grey, so they carry a shadow instead of a rule. */
 .faq--elevated .faq__item {
-  border: none;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-}
-
-.faq--elevated .faq__button {
   padding: clamp(1rem, 1.7vw, 24px) clamp(1.125rem, 1.9vw, 28px);
 }
 

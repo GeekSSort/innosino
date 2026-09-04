@@ -26,6 +26,20 @@ gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 /** The transition's easing, cubic-bezier(0, 0, 0.58, 1). */
 const FIGMA_EASE = CustomEase.create("figmaOut", "M0,0 C0,0 0.58,1 1,1");
 
+/**
+ * Where each FAQ row starts, by position. Figma reports rotation
+ * counter-clockwise in radians, so 0.41888 rad is a 24deg tilt that becomes
+ * -24 in CSS; the nudge on rows 2 and 3 is their origin gap, x taken against
+ * the 1170 row so it holds at any width.
+ */
+const FAQ_ENTRY: { rot: number; x: number; y: number }[] = [
+  { rot: -24, x: 0, y: 0 },
+  { rot: 24, x: -5.96, y: -66.48 },
+  { rot: 24, x: -5.96, y: -66.48 },
+  { rot: -24, x: 0, y: 0 },
+  { rot: 24, x: 0, y: 0 },
+];
+
 /** Off-frame starts for the Why INNOSINO points, by grid position. */
 const WHY_ENTRY: Record<number, { x: number; y: number }> = {
   1: { x: -170.7, y: 127.3 },
@@ -265,6 +279,52 @@ export default function ServiceDetail({ service }: { service: Service }) {
       return () => mm.revert();
     },
     { scope: whyRef, dependencies: [service.slug] },
+  );
+
+  const faqRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * The rows settle out of the criss-cross the set's first variant holds: five
+   * 1170x80 bars tilted +/-24deg about their own centres, two of them nudged
+   * up and left, all landing flat over the transition's own 1600ms and easing.
+   *
+   * A 24deg tilt swings a row's box to 1101x549, so the list clips (.faq-clip)
+   * and the tilt is dropped below 900px, where a row is near the full viewport
+   * width and rotating it would put most of it outside the clip.
+   */
+  useGSAP(
+    () => {
+      const root = faqRef.current;
+      if (!root) return;
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          wide: "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
+          narrow: "(max-width: 899px) and (prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const wide = context.conditions?.wide;
+          const rows = gsap.utils.toArray<HTMLElement>(
+            root.querySelectorAll(".faq__item"),
+          );
+          rows.forEach((row, i) => {
+            const from = wide ? FAQ_ENTRY[i % FAQ_ENTRY.length] : undefined;
+            gsap.from(row, {
+              rotation: from?.rot ?? 0,
+              xPercent: from?.x ?? 0,
+              y: from?.y ?? 24,
+              opacity: 0,
+              duration: 1.6,
+              ease: FIGMA_EASE_IN_OUT,
+              scrollTrigger: { trigger: root, start: "top 85%", once: true },
+            });
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: faqRef, dependencies: [service.slug] },
   );
 
   const workStackRef = useRef<HTMLDivElement>(null);
@@ -631,43 +691,44 @@ export default function ServiceDetail({ service }: { service: Service }) {
       {/* =====================================================================
           SECTION 7: FREQUENTLY ASKED QUESTIONS (Node 1498:14775)
           ===================================================================== */}
-      <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
+      <section className="flow-section" style={{ backgroundColor: "#F1F1F1" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            HAVE <span style={{ color: "#FF7018" }}>QUESTIONS?</span>
+            HAVE <span className="brand-gradient-text">QUESTIONS?</span>
           </h2>
 
           <div
-            className="faq"
+            className="faq-clip"
+            ref={faqRef}
             style={{ marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)" }}
           >
-            {service.faqs.map((faq, fIdx) => {
-              const isOpen = openFaq === fIdx;
-              return (
-                <div key={faq.q} className="faq__item">
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : fIdx)}
-                    className="faq__button"
-                    aria-expanded={isOpen}
-                  >
-                    <span>{faq.q}</span>
-                    <span
-                      style={{
-                        fontSize: "20px",
-                        color: "#999999",
-                        flexShrink: 0,
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                        transition: "transform 0.2s ease",
-                      }}
+            <div className="faq">
+              {service.faqs.map((faq, fIdx) => {
+                const isOpen = openFaq === fIdx;
+                return (
+                  <div key={faq.q} className="faq__item">
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : fIdx)}
+                      className="faq__button"
+                      aria-expanded={isOpen}
                     >
-                      ▾
-                    </span>
-                  </button>
-                  {isOpen && <div className="faq__answer">{faq.a}</div>}
-                </div>
-              );
-            })}
+                      <span>{faq.q}</span>
+                      <svg
+                        className="faq__icon"
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path d="M14 24h20" />
+                        <path className="faq__icon-bar" d="M24 14v20" />
+                      </svg>
+                    </button>
+                    {isOpen && <div className="faq__answer">{faq.a}</div>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
