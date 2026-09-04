@@ -1,3 +1,4 @@
+import StoryScroll from "@/components/home/StoryScroll";
 import HeroSection from "@/components/home/HeroSection";
 import CoreServicesSection from "@/components/home/CoreServicesSection";
 import EmbeddedSystemDesignSection from "@/components/home/EmbeddedSystemDesignSection";
@@ -12,26 +13,31 @@ import IndustrySolutionsListSection from "@/components/home/IndustrySolutionsLis
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white selection:bg-orange-500 selection:text-white">
-      {/* View 1: Splash Animation For Hero Section */}
-      <HeroSection />
+      {/* Views 1-7 are all single-viewport frames, so they run as one story
+          scroll: each pins while the next swings in over it. Views 8-10 carry
+          their own sticky/marquee behaviour and scroll normally after it. */}
+      <StoryScroll ariaLabel="Introduction">
+        {/* View 1: Splash Animation For Hero Section */}
+        <HeroSection />
 
-      {/* View 2: Featured Project / Core Services */}
-      <CoreServicesSection />
+        {/* View 2: Featured Project / Core Services */}
+        <CoreServicesSection />
 
-      {/* View 3: Embedded System Design */}
-      <EmbeddedSystemDesignSection />
+        {/* View 3: Embedded System Design */}
+        <EmbeddedSystemDesignSection />
 
-      {/* View 4: Hardware & PCB Design */}
-      <HardwarePcbDesignSection />
+        {/* View 4: Hardware & PCB Design */}
+        <HardwarePcbDesignSection />
 
-      {/* View 5: Product Development */}
-      <ProductDevelopmentSection />
+        {/* View 5: Product Development */}
+        <ProductDevelopmentSection />
 
-      {/* View 6: Industrial Automation */}
-      <IndustrialAutomationSection />
+        {/* View 6: Industrial Automation */}
+        <IndustrialAutomationSection />
 
-      {/* View 7: Featured Project Splash Banner */}
-      <FeaturedProjectSection />
+        {/* View 7: Featured Project Splash Banner */}
+        <FeaturedProjectSection />
+      </StoryScroll>
 
       {/* View 8: Featured Project Cards List */}
       <FeaturedProjectListSection />

@@ -99,9 +99,11 @@ export default function LottieSplashSection({
   }, [path, speed]);
 
   return (
-    <section id={id} className="section-frame splash-frame" style={{ backgroundColor }}>
-      <div ref={containerRef} className="section-media" aria-hidden="true" />
-      {children}
+    <section id={id} className="section-frame splash-frame">
+      <div className="section-frame__inner" style={{ backgroundColor }}>
+        <div ref={containerRef} className="section-media" aria-hidden="true" />
+        {children}
+      </div>
     </section>
   );
 }

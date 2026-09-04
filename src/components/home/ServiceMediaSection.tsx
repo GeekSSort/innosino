@@ -38,6 +38,7 @@ export default function ServiceMediaSection({
 }: ServiceMediaSectionProps) {
   return (
     <section id={id} className="section-frame">
+      <div className="section-frame__inner">
       <div className="section-media">
         {/* These four sections all sit below the fold, so the video waits until
             the section is close to the viewport and the poster holds the frame
@@ -54,6 +55,7 @@ export default function ServiceMediaSection({
           <h2 className="service-card__title">{title}</h2>
           <p className="service-card__body">{body}</p>
         </div>
+      </div>
       </div>
     </section>
   );

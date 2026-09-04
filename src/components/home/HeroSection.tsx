@@ -7,6 +7,7 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 export default function HeroSection() {
   return (
     <section id="hero" className="section-frame">
+      <div className="section-frame__inner">
       {/* Full-bleed background layer (Figma: 1440x810 video + 32% black scrim).
           The video always covers the section, so the crop adapts to the
           viewport's aspect ratio instead of letterboxing. */}
@@ -42,6 +43,7 @@ export default function HeroSection() {
       {/* Scroll affordance — part of the hero composition in Figma, so it is
           anchored to this section rather than pinned to the viewport. */}
       <ExploreBadge />
+      </div>
     </section>
   );
 }
