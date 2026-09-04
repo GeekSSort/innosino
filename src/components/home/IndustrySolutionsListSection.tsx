@@ -53,14 +53,19 @@ const industriesList: IndustryItem[] = [
   },
 ];
 
+/**
+ * Navigation first, then the legal pair. The 393 frame breaks them across
+ * exactly those two rows, which only falls out of the wrap if Contact Us
+ * comes before Privacy Policy.
+ */
 const footerLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Industries", href: "/#industries" },
   { label: "Blogs", href: "/blogs" },
+  { label: "Contact Us", href: "/contact" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Condition", href: "#terms" },
-  { label: "Contact Us", href: "/contact" },
 ];
 
 export default function IndustrySolutionsListSection() {

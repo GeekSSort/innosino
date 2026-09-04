@@ -232,7 +232,13 @@ body {
 .hero-title {
   margin: 0;
   font-family: 'Cal Sans', 'Outfit', sans-serif;
-  font-size: var(--fs-display);
+  /* Its own ramp rather than --fs-display, which the sub-page heroes share.
+     "WELCOME TO INNOSINO" needs 11.48px of width per 1px of font size, so at
+     the 361px container of a 393 viewport it fits on one line only up to
+     31.4px — and the shared ramp floors at 32.09px, which wrapped it. Anchored
+     to the Figma frames instead: 26px @393 (their 31px block at line-height
+     1.2) through 64px @1440, which stays on one line at every width between. */
+  font-size: clamp(1.625rem, 0.734rem + 3.629vw, 4rem);
   font-weight: 400;
   line-height: 1.2;
   text-transform: uppercase;
@@ -245,7 +251,10 @@ body {
   /* Typographic measure, in em so it tracks the fluid type size. This is what
      puts the sentence on the two lines the reference shows, at every width. */
   max-width: min(100%, 34em);
-  font-size: var(--fs-body);
+  /* Both Figma frames set this at 16px flat -- it is not on the fluid ramp.
+     The measure above is what turns it into 2 lines at 1440 and 3 at 393,
+     which is what each frame shows. */
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
   color: #ffffff;
@@ -856,6 +865,15 @@ body {
 .nav-menu__item:hover {
   background-color: rgba(255, 255, 255, 0.06);
   color: #ffffff;
+}
+
+@media (max-width: 1023px) {
+  /* 552fr : auto : 84fr is the 1440x810 frame's rhythm, which on a portrait
+     viewport drops the card to 72% of the height. The 393x852 frame puts it at
+     452 with 243 below, so portrait gets that ratio instead. */
+  .service-grid {
+    grid-template-rows: 452fr auto 243fr;
+  }
 }
 
 /* ---------------------------------------------------------------------------
