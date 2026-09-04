@@ -403,24 +403,21 @@ export default function ServicePage() {
       {/* =====================================================================
           SECTION 3: OUR HARDWARE & PCB DESIGN PROCESS (Node 1498:14592)
           ===================================================================== */}
-      <section className="flow-section" style={{ backgroundColor: "#F6F6F6" }}>
+      <section className="flow-section" style={{ backgroundColor: "#F1F1F1" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
             OUR HARDWARE &amp; PCB DESIGN{" "}
-            <span style={{ color: "#FF7018" }}>PROCESS</span>
+            <span className="brand-gradient-text">PROCESS</span>
           </h2>
 
-          <div
-            style={{
-              marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)",
-              display: "flex",
-              flexDirection: "column",
-              gap: "clamp(12px, 1.7vw, 24px)",
-            }}
-          >
+          <div className="svc-process">
             <div className="svc-grid">
-              {processStages.slice(0, 3).map((item) => (
-                <div key={item.stage} className="svc-card">
+              {processStages.slice(0, 3).map((item, index) => (
+                <div
+                  key={item.stage}
+                  /* The frame gives only the opening stage the gradient rule. */
+                  className={index === 0 ? "svc-card svc-card--lead" : "svc-card"}
+                >
                   <span className="svc-card__eyebrow">{item.stage}</span>
                   <div>
                     <h3 className="svc-card__title">{item.title}</h3>
@@ -452,7 +449,7 @@ export default function ServicePage() {
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
             OUR ON-DEMAND HARDWARE{" "}
-            <span style={{ color: "#FF7018" }}>SERVICES</span>
+            <span className="brand-gradient-text">SERVICES</span>
           </h2>
 
           <div
@@ -462,8 +459,8 @@ export default function ServicePage() {
             {onDemandServices.map((service) => (
               <div key={service.num} className="svc-list__row">
                 <span className="svc-list__num">{service.num}</span>
-                <h3 className="svc-list__title">{service.title}</h3>
                 <p className="svc-list__desc">{service.desc}</p>
+                <h3 className="svc-list__title">{service.title}</h3>
                 <span className="svc-list__icon">
                   <svg
                     width="18"

@@ -1989,6 +1989,72 @@ body {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
 }
 
+/* ---------------------------------------------------------------------------
+   Design Process (Figma node 1057:8968)
+
+   Scoped to the process grids rather than applied to .svc-card itself, which
+   the On-Demand Services section further down also uses to its own spec.
+   -------------------------------------------------------------------------- */
+.svc-process {
+  margin-block-start: clamp(1.5rem, 3.3vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2.084vw, 30px);
+}
+
+/* 3 x 370 and 2 x 570 both land on the 1170 container at a 30px gap. */
+.svc-process .svc-grid {
+  gap: clamp(12px, 2.084vw, 30px);
+}
+
+.svc-process .svc-card {
+  /* The frame's cards are a fixed 262 with the content anchored to the top and
+     an 82px drop under the stage label -- not spread to the card's full
+     height, which is what pushed short copy to the bottom edge. */
+  min-height: clamp(200px, 18.2vw, 262px);
+  justify-content: flex-start;
+  gap: clamp(24px, 5.7vw, 82px);
+  padding: clamp(16px, 1.67vw, 24px);
+  box-shadow: none;
+}
+
+/* Only the opening stage carries the gradient rule and the lift. */
+.svc-process .svc-card--lead {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(180deg, #ff7018 26.92%, #ffbe03) border-box;
+  box-shadow: 0 4px 15px rgba(105, 105, 105, 0.25);
+}
+
+.svc-process .svc-card__eyebrow {
+  font-size: clamp(0.875rem, 0.82rem + 0.24vw, 1rem);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.svc-process .svc-card__title {
+  margin: 0 0 12px;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.svc-process .svc-card__desc {
+  font-size: clamp(0.875rem, 0.82rem + 0.24vw, 1rem);
+}
+
+/* The brand ramp painted through text, as the frame does for "Process" and
+   every stage label. */
+.brand-gradient-text,
+.svc-process .svc-card__eyebrow {
+  background: linear-gradient(180deg, #ff7018 26.92%, #ffbe03);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .svc-card__eyebrow {
   font-size: var(--fs-small);
   font-weight: 700;
@@ -2011,58 +2077,108 @@ body {
   color: #666666;
 }
 
-/* --- On-demand services list --------------------------------------------- */
+/* --- On-demand services list ---------------------------------------------- */
 .svc-list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #eaeaea;
 }
 
+/* The frame's row is 24 number, 144, 400 description, 30, 513 title, 30, 29
+   arrow -- 1170 across. Flex with those two widths as grow ratios reproduces
+   it exactly on the 1170 container and holds the proportion elsewhere. */
 .svc-list__row {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 340px) minmax(0, 1fr) 32px;
+  display: flex;
   align-items: center;
-  gap: clamp(0.75rem, 1.4vw, 20px);
-  padding-block: clamp(1.125rem, 1.9vw, 28px);
-  border-bottom: 1px solid #eaeaea;
+  gap: 30px;
+  padding-block: 24px;
+  border-bottom: 1px solid #f1f1f1;
 }
 
-@media (max-width: 899px) {
-  .svc-list__row {
-    grid-template-columns: 32px minmax(0, 1fr) 24px;
-  }
-
-  /* The description drops under the title rather than squeezing beside it. */
-  .svc-list__desc {
-    grid-column: 2 / -1;
-  }
+/* The rule goes to the brand ramp under the row being pointed at and under the
+   one above it, which is the pairing the frame shows around its active row. */
+.svc-list__row:hover,
+.svc-list__row:has(+ .svc-list__row:hover) {
+  border-bottom-color: transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(180deg, #ff7018 26.92%, #ffbe03) border-box;
 }
 
 .svc-list__num {
-  font-size: var(--fs-body);
-  font-weight: 600;
-  color: #ff7018;
-}
-
-.svc-list__title {
-  margin: 0;
-  font-size: var(--fs-h4);
-  font-weight: 600;
-  color: #000000;
-}
-
-.svc-list__desc {
-  margin: 0;
-  font-size: var(--fs-body);
-  font-weight: 400;
+  width: 24px;
+  flex: none;
+  /* 30px of gap plus this makes the frame's 144 across to the description. */
+  margin-inline-end: clamp(0px, 9.5vw, 114px);
+  font-size: clamp(0.875rem, 0.82rem + 0.24vw, 1rem);
+  font-weight: 500;
   line-height: 1.5;
   color: #666666;
 }
 
+.svc-list__desc {
+  margin: 0;
+  flex: 400 1 0;
+  font-size: clamp(0.875rem, 0.82rem + 0.24vw, 1rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: #666666;
+}
+
+.svc-list__title {
+  margin: 0;
+  flex: 513 1 0;
+  font-size: var(--fs-h4);
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #000000;
+}
+
 .svc-list__icon {
+  width: 29px;
+  flex: none;
   display: flex;
   justify-content: flex-end;
-  color: #999999;
+  color: #666666;
+  /* Level at rest; it takes the frame's diagonal on the active row. */
+  transform: rotate(45deg);
+  transition:
+    transform 240ms cubic-bezier(0.65, 0, 0.35, 1),
+    color 240ms ease;
+}
+
+.svc-list__row:hover .svc-list__icon {
+  transform: rotate(0deg);
+  color: #ff7018;
+}
+
+@media (max-width: 899px) {
+  /* Four columns will not hold at this width: the title leads, the description
+     drops beneath it, and the number and arrow keep the title's line. */
+  .svc-list__row {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr) 29px;
+    column-gap: 16px;
+    row-gap: 8px;
+  }
+
+  .svc-list__num {
+    margin-inline-end: 0;
+  }
+
+  .svc-list__title {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .svc-list__desc {
+    grid-column: 2 / -1;
+    grid-row: 2;
+  }
+
+  .svc-list__icon {
+    grid-column: 3;
+    grid-row: 1;
+  }
 }
 
 /* --- Representative work ------------------------------------------------- */
