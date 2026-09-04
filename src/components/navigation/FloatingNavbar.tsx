@@ -326,87 +326,94 @@ export default function FloatingNavbar({
         >
           {floating && toggle}
 
+          {/* Nothing inside is reachable while it is collapsed. The panels are
+              deliberately not in here: the reveal clips, and they have to
+              escape the pill. */}
           <div className="nav-pill__reveal" inert={collapsed}>
-            <div className="nav-pill__links">
-              {navItems.map((item) =>
-                item.label === "Services" ? (
-                  <div
-                    key={item.label}
-                    ref={servicesRef}
-                    className="nav-trigger"
-                    onMouseEnter={() => hoverable && setPanel("services")}
-                  >
+            {/* Links and the CTA collapse together, so they share one row. */}
+            <div className="nav-pill__group">
+              <div className="nav-pill__links">
+                {navItems.map((item) =>
+                  item.label === "Services" ? (
+                    <div
+                      key={item.label}
+                      ref={servicesRef}
+                      className="nav-trigger"
+                      onMouseEnter={() => hoverable && setPanel("services")}
+                    >
+                      <Link
+                        href={item.href}
+                        className="nav-pill__link"
+                        aria-expanded={openPanel === "services"}
+                        aria-haspopup="true"
+                        /* Touch has no hover to open with, so the first tap
+                           opens the panel instead of leaving for the page. */
+                        onClick={(event) => {
+                          if (hoverable) {
+                            setPanel(null);
+                            return;
+                          }
+                          event.preventDefault();
+                          togglePanel("services");
+                        }}
+                      >
+                        {item.label}
+                      </Link>
+                    </div>
+                  ) : (
                     <Link
+                      key={item.label}
                       href={item.href}
-                      className="nav-pill__link"
-                      aria-expanded={openPanel === "services"}
-                      aria-haspopup="true"
-                      /* Touch has no hover to open with, so the first tap opens
-                         the panel instead of leaving for the page. */
-                      onClick={(event) => {
-                        if (hoverable) {
-                          setPanel(null);
-                          return;
-                        }
-                        event.preventDefault();
-                        togglePanel("services");
-                      }}
+                      className={
+                        item.secondary
+                          ? "nav-pill__link nav-pill__link--secondary"
+                          : "nav-pill__link"
+                      }
                     >
                       {item.label}
                     </Link>
-                  </div>
-                ) : (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={
-                      item.secondary
-                        ? "nav-pill__link nav-pill__link--secondary"
-                        : "nav-pill__link"
-                    }
-                  >
-                    {item.label}
-                  </Link>
-                ),
-              )}
+                  ),
+                )}
 
-              <div ref={moreRef} className="nav-trigger">
-                <button
-                  type="button"
-                  onClick={() => togglePanel("more")}
-                  onMouseEnter={() =>
-                    hoverable && panel === "services" && setPanel(null)
-                  }
-                  className="nav-pill__link nav-more__trigger"
-                  aria-expanded={openPanel === "more"}
-                  aria-haspopup="true"
-                >
-                  <span>More</span>
-                  <svg
-                    width="10"
-                    height="5"
-                    viewBox="0 0 10 5"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{
-                      transform: openPanel === "more" ? "rotate(180deg)" : "none",
-                      transition: "transform 0.2s ease",
-                    }}
+                <div ref={moreRef} className="nav-trigger">
+                  <button
+                    type="button"
+                    onClick={() => togglePanel("more")}
+                    onMouseEnter={() =>
+                      hoverable && panel === "services" && setPanel(null)
+                    }
+                    className="nav-pill__link nav-more__trigger"
+                    aria-expanded={openPanel === "more"}
+                    aria-haspopup="true"
                   >
-                    <path
-                      d="M1 1L5 4L9 1"
-                      stroke="#FFFFFF"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
+                    <span>More</span>
+                    <svg
+                      width="10"
+                      height="5"
+                      viewBox="0 0 10 5"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{
+                        transform:
+                          openPanel === "more" ? "rotate(180deg)" : "none",
+                        transition: "transform 0.2s ease",
+                      }}
+                    >
+                      <path
+                        d="M1 1L5 4L9 1"
+                        stroke="#FFFFFF"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
+
+              {cta}
             </div>
           </div>
-
-          {cta}
 
           {openPanel === "services" &&
             panelShell(
