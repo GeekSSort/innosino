@@ -1,10 +1,35 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import {
+  siteUrl,
+  SITE_NAME,
+  HOME_TITLE,
+  HOME_DESCRIPTION,
+} from "./shared-metadata";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 
 export const metadata: Metadata = {
-  title: "Innosino - From Concept to Mass Production",
-  description: "We turn ideas into high-performance, market ready products from concept to mass production.",
+  metadataBase: new URL(siteUrl),
+  // Segment layouts set their own title; this suffixes them and supplies the
+  // homepage's own.
+  title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
+  description: HOME_DESCRIPTION,
+  alternates: { canonical: "/" },
+  // favicon.ico, apple-icon.png and opengraph-image.png in this directory are
+  // picked up by Next's file conventions.
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: "/",
+    siteName: SITE_NAME,
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {
