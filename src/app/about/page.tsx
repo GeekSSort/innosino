@@ -5,90 +5,16 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-
-// Testimonials data exactly from Figma geometry
-const testimonials = [
-  {
-    quote:
-      "“Working with this team was a game changer they truly understood our vision, solved key challenges, and delivered a production-ready solution on time.”",
-    author: "Arif Rahman",
-    role: "Founder & CEO, NexaTech Labs",
-    avatar: "/homepage_assets/featured_project_images/white_moontype.png",
-  },
-  {
-    quote:
-      "“They brought deep technical expertise and a practical approach helping us move from idea to production faster than expected.”",
-    author: "Tanvir Hossain",
-    role: "CTO, VoltEdge Systems",
-    avatar: "/homepage_assets/featured_project_images/guitar.png",
-  },
-  {
-    quote:
-      "“A reliable partner who understands both engineering and business delivering quality without compromise.”",
-    author: "Nusrat Karim",
-    role: "Co-Founder, Nexlify Tech",
-    avatar: "/homepage_assets/featured_project_images/ai.png",
-  },
-  {
-    quote:
-      "“Strong communication, fast execution, and production ready outcomes exactly what we needed.”",
-    author: "Fahim Rahman",
-    role: "Founder, IoTWorks",
-    avatar: "/homepage_assets/featured_project_images/blue and black image.png",
-  },
-];
-
-const driveCards = [
-  {
-    title: "Precision first",
-    desc: "Every trace and line of firmware is engineered with precision for reliable, production-ready performance.",
-  },
-  {
-    title: "Built to ship",
-    desc: "We design for manufacturing from day one, not as an afterthought once the prototype works.",
-  },
-  {
-    title: "Honest partnership",
-    desc: "Clear timelines, clear costs, and direct answers even when the answer is not yet.",
-  },
-  {
-    title: "Relentless iteration",
-    desc: "We treat every revision as a chance to make the product faster, cheaper, or more reliable.",
-  },
-];
-
-const stats = [
-  {
-    title: "Innovations Delivered",
-    number: "15+",
-    desc: "Turning bold ideas into real-world engineering solutions.",
-  },
-  {
-    title: "Industry Sectors",
-    number: "4",
-    desc: "Delivering embedded solutions across diverse industries.",
-  },
-  {
-    title: "Patents Filed",
-    number: "2",
-    desc: "Advancing innovation through proprietary technologies.",
-  },
-  {
-    title: "Strategic Partnerships",
-    number: "50",
-    desc: "Collaborating with innovators to build the future.",
-  },
-];
-
-const footerLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Industries", href: "/#industries" },
-  { label: "Blogs", href: "/blogs" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms & Condition", href: "#terms" },
-  { label: "Contact Us", href: "/contact" },
-];
+import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import {
+  aboutHeadings,
+  aboutHero,
+  driveCards,
+  founderQuote,
+  stats,
+  testimonials,
+  visionMission,
+} from "@/content/about";
 
 export default function AboutPage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -150,15 +76,10 @@ export default function AboutPage() {
                 <span className="breadcrumb__link" aria-hidden="true">
                   ›
                 </span>
-                <span className="breadcrumb__link">ABOUT US</span>
+                <span className="breadcrumb__link">{aboutHero.breadcrumb}</span>
               </div>
 
-              <h1 className="about-hero__title">
-                We are an innovation-driven engineering company that transforms
-                ideas into high-performance, market-ready products across
-                embedded systems, electronics, smart energy, and industrial
-                technologies.
-              </h1>
+              <h1 className="about-hero__title">{aboutHero.title}</h1>
             </div>
           </div>
 
@@ -181,19 +102,13 @@ export default function AboutPage() {
               />
             </svg>
 
-            <p className="about-quote__text">
-              With over 20 years in electronics R&amp;D, INNOSINO is built on a
-              passion for true problem-solving and innovation. We identify
-              problems, learn deeply, and engineer better solutions from the
-              ground up. Our goal is to empower inventors and entrepreneurs to
-              turn ideas into real, manufacturable, and impactful products.
-            </p>
+            <p className="about-quote__text">{founderQuote.text}</p>
 
             <footer className="about-quote__author">
               <span className="about-quote__avatar" />
               <span>
-                <span className="about-quote__name">Shah Jaman</span>
-                <span className="about-quote__role">Founder &amp; CEO</span>
+                <span className="about-quote__name">{founderQuote.name}</span>
+                <span className="about-quote__role">{founderQuote.role}</span>
               </span>
             </footer>
           </blockquote>
@@ -207,22 +122,16 @@ export default function AboutPage() {
         <div className="container">
           {/* Row 1: VISION (Node 1498:14264) */}
           <div className="about-row">
-            <h2 className="about-row__label">VISION</h2>
-            <p className="about-row__desc">
-              To become a globally trusted innovation partner the team companies
-              call when an idea needs to become a real, working product.
-            </p>
+            <h2 className="about-row__label">{visionMission.vision.label}</h2>
+            <p className="about-row__desc">{visionMission.vision.desc}</p>
           </div>
         </div>
 
         <div className="container">
           {/* Row 2: MISSION (Node 1498:14268) */}
           <div className="about-row about-row--reverse">
-            <p className="about-row__desc">
-              We transform ideas into products, deliver engineering solutions,
-              bridge R&amp;D and manufacturing, and build lasting partnerships.
-            </p>
-            <h2 className="about-row__label">MISSION</h2>
+            <p className="about-row__desc">{visionMission.mission.desc}</p>
+            <h2 className="about-row__label">{visionMission.mission.label}</h2>
           </div>
         </div>
 
@@ -230,8 +139,8 @@ export default function AboutPage() {
           {/* Architecture / Building Image Card (Node 1498:14272) */}
           <div className="about-figure">
             <Image
-              src="/about_us/imageundervisionmission.png"
-              alt="Innosino Building Architecture"
+              src={visionMission.figure.src}
+              alt={visionMission.figure.alt}
               fill
               sizes="(max-width: 1023px) 100vw, 970px"
               style={{ objectFit: "cover" }}
@@ -249,7 +158,8 @@ export default function AboutPage() {
       >
         <div className="container about-split">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            What Drives <span style={{ color: "#FF7018" }}>Us</span>
+            {aboutHeadings.drives.lead}
+            <span style={{ color: "#FF7018" }}>{aboutHeadings.drives.accent}</span>
           </h2>
 
           {/* 4 Feature Cards Vertical Stack (Node 1498:14302) */}
@@ -273,7 +183,10 @@ export default function AboutPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            WHAT OUR CLIENTS <span className="section-heading__accent">SAY</span>
+            {aboutHeadings.testimonials.lead}
+            <span className="section-heading__accent">
+              {aboutHeadings.testimonials.accent}
+            </span>
           </h2>
         </div>
 
@@ -337,8 +250,10 @@ export default function AboutPage() {
       >
         <div className="container">
           <h2 className="section-heading" style={{ color: "#FFFFFF" }}>
-            DRIVING INNOVATION THROUGH{" "}
-            <span className="section-heading__accent">RESULTS</span>
+            {aboutHeadings.results.lead}
+            <span className="section-heading__accent">
+              {aboutHeadings.results.accent}
+            </span>
           </h2>
 
           {/* 4 Metrics Cards (Node 1498:14406 - 14418) */}
@@ -369,17 +284,12 @@ export default function AboutPage() {
       >
         <div className="container">
           <div className="cta-banner">
-            <h2 className="cta-banner__title">
-              HAVE AN IDEA? LET&apos;S ENGINEER IT INTO A PRODUCT.
-            </h2>
+            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">
-              Tell us about your project hardware, firmware, or both. We&apos;ll
-              come back with a clear path from concept to production.
-            </p>
+            <p className="cta-banner__body">{ctaBanner.body}</p>
 
-            <Link href="/contact" className="cta-banner__button">
-              <span>Book a Call</span>
+            <Link href={ctaBanner.action.href} className="cta-banner__button">
+              <span>{ctaBanner.action.label}</span>
               <svg
                 width="12"
                 height="12"
@@ -425,8 +335,7 @@ export default function AboutPage() {
                     color: "#666666",
                   }}
                 >
-                  Welcome to Innosino! Need help? Just reply to this
-                  message&mdash;we&rsquo;re online and ready to assist you.
+                  {chatWidget.greeting}
                 </p>
                 <button
                   type="button"
@@ -439,7 +348,7 @@ export default function AboutPage() {
                     display: "flex",
                     flexShrink: 0,
                   }}
-                  aria-label="Close chat bubble"
+                  aria-label={chatWidget.closeLabel}
                 >
                   <svg
                     width="14"
@@ -463,7 +372,7 @@ export default function AboutPage() {
               type="button"
               onClick={() => setChatOpen(!chatOpen)}
               className="chat-dock__toggle"
-              aria-label="Toggle chat"
+              aria-label={chatWidget.toggleLabel}
             >
               <svg
                 width="24"
@@ -492,7 +401,7 @@ export default function AboutPage() {
                 color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              © 2026 Innosion All Rights Reserved
+              {copyright}
             </p>
 
             <div className="footer-bar__links">

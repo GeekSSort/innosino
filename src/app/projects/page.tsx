@@ -5,91 +5,14 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-
-const categories = [
-  "All",
-  "Featured Projects",
-  "Embedded Systems",
-  "PCB Design",
-  "IOT Devices",
-  "Industrial Automation",
-  "Smart Devices",
-];
-
-const allProjects = [
-  {
-    id: 1,
-    category: "Smart Devices",
-    title: "PolyPan Electronic Handpan",
-    desc: "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI for next-generation musicians.",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
-    filterTags: ["All", "Smart Devices", "Featured Projects"],
-  },
-  {
-    id: 2,
-    category: "Wireless Systems",
-    title: "AI Sensor & Security Systems",
-    desc: "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor vitals, and ensure workplace safety.",
-    img: "/homepage_assets/featured_project_images/ai.png",
-    filterTags: ["All", "Embedded Systems", "IOT Devices"],
-  },
-  {
-    id: 3,
-    category: "Smart Devices",
-    title: "Logic IC Trainer Kit",
-    desc: "An interactive digital logic training kit that helps students learn logic circuits through hands-on experimentation and fault analysis.",
-    img: "/homepage_assets/featured_project_images/blue and black image.png",
-    filterTags: ["All", "PCB Design", "Smart Devices"],
-  },
-  {
-    id: 4,
-    category: "Smart Devices",
-    title: "Logic IC Trainer Kit",
-    desc: "An interactive digital logic training kit that helps students learn logic circuits through hands-on experimentation and fault analysis.",
-    img: "/homepage_assets/featured_project_images/blue and black image.png",
-    filterTags: ["All", "PCB Design", "Smart Devices"],
-  },
-  {
-    id: 5,
-    category: "Smart Devices",
-    title: "PolyPan Electronic Handpan",
-    desc: "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI for next-generation musicians.",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
-    filterTags: ["All", "Smart Devices", "Featured Projects"],
-  },
-  {
-    id: 6,
-    category: "Wireless Systems",
-    title: "AI Sensor & Security Systems",
-    desc: "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor vitals, and ensure workplace safety.",
-    img: "/homepage_assets/featured_project_images/ai.png",
-    filterTags: ["All", "Embedded Systems", "IOT Devices"],
-  },
-  {
-    id: 7,
-    category: "Wireless Systems",
-    title: "AI Sensor & Security Systems",
-    desc: "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor vitals, and ensure workplace safety.",
-    img: "/homepage_assets/featured_project_images/ai.png",
-    filterTags: ["All", "Embedded Systems", "IOT Devices"],
-  },
-  {
-    id: 8,
-    category: "Smart Devices",
-    title: "Logic IC Trainer Kit",
-    desc: "An interactive digital logic training kit that helps students learn logic circuits through hands-on experimentation and fault analysis.",
-    img: "/homepage_assets/featured_project_images/blue and black image.png",
-    filterTags: ["All", "PCB Design", "Smart Devices"],
-  },
-  {
-    id: 9,
-    category: "Smart Devices",
-    title: "PolyPan Electronic Handpan",
-    desc: "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI for next-generation musicians.",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
-    filterTags: ["All", "Smart Devices", "Featured Projects"],
-  },
-];
+import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import {
+  allProjects,
+  featuredProject,
+  projectCategories,
+  projectsHeadings,
+  projectsHero,
+} from "@/content/projects";
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -162,17 +85,12 @@ export default function ProjectsPage() {
                 <span className="breadcrumb__link" aria-hidden="true">
                   ›
                 </span>
-                <span className="breadcrumb__link">PROJECTS</span>
+                <span className="breadcrumb__link">{projectsHero.breadcrumb}</span>
               </div>
 
-              <h1 className="page-hero__title">OUR PROJECTS</h1>
+              <h1 className="page-hero__title">{projectsHero.title}</h1>
 
-              <p className="page-hero__sub">
-                Explore the innovative solutions we&apos;ve designed and
-                developed across industries. Every project reflects our
-                commitment to quality, precision, and solving real-world
-                challenges through smart engineering.
-              </p>
+              <p className="page-hero__sub">{projectsHero.sub}</p>
             </div>
           </div>
 
@@ -199,32 +117,24 @@ export default function ProjectsPage() {
                 >
                   <span className="pj-featured__eyebrow">
                     <span aria-hidden="true">✦</span>
-                    <span>Featured Project</span>
+                    <span>{featuredProject.eyebrow}</span>
                   </span>
 
-                  <h2 className="pj-featured__title">
-                    Smart Musical Instruments
-                  </h2>
+                  <h2 className="pj-featured__title">{featuredProject.title}</h2>
                 </div>
 
-                <p className="pj-featured__desc">
-                  Engineered an intelligent musical instruments powered by AI,
-                  DSP, and embedded technologies, enabling real-time audio
-                  processing, ultra-low-latency wireless connectivity,
-                  intelligent gesture recognition, and patent-ready innovations
-                  for next-generation digital music experiences.
-                </p>
+                <p className="pj-featured__desc">{featuredProject.desc}</p>
 
                 <span className="pj-badge">
                   <span style={{ color: "#FF7018" }} aria-hidden="true">
                     ⚡
                   </span>
-                  <span>SMART INSTRUMENTS DEVELOPED</span>
+                  <span>{featuredProject.badge}</span>
                 </span>
               </div>
 
-              <Link href="/projects/details" className="pj-featured__cta">
-                <span>Know Details</span>
+              <Link href={featuredProject.cta.href} className="pj-featured__cta">
+                <span>{featuredProject.cta.label}</span>
                 <span style={{ fontSize: "0.8em" }} aria-hidden="true">
                   ↗
                 </span>
@@ -233,8 +143,8 @@ export default function ProjectsPage() {
 
             <div className="pj-featured__media">
               <Image
-                src="/homepage_assets/featured_project_images/guitar.png"
-                alt="Smart Musical Instruments"
+                src={featuredProject.image}
+                alt={featuredProject.title}
                 fill
                 sizes="(max-width: 899px) 100vw, 434px"
                 style={{ objectFit: "cover" }}
@@ -266,7 +176,10 @@ export default function ProjectsPage() {
               fontSize: "clamp(1.75rem, 1.1rem + 2.2vw, 3rem)",
             }}
           >
-            OUR RECENT <span style={{ color: "#FF7018" }}>PROJECTS</span>
+            {projectsHeadings.recent.lead}
+            <span style={{ color: "#FF7018" }}>
+              {projectsHeadings.recent.accent}
+            </span>
           </h2>
 
           {/* Filter pills & search */}
@@ -288,7 +201,7 @@ export default function ProjectsPage() {
               />
             </div>
 
-            {categories.map((cat) => (
+            {projectCategories.map((cat) => (
               <button
                 key={cat}
                 type="button"
@@ -371,17 +284,12 @@ export default function ProjectsPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <div className="cta-banner cta-banner--compact">
-            <h2 className="cta-banner__title">
-              HAVE AN IDEA? LET&apos;S ENGINEER IT INTO A PRODUCT.
-            </h2>
+            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">
-              Tell us about your project: hardware, firmware, or both.
-              We&apos;ll come back with a clear path from concept to production.
-            </p>
+            <p className="cta-banner__body">{ctaBanner.body}</p>
 
-            <Link href="/contact" className="cta-banner__button">
-              <span>Book a Call</span>
+            <Link href={ctaBanner.action.href} className="cta-banner__button">
+              <span>{ctaBanner.action.label}</span>
               <span style={{ fontSize: "0.75em" }} aria-hidden="true">
                 ↗
               </span>
@@ -413,8 +321,7 @@ export default function ProjectsPage() {
                     color: "#666666",
                   }}
                 >
-                  Welcome to Innosino! Need help? Just reply to this
-                  message&mdash;we&rsquo;re online and ready to assist you.
+                  {chatWidget.greeting}
                 </p>
                 <button
                   type="button"
@@ -427,7 +334,7 @@ export default function ProjectsPage() {
                     display: "flex",
                     flexShrink: 0,
                   }}
-                  aria-label="Close chat bubble"
+                  aria-label={chatWidget.closeLabel}
                 >
                   <svg
                     width="14"
@@ -451,7 +358,7 @@ export default function ProjectsPage() {
               type="button"
               onClick={() => setChatOpen(!chatOpen)}
               className="chat-dock__toggle"
-              aria-label="Toggle chat"
+              aria-label={chatWidget.toggleLabel}
             >
               <svg
                 width="24"
@@ -479,20 +386,11 @@ export default function ProjectsPage() {
                 color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              © 2026 Innosion All Rights Reserved
+              {copyright}
             </p>
 
             <div className="footer-bar__links">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Services", href: "/services" },
-                { label: "Industries", href: "/#industries" },
-                { label: "Blogs", href: "/blogs" },
-                { label: "Privacy Policy", href: "/privacy-policy" },
-                { label: "Terms & Condition", href: "#terms" },
-                { label: "Contact Us", href: "/contact" },
-              ].map((link) => (
+              {footerLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}

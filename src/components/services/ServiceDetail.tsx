@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import type { Service } from "@/content/services";
+import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 
@@ -778,17 +779,12 @@ export default function ServiceDetail({ service }: { service: Service }) {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <div className="cta-banner">
-            <h2 className="cta-banner__title">
-              HAVE AN IDEA? LET&apos;S ENGINEER IT INTO A PRODUCT.
-            </h2>
+            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">
-              Tell us about your project hardware, firmware, or both. We&apos;ll
-              come back with a clear path from concept to production.
-            </p>
+            <p className="cta-banner__body">{ctaBanner.body}</p>
 
-            <Link href="/contact" className="cta-banner__button">
-              <span>Book a Call</span>
+            <Link href={ctaBanner.action.href} className="cta-banner__button">
+              <span>{ctaBanner.action.label}</span>
               <svg
                 width="12"
                 height="12"
@@ -833,8 +829,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     color: "#666666",
                   }}
                 >
-                  Welcome to Innosino! Need help? Just reply to this
-                  message&mdash;we&rsquo;re online and ready to assist you.
+                  {chatWidget.greeting}
                 </p>
                 <button
                   type="button"
@@ -847,7 +842,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     display: "flex",
                     flexShrink: 0,
                   }}
-                  aria-label="Close chat bubble"
+                  aria-label={chatWidget.closeLabel}
                 >
                   <svg
                     width="14"
@@ -871,7 +866,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
               type="button"
               onClick={() => setChatOpen(!chatOpen)}
               className="chat-dock__toggle"
-              aria-label="Toggle chat"
+              aria-label={chatWidget.toggleLabel}
             >
               <svg
                 width="24"
@@ -899,20 +894,11 @@ export default function ServiceDetail({ service }: { service: Service }) {
                 color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              © 2026 Innosion All Rights Reserved
+              {copyright}
             </p>
 
             <div className="footer-bar__links">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Services", href: "/services" },
-                { label: "Industries", href: "/#industries" },
-                { label: "Blogs", href: "/blogs" },
-                { label: "Privacy Policy", href: "/privacy-policy" },
-                { label: "Terms & Condition", href: "#terms" },
-                { label: "Contact Us", href: "/contact" },
-              ].map((link) => (
+              {footerLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}

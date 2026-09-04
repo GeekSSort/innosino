@@ -5,6 +5,7 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
+import { chatWidget, copyright, footerLinks } from "@/content/site";
 
 export default function ProjectDetailsPage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -1013,8 +1014,7 @@ export default function ProjectDetailsPage() {
                     color: "#666666",
                   }}
                 >
-                  Welcome to Innosino! Need help? Just reply to this
-                  message&mdash;we&rsquo;re online and ready to assist you.
+                  {chatWidget.greeting}
                 </p>
                 <button
                   type="button"
@@ -1027,7 +1027,7 @@ export default function ProjectDetailsPage() {
                     display: "flex",
                     flexShrink: 0,
                   }}
-                  aria-label="Close chat bubble"
+                  aria-label={chatWidget.closeLabel}
                 >
                   <svg
                     width="14"
@@ -1051,7 +1051,7 @@ export default function ProjectDetailsPage() {
               type="button"
               onClick={() => setChatOpen(!chatOpen)}
               className="chat-dock__toggle"
-              aria-label="Toggle chat"
+              aria-label={chatWidget.toggleLabel}
             >
               <svg
                 width="24"
@@ -1079,20 +1079,11 @@ export default function ProjectDetailsPage() {
                 color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              © 2026 Innosion All Rights Reserved
+              {copyright}
             </p>
 
             <div className="footer-bar__links">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Services", href: "/services" },
-                { label: "Industries", href: "/#industries" },
-                { label: "Blogs", href: "/blogs" },
-                { label: "Privacy Policy", href: "/privacy-policy" },
-                { label: "Terms & Condition", href: "#terms" },
-                { label: "Contact Us", href: "/contact" },
-              ].map((link) => (
+              {footerLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}

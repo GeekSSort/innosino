@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { chatWidget, copyright, footerLinks } from "@/content/site";
 
 interface IndustryItem {
   id: string;
@@ -58,20 +59,6 @@ const industriesList: IndustryItem[] = [
   },
 ];
 
-/**
- * Navigation first, then the legal pair. The 393 frame breaks them across
- * exactly those two rows, which only falls out of the wrap if Contact Us
- * comes before Privacy Policy.
- */
-const footerLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Industries", href: "/#industries" },
-  { label: "Blogs", href: "/blogs" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms & Condition", href: "#terms" },
-];
 
 export default function IndustrySolutionsListSection() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -259,7 +246,7 @@ export default function IndustrySolutionsListSection() {
               cursor: "pointer",
               boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
             }}
-            aria-label="Toggle chat"
+            aria-label={chatWidget.toggleLabel}
           >
             <svg
               width="24"
@@ -287,7 +274,7 @@ export default function IndustrySolutionsListSection() {
               color: "rgba(255, 255, 255, 0.8)",
             }}
           >
-            © 2026 Innosion All Rights Reserved
+            {copyright}
           </p>
 
           <div className="footer-bar__links">

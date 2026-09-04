@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
+import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
 
 export default function ExpertisePage() {
   const [chatOpen, setChatOpen] = useState(true);
@@ -737,7 +738,7 @@ export default function ExpertisePage() {
               zIndex: 2,
             }}
           >
-            HAVE AN IDEA? LET'S ENGINEER IT INTO A PRODUCT.
+            {ctaBanner.title}
           </h2>
           <p
             style={{
@@ -751,7 +752,7 @@ export default function ExpertisePage() {
               zIndex: 2,
             }}
           >
-            Tell us about your project—hardware, firmware, or both. We’ll come back with a clear path from concept to production.
+            {ctaBanner.body}
           </p>
           <Link
             href="/contact"
@@ -837,7 +838,7 @@ export default function ExpertisePage() {
                   color: "#666666",
                 }}
               >
-                Welcome to Innosino! Need help? Just reply to this message—we’re online and ready to assist you.
+                {chatWidget.greeting}
               </p>
               <button
                 type="button"
@@ -849,7 +850,7 @@ export default function ExpertisePage() {
                   cursor: "pointer",
                   color: "#999999",
                 }}
-                aria-label="Close chat bubble"
+                aria-label={chatWidget.closeLabel}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
@@ -873,7 +874,7 @@ export default function ExpertisePage() {
               cursor: "pointer",
               boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
             }}
-            aria-label="Toggle chat"
+            aria-label={chatWidget.toggleLabel}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="#000000" />
@@ -900,20 +901,11 @@ export default function ExpertisePage() {
           }}
         >
           <p style={{ margin: 0, fontFamily: "var(--font-urbanist), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
-            © 2026 Innosion All Rights Reserved
+            {copyright}
           </p>
 
           <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "24px" }}>
-            {[
-              { label: "Home", href: "/" },
-              { label: "About Us", href: "/about" },
-              { label: "Services", href: "/services" },
-              { label: "Industries", href: "/#industries" },
-              { label: "Blogs", href: "/blogs" },
-              { label: "Privacy Policy", href: "/privacy-policy" },
-              { label: "Terms & Condition", href: "#terms" },
-              { label: "Contact Us", href: "/contact" },
-            ].map((link) => (
+            {footerLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}

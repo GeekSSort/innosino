@@ -5,118 +5,14 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-
-const categories = [
-  "All",
-  "Featured Blogs",
-  "Embedded Systems",
-  "Firmware",
-  "PCB Design",
-  "IOT Devices",
-  "Industrial Automation",
-];
-
-const allBlogs = [
-  {
-    id: 1,
-    category: "PCB Design",
-    date: "March 12, 2026",
-    title: "Stack-Up Choices For 3-Layer Sense Boards",
-    desc: "How we choose copper weight, spacing, and shielding for a sensitive ground track.",
-    author: "Innosino Team",
-    readTime: "5 min",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
-    filterTags: ["All", "PCB Design", "Featured Blogs"],
-  },
-  {
-    id: 2,
-    category: "Firmware",
-    date: "March 12, 2026",
-    title: "Debugging Cross-Talk In Dense Capacitive Arrays",
-    desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
-    author: "Innosino Team",
-    readTime: "6 min",
-    img: "/blog_details assets/BD-02.png",
-    filterTags: ["All", "Firmware", "Embedded Systems"],
-  },
-  {
-    id: 3,
-    category: "Embedded Systems",
-    date: "March 12, 2026",
-    title: "Getting BLE MIDI Latency Under 10ms",
-    desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
-    author: "Innosino Team",
-    readTime: "7 min",
-    img: "/blog_details assets/BD-03.png",
-    filterTags: ["All", "Embedded Systems", "IOT Devices"],
-  },
-  {
-    id: 4,
-    category: "Embedded Systems",
-    date: "March 12, 2026",
-    title: "Getting BLE MIDI Latency Under 10ms",
-    desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
-    author: "Innosino Team",
-    readTime: "7 min",
-    img: "/blog_details assets/BD-03.png",
-    filterTags: ["All", "Embedded Systems", "IOT Devices"],
-  },
-  {
-    id: 5,
-    category: "PCB Design",
-    date: "March 12, 2026",
-    title: "Stack-Up Choices For 3-Layer Sense Boards",
-    desc: "How we choose copper weight, spacing, and shielding for a sensitive ground track.",
-    author: "Innosino Team",
-    readTime: "5 min",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
-    filterTags: ["All", "PCB Design", "Featured Blogs"],
-  },
-  {
-    id: 6,
-    category: "Firmware",
-    date: "March 12, 2026",
-    title: "Debugging Cross-Talk In Dense Capacitive Arrays",
-    desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
-    author: "Innosino Team",
-    readTime: "6 min",
-    img: "/blog_details assets/BD-02.png",
-    filterTags: ["All", "Firmware", "Embedded Systems"],
-  },
-  {
-    id: 7,
-    category: "Firmware",
-    date: "March 12, 2026",
-    title: "Debugging Cross-Talk In Dense Capacitive Arrays",
-    desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
-    author: "Innosino Team",
-    readTime: "6 min",
-    img: "/blog_details assets/BD-02.png",
-    filterTags: ["All", "Firmware", "Embedded Systems"],
-  },
-  {
-    id: 8,
-    category: "Embedded Systems",
-    date: "March 12, 2026",
-    title: "Getting BLE MIDI Latency Under 10ms",
-    desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
-    author: "Innosino Team",
-    readTime: "7 min",
-    img: "/blog_details assets/BD-03.png",
-    filterTags: ["All", "Embedded Systems", "IOT Devices"],
-  },
-  {
-    id: 9,
-    category: "PCB Design",
-    date: "March 12, 2026",
-    title: "Stack-Up Choices For 3-Layer Sense Boards",
-    desc: "How we choose copper weight, spacing, and shielding for a sensitive ground track.",
-    author: "Innosino Team",
-    readTime: "5 min",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
-    filterTags: ["All", "PCB Design", "Featured Blogs"],
-  },
-];
+import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import {
+  allBlogs,
+  authorInitials,
+  blogsHero,
+  categories,
+  featuredBlog,
+} from "@/content/blogs";
 
 export default function BlogsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -190,16 +86,12 @@ export default function BlogsPage() {
                 <span className="breadcrumb__link" aria-hidden="true">
                   ›
                 </span>
-                <span className="breadcrumb__link">BLOG</span>
+                <span className="breadcrumb__link">{blogsHero.breadcrumb}</span>
               </div>
 
-              <h1 className="page-hero__title">OUR LATEST BLOGS</h1>
+              <h1 className="page-hero__title">{blogsHero.title}</h1>
 
-              <p className="page-hero__sub">
-                Stay updated with the latest industry trends, technical guides,
-                engineering insights, project stories, and innovations that
-                inspire smarter products and better technology solutions.
-              </p>
+              <p className="page-hero__sub">{blogsHero.sub}</p>
             </div>
           </div>
 
@@ -222,35 +114,31 @@ export default function BlogsPage() {
                     style={{ display: "flex", alignItems: "center", gap: "8px" }}
                   >
                     <span aria-hidden="true">✦</span>
-                    <span>Featured Blog</span>
+                    <span>{featuredBlog.eyebrow}</span>
                   </span>
-                  <span className="blog-card__date">March 12, 2026</span>
+                  <span className="blog-card__date">{featuredBlog.date}</span>
                 </div>
 
                 <h2
                   className="pj-featured__title"
                   style={{ lineHeight: 1.25 }}
                 >
-                  Inside The Logic IC Trainer Kit&apos;s 16 Profiles
+                  {featuredBlog.title}
                 </h2>
 
-                <p className="pj-featured__desc">
-                  Why we chose a profile-based architecture over hardcoded logic
-                  families to improve flexibility, usability, maintainability,
-                  and long-term adaptability across diverse applications.
-                </p>
+                <p className="pj-featured__desc">{featuredBlog.desc}</p>
 
                 <div className="blog-byline" style={{ marginBlockStart: "4px" }}>
-                  <span className="blog-byline__avatar">IS</span>
+                  <span className="blog-byline__avatar">{authorInitials}</span>
                   <span>
-                    <span className="blog-byline__name">Innosino Team</span>
-                    <span className="blog-byline__time">8 min</span>
+                    <span className="blog-byline__name">{featuredBlog.author}</span>
+                    <span className="blog-byline__time">{featuredBlog.readTime}</span>
                   </span>
                 </div>
               </div>
 
-              <Link href="/blogs/details" className="pj-featured__cta">
-                <span>Know Details</span>
+              <Link href={featuredBlog.cta.href} className="pj-featured__cta">
+                <span>{featuredBlog.cta.label}</span>
                 <span style={{ fontSize: "0.8em" }} aria-hidden="true">
                   ↗
                 </span>
@@ -259,8 +147,8 @@ export default function BlogsPage() {
 
             <div className="pj-featured__media" style={{ backgroundColor: "#0B0B0B" }}>
               <Image
-                src="/blog_details assets/BD-01.png"
-                alt="Inside The Logic IC Trainer Kit's 16 Profiles"
+                src={featuredBlog.image}
+                alt={featuredBlog.title}
                 fill
                 sizes="(max-width: 899px) 100vw, 434px"
                 style={{ objectFit: "cover" }}
@@ -356,7 +244,7 @@ export default function BlogsPage() {
                 <p className="blog-card__desc">{blog.desc}</p>
 
                 <div className="blog-byline">
-                  <span className="blog-byline__avatar">IS</span>
+                  <span className="blog-byline__avatar">{authorInitials}</span>
                   <span>
                     <span className="blog-byline__name">{blog.author}</span>
                     <span className="blog-byline__time">{blog.readTime}</span>
@@ -407,17 +295,12 @@ export default function BlogsPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <div className="cta-banner cta-banner--compact">
-            <h2 className="cta-banner__title">
-              HAVE AN IDEA? LET&apos;S ENGINEER IT INTO A PRODUCT.
-            </h2>
+            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">
-              Tell us about your project: hardware, firmware, or both.
-              We&apos;ll come back with a clear path from concept to production.
-            </p>
+            <p className="cta-banner__body">{ctaBanner.body}</p>
 
-            <Link href="/contact" className="cta-banner__button">
-              <span>Book a Call</span>
+            <Link href={ctaBanner.action.href} className="cta-banner__button">
+              <span>{ctaBanner.action.label}</span>
               <span style={{ fontSize: "0.75em" }} aria-hidden="true">
                 ↗
               </span>
@@ -449,8 +332,7 @@ export default function BlogsPage() {
                     color: "#666666",
                   }}
                 >
-                  Welcome to Innosino! Need help? Just reply to this
-                  message&mdash;we&rsquo;re online and ready to assist you.
+                  {chatWidget.greeting}
                 </p>
                 <button
                   type="button"
@@ -463,7 +345,7 @@ export default function BlogsPage() {
                     display: "flex",
                     flexShrink: 0,
                   }}
-                  aria-label="Close chat bubble"
+                  aria-label={chatWidget.closeLabel}
                 >
                   <svg
                     width="14"
@@ -487,7 +369,7 @@ export default function BlogsPage() {
               type="button"
               onClick={() => setChatOpen(!chatOpen)}
               className="chat-dock__toggle"
-              aria-label="Toggle chat"
+              aria-label={chatWidget.toggleLabel}
             >
               <svg
                 width="24"
@@ -515,20 +397,11 @@ export default function BlogsPage() {
                 color: "rgba(255, 255, 255, 0.8)",
               }}
             >
-              © 2026 Innosion All Rights Reserved
+              {copyright}
             </p>
 
             <div className="footer-bar__links">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Services", href: "/services" },
-                { label: "Industries", href: "/#industries" },
-                { label: "Blogs", href: "/blogs" },
-                { label: "Privacy Policy", href: "/privacy-policy" },
-                { label: "Terms & Condition", href: "#terms" },
-                { label: "Contact Us", href: "/contact" },
-              ].map((link) => (
+              {footerLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
