@@ -65,27 +65,32 @@ export default function SplashShapes({ loopSeconds = DRIFT_SECONDS }: SplashShap
 
   useGSAP(
     () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      // The composition only renders below the breakpoint, so above it there is
-      // nothing on screen to animate.
-      const portrait = window.matchMedia("(max-width: 1023px)");
-      if (!portrait.matches) return;
-
-      const rate = loopSeconds / DRIFT_SECONDS;
-      for (const [name, keys] of Object.entries(DRIFT)) {
-        const el = rootRef.current!.querySelector(`[data-drift="${name}"]`);
-        if (!el) continue;
-        const tl = gsap.timeline({ repeat: -1 });
-        for (let i = 1; i < keys.length; i++) {
-          const [t, x, y] = keys[i];
-          tl.to(el, {
-            x: x * UNIT,
-            y: y * UNIT,
-            duration: (t - keys[i - 1][0]) * rate,
-            ease: "power2.inOut",
-          });
-        }
-      }
+      // gsap.matchMedia rather than a one-off check at mount: the composition
+      // only renders below the breakpoint, and this also tears the loops down
+      // when a tablet is turned into landscape and builds them again on the way
+      // back, instead of driving hidden elements forever.
+      const mm = gsap.matchMedia();
+      mm.add(
+        "(max-width: 1023px) and (prefers-reduced-motion: no-preference)",
+        () => {
+          const rate = loopSeconds / DRIFT_SECONDS;
+          for (const [name, keys] of Object.entries(DRIFT)) {
+            const el = rootRef.current!.querySelector(`[data-drift="${name}"]`);
+            if (!el) continue;
+            const tl = gsap.timeline({ repeat: -1 });
+            for (let i = 1; i < keys.length; i++) {
+              const [t, x, y] = keys[i];
+              tl.to(el, {
+                x: x * UNIT,
+                y: y * UNIT,
+                duration: (t - keys[i - 1][0]) * rate,
+                ease: "power2.inOut",
+              });
+            }
+          }
+        },
+      );
+      return () => mm.revert();
     },
     { scope: rootRef, dependencies: [loopSeconds] },
   );

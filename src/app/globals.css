@@ -165,6 +165,13 @@ body {
     padding-block-end: 0;
   }
 
+  /* A portrait frame supplies its own title. Industry Solutions also composes
+     one as a child, because its animation is the one that bakes no title, so
+     that copy stands down below the breakpoint rather than doubling up. */
+  .splash-frame--portrait .splash-headline:not(.splash-headline--portrait) {
+    display: none;
+  }
+
   .splash-shapes {
     display: block;
   }
