@@ -678,7 +678,9 @@ body {
 
 .marquee__track {
   display: flex;
-  gap: clamp(16px, 2vw, 30px);
+  /* 370 card + 30 gap is the frame's 400px pitch; 2vw lands 1.2px short at
+     1440, so the ramp is anchored to hit 30 exactly there. */
+  gap: clamp(16px, 2.084vw, 30px);
   will-change: transform;
 }
 

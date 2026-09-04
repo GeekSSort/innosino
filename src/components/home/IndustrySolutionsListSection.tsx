@@ -51,6 +51,11 @@ const industriesList: IndustryItem[] = [
     title: "NFC and RFID Technology",
     image: "/homepage_assets/industries/NFC and RFID Technology.png",
   },
+  {
+    id: "9",
+    title: "Wireless Communication",
+    image: "/homepage_assets/industries/Wireless Communication.jpg",
+  },
 ];
 
 /**
@@ -76,20 +81,29 @@ export default function IndustrySolutionsListSection() {
    * Continuous marquee. The scroll distance is measured from the rendered
    * track rather than assumed from a fixed 400px card pitch, so the loop stays
    * seamless when the card width changes with the viewport.
+   *
+   * Driven by elapsed time, not by the frame: the reference frame moves the
+   * track 1600px across 8s, and advancing a fixed amount per frame instead
+   * would run at whatever the display refreshes at — half speed on a 30Hz
+   * throttle, double on a 120Hz phone.
    */
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    const PX_PER_SECOND = 1600 / 8;
     let offset = 0;
+    let last = performance.now();
     let frameId = 0;
 
-    const step = () => {
+    const step = (now: number) => {
+      const elapsed = (now - last) / 1000;
+      last = now;
       // One third of the track = one full copy of the list (it is tripled).
       const loopWidth = track.scrollWidth / 3;
       if (loopWidth > 0) {
-        offset = (offset + 0.8) % loopWidth;
+        offset = (offset + PX_PER_SECOND * elapsed) % loopWidth;
         track.style.transform = `translateX(-${offset}px)`;
       }
       frameId = requestAnimationFrame(step);
