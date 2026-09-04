@@ -6,6 +6,7 @@ export default function FeaturedProjectSection() {
       id="featured-projects"
       path="/featured_project_animation.json"
       backgroundColor="#FFBE03"
+      title="Featured Project"
     />
   );
 }

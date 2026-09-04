@@ -6,6 +6,7 @@ export default function CoreServicesSection() {
       id="core-services"
       path="/core_services_animation.json"
       backgroundColor="#FF7018"
+      title="Core Services"
     />
   );
 }

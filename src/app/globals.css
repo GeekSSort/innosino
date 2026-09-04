@@ -130,6 +130,18 @@ body {
   container-type: inline-size;
 }
 
+/* The portrait composition (see SplashShapes). `slice` inside the SVG makes it
+   cover any aspect ratio, so this only has to fill the frame. */
+.splash-shapes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  pointer-events: none;
+}
+
 @media (max-width: 1023px) {
   /* On portrait the floating pill sits mid-viewport, and these artboards carry
      their title dead centre — so the composition is seated in the band above
@@ -141,7 +153,23 @@ body {
   .splash-frame .splash-headline {
     padding-block-end: var(--nav-bottom);
   }
+
+  /* A frame with a portrait composition covers the viewport outright, so there
+     is no band to seat anything in: the shapes go edge to edge and the title
+     sits dead centre, as the 744x1133 frame has it. */
+  .splash-frame--portrait .section-media {
+    display: none;
+  }
+
+  .splash-frame--portrait .splash-headline {
+    padding-block-end: 0;
+  }
+
+  .splash-shapes {
+    display: block;
+  }
 }
+
 
 /* Background media layer: sits under the content grid, always covers. */
 .section-media {
@@ -858,6 +886,23 @@ body {
   text-align: center;
   text-wrap: balance;
   color: #ffffff;
+}
+
+/* Above the breakpoint the animation draws its own title, so this one only
+   exists on portrait. Figma sets it at 48px on the 744 frame (6.452%), so it
+   scales with the frame like the desktop headline does. */
+.splash-headline--portrait {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .splash-headline--portrait {
+    display: grid;
+  }
+
+  .splash-headline--portrait .splash-headline__text {
+    font-size: min(6.452cqw, 3rem);
+  }
 }
 
 /* ---------------------------------------------------------------------------
