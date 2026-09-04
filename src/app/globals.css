@@ -962,11 +962,18 @@ body {
 }
 
 /* Breaks to its own line under "Follow Us" and centres across the card. */
+/* The label and the icon are one item, so they sit on a line together and stay
+   together when the cloud wraps. The icon used to take a full row of its own
+   and centre in it, which left it under the label and off to the side. */
+.nav-panel__follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .nav-panel__social {
-  flex-basis: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 6px;
+  display: inline-flex;
+  align-items: center;
   color: #8a8a8a;
 }
 
