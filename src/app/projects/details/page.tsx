@@ -131,7 +131,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -143,7 +143,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -166,7 +166,7 @@ export default function ProjectDetailsPage() {
                   border: "1px solid #E0E0E0",
                   borderRadius: "6px",
                   padding: "8px 16px",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "13px",
                   fontWeight: 600,
                   color: "#444444",
@@ -185,7 +185,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -197,7 +197,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -245,7 +245,7 @@ export default function ProjectDetailsPage() {
                 <h3
                   style={{
                     margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "18px",
                     fontWeight: 700,
                     color: "#E11D48",
@@ -257,7 +257,7 @@ export default function ProjectDetailsPage() {
                 <p
                   style={{
                     margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "14px",
                     fontWeight: 400,
                     lineHeight: "150%",
@@ -276,7 +276,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -288,7 +288,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -336,7 +336,7 @@ export default function ProjectDetailsPage() {
                 <h3
                   style={{
                     margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "18px",
                     fontWeight: 700,
                     color: "#15803D",
@@ -348,7 +348,7 @@ export default function ProjectDetailsPage() {
                 <p
                   style={{
                     margin: 0,
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "14px",
                     fontWeight: 400,
                     lineHeight: "150%",
@@ -367,7 +367,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -379,7 +379,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -423,7 +423,7 @@ export default function ProjectDetailsPage() {
                 <span
                   style={{
                     width: "min(100%, 280px)",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "14px",
                     fontWeight: 700,
                     color: "#111827",
@@ -434,7 +434,7 @@ export default function ProjectDetailsPage() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "15px",
                     fontWeight: 500,
                     color: "#4B5563",
@@ -452,7 +452,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -464,7 +464,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -498,7 +498,7 @@ export default function ProjectDetailsPage() {
                   borderRadius: "8px",
                   padding: "10px 24px",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 700,
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
@@ -513,7 +513,7 @@ export default function ProjectDetailsPage() {
                   borderRadius: "8px",
                   padding: "10px 24px",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 700,
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
@@ -528,7 +528,7 @@ export default function ProjectDetailsPage() {
                   borderRadius: "8px",
                   padding: "10px 24px",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 700,
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
@@ -546,7 +546,7 @@ export default function ProjectDetailsPage() {
                   borderRadius: "8px",
                   padding: "10px 24px",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 700,
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
@@ -561,7 +561,7 @@ export default function ProjectDetailsPage() {
                   borderRadius: "8px",
                   padding: "10px 24px",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 700,
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
@@ -578,7 +578,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -590,7 +590,7 @@ export default function ProjectDetailsPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -629,7 +629,7 @@ export default function ProjectDetailsPage() {
                 <span
                   key={p}
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "14px",
                     fontWeight: 700,
                     color: "#FFFFFF",
@@ -660,7 +660,7 @@ export default function ProjectDetailsPage() {
                     borderRadius: "100px",
                     padding: "8px 18px",
                     color: "#000000",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
@@ -678,7 +678,7 @@ export default function ProjectDetailsPage() {
                     borderRadius: "100px",
                     padding: "8px 18px",
                     color: "#000000",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
@@ -692,7 +692,7 @@ export default function ProjectDetailsPage() {
                     borderRadius: "100px",
                     padding: "8px 18px",
                     color: "#000000",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
@@ -710,7 +710,7 @@ export default function ProjectDetailsPage() {
                     borderRadius: "100px",
                     padding: "8px 18px",
                     color: "#000000",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
@@ -724,7 +724,7 @@ export default function ProjectDetailsPage() {
                     borderRadius: "100px",
                     padding: "8px 18px",
                     color: "#000000",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
@@ -742,7 +742,7 @@ export default function ProjectDetailsPage() {
                     borderRadius: "100px",
                     padding: "8px 18px",
                     color: "#000000",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     whiteSpace: "nowrap",
@@ -760,7 +760,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -798,7 +798,7 @@ export default function ProjectDetailsPage() {
               >
                 <span
                   style={{
-                    fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                    fontFamily: "var(--font-cal-sans), sans-serif",
                     fontSize: "36px",
                     fontWeight: 400,
                     color: "#FF7018",
@@ -808,7 +808,7 @@ export default function ProjectDetailsPage() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "14px",
                     fontWeight: 500,
                     color: "#555555",
@@ -826,7 +826,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#000000",
@@ -942,7 +942,7 @@ export default function ProjectDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem)",
               fontWeight: 400,
               color: "#FFFFFF",
@@ -956,7 +956,7 @@ export default function ProjectDetailsPage() {
             style={{
               margin: 0,
               maxWidth: "680px",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 500,
               color: "#FFFFFF",
@@ -976,7 +976,7 @@ export default function ProjectDetailsPage() {
               borderRadius: "100px",
               backgroundColor: "#000000",
               color: "#FFFFFF",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 600,
               textDecoration: "none",

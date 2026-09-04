@@ -139,7 +139,7 @@ export default function BlogDetailsPage() {
               <Link
                 href="/"
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -153,7 +153,7 @@ export default function BlogDetailsPage() {
               <Link
                 href="/blogs"
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -166,7 +166,7 @@ export default function BlogDetailsPage() {
               <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
               <span
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -182,7 +182,7 @@ export default function BlogDetailsPage() {
           <h1
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "64px",
               fontWeight: 400,
               lineHeight: "1.1",
@@ -199,7 +199,7 @@ export default function BlogDetailsPage() {
             style={{
               margin: 0,
               width: "1171px",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "150%",
@@ -233,7 +233,7 @@ export default function BlogDetailsPage() {
                   color: "#FFFFFF",
                   fontWeight: 700,
                   fontSize: "14px",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                 }}
               >
                 IS
@@ -241,7 +241,7 @@ export default function BlogDetailsPage() {
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "15px",
                     fontWeight: 700,
                     color: "#FFFFFF",
@@ -251,7 +251,7 @@ export default function BlogDetailsPage() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 400,
                     color: "rgba(255, 255, 255, 0.7)",
@@ -273,7 +273,7 @@ export default function BlogDetailsPage() {
                 backgroundColor: "rgba(255, 255, 255, 0.15)",
                 backdropFilter: "blur(8px)",
                 color: "#FFFFFF",
-                fontFamily: "'Urbanist', sans-serif",
+                fontFamily: "var(--font-urbanist), sans-serif",
                 fontSize: "13px",
                 fontWeight: 600,
                 border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -292,7 +292,7 @@ export default function BlogDetailsPage() {
                 backgroundColor: "rgba(255, 255, 255, 0.15)",
                 backdropFilter: "blur(8px)",
                 color: "#FFFFFF",
-                fontFamily: "'Urbanist', sans-serif",
+                fontFamily: "var(--font-urbanist), sans-serif",
                 fontSize: "13px",
                 fontWeight: 600,
                 border: "1px solid rgba(255, 255, 255, 0.2)",
@@ -401,7 +401,7 @@ export default function BlogDetailsPage() {
                 </div>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "14px",
                     fontWeight: 700,
                     color: "#111111",
@@ -441,7 +441,7 @@ export default function BlogDetailsPage() {
                       href={"#" + item.id}
                       onClick={() => setActiveSection(item.id)}
                       style={{
-                        fontFamily: "'Urbanist', sans-serif",
+                        fontFamily: "var(--font-urbanist), sans-serif",
                         fontSize: "13px",
                         fontWeight: isActive ? 700 : 500,
                         color: isActive ? "#FF7018" : "#666666",
@@ -471,7 +471,7 @@ export default function BlogDetailsPage() {
             >
               <span
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 700,
                   color: "#111111",
@@ -551,7 +551,7 @@ export default function BlogDetailsPage() {
                 </a>
               </div>
               {copied && (
-                <span style={{ fontSize: "12px", color: "#FF7018", fontFamily: "'Urbanist', sans-serif" }}>
+                <span style={{ fontSize: "12px", color: "#FF7018", fontFamily: "var(--font-urbanist), sans-serif" }}>
                   ✓ Link copied!
                 </span>
               )}
@@ -564,7 +564,7 @@ export default function BlogDetailsPage() {
               display: "flex",
               flexDirection: "column",
               gap: "32px",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               color: "#333333",
               lineHeight: "1.7",
               fontSize: "16px",
@@ -580,7 +580,7 @@ export default function BlogDetailsPage() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                  fontFamily: "var(--font-cal-sans), sans-serif",
                   fontSize: "28px",
                   fontWeight: 400,
                   color: "#000000",
@@ -612,7 +612,7 @@ export default function BlogDetailsPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "18px",
                   fontWeight: 600,
                   fontStyle: "italic",
@@ -629,7 +629,7 @@ export default function BlogDetailsPage() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                  fontFamily: "var(--font-cal-sans), sans-serif",
                   fontSize: "28px",
                   fontWeight: 400,
                   color: "#000000",
@@ -674,7 +674,7 @@ export default function BlogDetailsPage() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                  fontFamily: "var(--font-cal-sans), sans-serif",
                   fontSize: "28px",
                   fontWeight: 400,
                   color: "#000000",
@@ -717,7 +717,7 @@ export default function BlogDetailsPage() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                  fontFamily: "var(--font-cal-sans), sans-serif",
                   fontSize: "28px",
                   fontWeight: 400,
                   color: "#000000",
@@ -736,7 +736,7 @@ export default function BlogDetailsPage() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                  fontFamily: "var(--font-cal-sans), sans-serif",
                   fontSize: "28px",
                   fontWeight: 400,
                   color: "#000000",
@@ -771,7 +771,7 @@ export default function BlogDetailsPage() {
                     fontSize: "13px",
                     fontWeight: 600,
                     color: "#555555",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                   }}
                 >
                   {tag}
@@ -804,7 +804,7 @@ export default function BlogDetailsPage() {
             >
               <span
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 700,
                   color: "#000000",
@@ -844,7 +844,7 @@ export default function BlogDetailsPage() {
                   borderRadius: "100px",
                   backgroundColor: "#000000",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 600,
                   textDecoration: "none",
@@ -876,7 +876,7 @@ export default function BlogDetailsPage() {
         <h2
           style={{
             margin: 0,
-            fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+            fontFamily: "var(--font-cal-sans), sans-serif",
             fontSize: "48px",
             fontWeight: 400,
             color: "#000000",
@@ -954,7 +954,7 @@ export default function BlogDetailsPage() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 600,
                     color: "#FF7018",
@@ -964,7 +964,7 @@ export default function BlogDetailsPage() {
                 </span>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 500,
                     color: "#888888",
@@ -977,7 +977,7 @@ export default function BlogDetailsPage() {
               <h3
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "19px",
                   fontWeight: 700,
                   color: "#000000",
@@ -990,7 +990,7 @@ export default function BlogDetailsPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 400,
                   lineHeight: "140%",
@@ -1013,14 +1013,14 @@ export default function BlogDetailsPage() {
                     color: "#FF7018",
                     fontWeight: 700,
                     fontSize: "11px",
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                   }}
                 >
                   IS
                 </div>
                 <span
                   style={{
-                    fontFamily: "'Urbanist', sans-serif",
+                    fontFamily: "var(--font-urbanist), sans-serif",
                     fontSize: "13px",
                     fontWeight: 700,
                     color: "#000000",
@@ -1067,7 +1067,7 @@ export default function BlogDetailsPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "44px",
               fontWeight: 400,
               color: "#FFFFFF",
@@ -1081,7 +1081,7 @@ export default function BlogDetailsPage() {
             style={{
               margin: 0,
               width: "640px",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 500,
               color: "#FFFFFF",
@@ -1101,7 +1101,7 @@ export default function BlogDetailsPage() {
               borderRadius: "100px",
               backgroundColor: "#000000",
               color: "#FFFFFF",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 600,
               textDecoration: "none",
@@ -1163,7 +1163,7 @@ export default function BlogDetailsPage() {
                 style={{
                   margin: 0,
                   width: "280px",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 400,
                   lineHeight: "120%",
@@ -1232,7 +1232,7 @@ export default function BlogDetailsPage() {
             boxSizing: "border-box",
           }}
         >
-          <p style={{ margin: 0, fontFamily: "'Urbanist', sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
+          <p style={{ margin: 0, fontFamily: "var(--font-urbanist), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
             © 2026 Innosion All Rights Reserved
           </p>
 
@@ -1251,7 +1251,7 @@ export default function BlogDetailsPage() {
                 key={link.label}
                 href={link.href}
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 500,
                   color: "#FFFFFF",

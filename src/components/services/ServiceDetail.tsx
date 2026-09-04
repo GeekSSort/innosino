@@ -740,7 +740,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
         <div className="container">
           <h2
             className="section-lede"
-            style={{ fontFamily: "'Cal Sans', 'Outfit', sans-serif", fontWeight: 400 }}
+            style={{ fontFamily: "var(--font-cal-sans), sans-serif", fontWeight: 400 }}
           >
             Discover the industries we serve with innovative technology and smart
             engineering solutions for real-world challenges.

@@ -53,9 +53,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-cal-sans: 'Cal Sans', 'Outfit', sans-serif;
-  --font-urbanist: 'Urbanist', sans-serif;
-  --font-poppins: 'Poppins', sans-serif;
+  /* --font-cal-sans, --font-urbanist and --font-poppins come from next/font,
+     which sets them on <html> alongside the self-hosted @font-face rules.
+     Declaring them here as well would shadow it; nothing used the Tailwind
+     utilities they generated. */
 }
 
 /* Portrait tablet / mobile composition. The reference mobile frame places the
@@ -90,7 +91,7 @@ body {
      the body a scroll container, which silently disables every `position:
      sticky` descendant (the stacking project cards). */
   overflow-x: clip;
-  font-family: 'Urbanist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-urbanist), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* ---------------------------------------------------------------------------
@@ -238,7 +239,7 @@ body {
 
 .hero-title {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   /* Its own ramp rather than --fs-display, which the sub-page heroes share.
      "WELCOME TO INNOSINO" needs 11.48px of width per 1px of font size, so at
      the 361px container of a 393 viewport it fits on one line only up to
@@ -1011,7 +1012,7 @@ body {
 
 .splash-headline__text {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   /* This headline lives on the same 1440x810 artboard as the animation, so it
      scales with the frame (64/1440 = 4.444%) rather than with the viewport —
      that keeps it locked to the artwork and stops it overflowing on phones.
@@ -1186,7 +1187,7 @@ body {
   border-radius: 100px;
   background-color: #000000;
   color: #ffffff;
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-body);
   font-weight: 500;
   white-space: nowrap;
@@ -1415,7 +1416,7 @@ body {
   flex-shrink: 0;
   /* The label column is its own text width plus the row gap on both reference
      frames (163 at 1440, 117 at 744) — no reserved column needed. */
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: clamp(1.125rem, 4.56px + 3.42vw, 2.25rem);
   font-weight: 400;
   line-height: 1.3;
@@ -1447,7 +1448,7 @@ body {
 /* --- Section heading (shared by the light/dark content sections) ---------- */
 .section-heading {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: var(--fs-h3);
   font-weight: 400;
   line-height: 1.3;
@@ -1651,7 +1652,7 @@ body {
 }
 
 .about-stat__number {
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   /* 48 on both reference frames, so it hits the cap from 744 up. */
   font-size: clamp(1.75rem, 6.45vw, 3rem);
   font-weight: 400;
@@ -1714,7 +1715,7 @@ body {
 
 .cta-banner__title {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: clamp(1.5rem, 0.966rem + 1.149vw, 2rem);
   font-weight: 400;
   line-height: 1.25;
@@ -1858,7 +1859,7 @@ body {
 
 .page-hero__title {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: var(--fs-display);
   font-weight: 400;
   line-height: 1.1;
@@ -1915,7 +1916,7 @@ body {
 
 .svc-partners__title {
   margin: 0 0 clamp(1.25rem, 2.5vw, 36px);
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: var(--fs-h4);
   font-weight: 400;
   color: #666666;
@@ -2307,7 +2308,7 @@ body {
 
 .svc-work__title {
   margin: clamp(0.75rem, 1.1vw, 16px) 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: var(--fs-h2);
   font-weight: 400;
   color: #ffffff;
@@ -2625,7 +2626,7 @@ body {
   border: 1px solid #d1d1d1;
   background-color: #ffffff;
   padding: 10px 14px;
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-small);
   color: #000000;
   outline: none;
@@ -2659,7 +2660,7 @@ body {
   background: linear-gradient(135deg, #ff7018 0%, #ffbe03 100%);
   border: none;
   color: #ffffff;
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -2747,7 +2748,7 @@ body {
 
 .ct-hub__name {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   font-size: clamp(1.25rem, 1.067rem + 0.781vw, 1.75rem);
   font-weight: 400;
   line-height: 1.5;
@@ -2941,7 +2942,7 @@ body {
   min-width: 0;
   border: none;
   background: none;
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-small);
   color: #000000;
   outline: none;
@@ -2955,7 +2956,7 @@ body {
   border: none;
   background-color: #efefef;
   color: #333333;
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-small);
   font-weight: 500;
   cursor: pointer;
@@ -3041,7 +3042,7 @@ body {
   border: none;
   background-color: transparent;
   color: #333333;
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-small);
   font-weight: 500;
   cursor: pointer;
@@ -3177,7 +3178,7 @@ body {
 
 .pd-heading {
   margin: 0;
-  font-family: 'Cal Sans', 'Outfit', sans-serif;
+  font-family: var(--font-cal-sans), sans-serif;
   /* 44px in the Figma frame, 28px on a phone. */
   font-size: clamp(1.75rem, 1.375rem + 1.528vw, 2.75rem);
   font-weight: 400;

@@ -126,7 +126,7 @@ export default function PrivacyPolicyPage() {
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               <span
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -138,7 +138,7 @@ export default function PrivacyPolicyPage() {
               <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
               <span
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -155,7 +155,7 @@ export default function PrivacyPolicyPage() {
             <h1
               style={{
                 margin: 0,
-                fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+                fontFamily: "var(--font-cal-sans), sans-serif",
                 fontSize: "64px",
                 fontWeight: 400,
                 lineHeight: "1.1",
@@ -173,7 +173,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 500,
               color: "#CCCCCC",
@@ -210,7 +210,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -222,7 +222,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -238,7 +238,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -261,7 +261,7 @@ export default function PrivacyPolicyPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   lineHeight: "150%",
@@ -284,7 +284,7 @@ export default function PrivacyPolicyPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   lineHeight: "150%",
@@ -307,7 +307,7 @@ export default function PrivacyPolicyPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   lineHeight: "150%",
@@ -325,7 +325,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -348,7 +348,7 @@ export default function PrivacyPolicyPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   lineHeight: "150%",
@@ -371,7 +371,7 @@ export default function PrivacyPolicyPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   lineHeight: "150%",
@@ -394,7 +394,7 @@ export default function PrivacyPolicyPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   lineHeight: "150%",
@@ -412,7 +412,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -424,7 +424,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -440,7 +440,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -452,7 +452,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -468,7 +468,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -480,7 +480,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -496,7 +496,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -508,7 +508,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -524,7 +524,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -536,7 +536,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -552,7 +552,7 @@ export default function PrivacyPolicyPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "34px",
               fontWeight: 400,
               color: "#000000",
@@ -564,7 +564,7 @@ export default function PrivacyPolicyPage() {
           <p
             style={{
               margin: 0,
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 400,
               lineHeight: "160%",
@@ -578,7 +578,7 @@ export default function PrivacyPolicyPage() {
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
             <span
               style={{
-                fontFamily: "'Urbanist', sans-serif",
+                fontFamily: "var(--font-urbanist), sans-serif",
                 fontSize: "16px",
                 fontWeight: 700,
                 color: "#000000",
@@ -588,7 +588,7 @@ export default function PrivacyPolicyPage() {
             </span>
             <span
               style={{
-                fontFamily: "'Urbanist', sans-serif",
+                fontFamily: "var(--font-urbanist), sans-serif",
                 fontSize: "16px",
                 fontWeight: 400,
                 color: "#000000",
@@ -689,7 +689,7 @@ export default function PrivacyPolicyPage() {
                 style={{
                   margin: 0,
                   width: "280px",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 400,
                   lineHeight: "120%",
@@ -758,7 +758,7 @@ export default function PrivacyPolicyPage() {
             boxSizing: "border-box",
           }}
         >
-          <p style={{ margin: 0, fontFamily: "'Urbanist', sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
+          <p style={{ margin: 0, fontFamily: "var(--font-urbanist), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
             © 2026 Innosion All Rights Reserved
           </p>
 
@@ -776,7 +776,7 @@ export default function PrivacyPolicyPage() {
                 key={link.label}
                 href={link.href}
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 500,
                   color: "#FFFFFF",

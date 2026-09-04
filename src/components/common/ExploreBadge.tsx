@@ -49,7 +49,7 @@ export default function ExploreBadge({ onClick }: ExploreBadgeProps) {
               />
               <text
                 style={{
-                  fontFamily: "'Poppins', sans-serif",
+                  fontFamily: "var(--font-poppins), sans-serif",
                   fontSize: "10.378px",
                   fontWeight: 600,
                   letterSpacing: "0.26em",

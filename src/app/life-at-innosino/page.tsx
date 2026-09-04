@@ -142,7 +142,7 @@ export default function LifeAtInnosinoPage() {
               <Link
                 href="/"
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -155,7 +155,7 @@ export default function LifeAtInnosinoPage() {
               <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
               <span
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 600,
                   color: "#FF7018",
@@ -171,7 +171,7 @@ export default function LifeAtInnosinoPage() {
           <h1
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "64px",
               fontWeight: 400,
               lineHeight: "1.1",
@@ -187,7 +187,7 @@ export default function LifeAtInnosinoPage() {
             style={{
               margin: 0,
               width: "1171px",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "150%",
@@ -371,7 +371,7 @@ export default function LifeAtInnosinoPage() {
           style={{
             margin: 0,
             width: "1170px",
-            fontFamily: "'Urbanist', sans-serif",
+            fontFamily: "var(--font-urbanist), sans-serif",
             fontSize: "30px",
             fontWeight: 500,
             lineHeight: "140%",
@@ -481,7 +481,7 @@ export default function LifeAtInnosinoPage() {
         <h2
           style={{
             margin: 0,
-            fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+            fontFamily: "var(--font-cal-sans), sans-serif",
             fontSize: "44px",
             fontWeight: 400,
             color: "#000000",
@@ -539,7 +539,7 @@ export default function LifeAtInnosinoPage() {
               <h3
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "24px",
                   fontWeight: 700,
                   color: "#000000",
@@ -551,7 +551,7 @@ export default function LifeAtInnosinoPage() {
               <p
                 style={{
                   margin: 0,
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 400,
                   color: "#666666",
@@ -574,7 +574,7 @@ export default function LifeAtInnosinoPage() {
                   borderRadius: "100px",
                   backgroundColor: "#000000",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "15px",
                   fontWeight: 600,
                   textDecoration: "none",
@@ -635,7 +635,7 @@ export default function LifeAtInnosinoPage() {
                   <h4
                     style={{
                       margin: 0,
-                      fontFamily: "'Urbanist', sans-serif",
+                      fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "18px",
                       fontWeight: 700,
                       color: "#000000",
@@ -647,7 +647,7 @@ export default function LifeAtInnosinoPage() {
                   <p
                     style={{
                       margin: 0,
-                      fontFamily: "'Urbanist', sans-serif",
+                      fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "14px",
                       fontWeight: 400,
                       color: "#666666",
@@ -669,7 +669,7 @@ export default function LifeAtInnosinoPage() {
                       borderRadius: "100px",
                       backgroundColor: "#000000",
                       color: "#FFFFFF",
-                      fontFamily: "'Urbanist', sans-serif",
+                      fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "14px",
                       fontWeight: 600,
                       textDecoration: "none",
@@ -722,7 +722,7 @@ export default function LifeAtInnosinoPage() {
                   <h4
                     style={{
                       margin: 0,
-                      fontFamily: "'Urbanist', sans-serif",
+                      fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "18px",
                       fontWeight: 700,
                       color: "#000000",
@@ -734,7 +734,7 @@ export default function LifeAtInnosinoPage() {
                   <p
                     style={{
                       margin: 0,
-                      fontFamily: "'Urbanist', sans-serif",
+                      fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "14px",
                       fontWeight: 400,
                       color: "#666666",
@@ -756,7 +756,7 @@ export default function LifeAtInnosinoPage() {
                       borderRadius: "100px",
                       backgroundColor: "#000000",
                       color: "#FFFFFF",
-                      fontFamily: "'Urbanist', sans-serif",
+                      fontFamily: "var(--font-urbanist), sans-serif",
                       fontSize: "14px",
                       fontWeight: 600,
                       textDecoration: "none",
@@ -781,7 +781,7 @@ export default function LifeAtInnosinoPage() {
                   borderRadius: "100px",
                   background: "linear-gradient(90deg, #FF7018 0%, #FFBE03 100%)",
                   color: "#FFFFFF",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "15px",
                   fontWeight: 600,
                   textDecoration: "none",
@@ -857,7 +857,7 @@ export default function LifeAtInnosinoPage() {
           <h2
             style={{
               margin: 0,
-              fontFamily: "'Cal Sans', 'Outfit', sans-serif",
+              fontFamily: "var(--font-cal-sans), sans-serif",
               fontSize: "44px",
               fontWeight: 400,
               color: "#FFFFFF",
@@ -872,7 +872,7 @@ export default function LifeAtInnosinoPage() {
             style={{
               margin: 0,
               width: "640px",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 500,
               color: "#FFFFFF",
@@ -893,7 +893,7 @@ export default function LifeAtInnosinoPage() {
               borderRadius: "100px",
               backgroundColor: "#000000",
               color: "#FFFFFF",
-              fontFamily: "'Urbanist', sans-serif",
+              fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 600,
               textDecoration: "none",
@@ -958,7 +958,7 @@ export default function LifeAtInnosinoPage() {
                 style={{
                   margin: 0,
                   width: "280px",
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "14px",
                   fontWeight: 400,
                   lineHeight: "120%",
@@ -1027,7 +1027,7 @@ export default function LifeAtInnosinoPage() {
             boxSizing: "border-box",
           }}
         >
-          <p style={{ margin: 0, fontFamily: "'Urbanist', sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
+          <p style={{ margin: 0, fontFamily: "var(--font-urbanist), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
             © 2026 Innosion All Rights Reserved
           </p>
 
@@ -1046,7 +1046,7 @@ export default function LifeAtInnosinoPage() {
                 key={link.label}
                 href={link.href}
                 style={{
-                  fontFamily: "'Urbanist', sans-serif",
+                  fontFamily: "var(--font-urbanist), sans-serif",
                   fontSize: "16px",
                   fontWeight: 500,
                   color: "#FFFFFF",

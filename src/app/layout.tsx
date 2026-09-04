@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Urbanist, Cal_Sans, Poppins } from "next/font/google";
 import "./globals.css";
 import {
   siteUrl,
@@ -8,6 +9,36 @@ import {
 } from "./shared-metadata";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { SPLASH_SEEN_KEY } from "@/content/splash";
+
+/**
+ * Self-hosted through next/font rather than linked from Google and Fontshare.
+ * Both of those stylesheets are render-blocking, and behind them sits a
+ * full-screen white splash overlay: any latency on either host was a white
+ * screen for exactly that long. Serving the faces from this origin takes them
+ * off the critical path altogether.
+ */
+const urbanist = Urbanist({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-urbanist",
+});
+
+/** The display face. Every use in the stylesheet is at 400, its only weight. */
+const calSans = Cal_Sans({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  variable: "--font-cal-sans",
+});
+
+/** One use: the Explore badge's circular label. */
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: "600",
+  display: "swap",
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -47,37 +78,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full antialiased dark"
+      className={`h-full antialiased dark ${urbanist.variable} ${calSans.variable} ${poppins.variable}`}
       /* The script below stamps data-splash-seen on this element before React
          ever runs, which React otherwise reports as a hydration mismatch. */
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        {/* Cal Sans is the display face on nearly every page, so warm up its
-            two origins as well — the stylesheet comes from api.fontshare.com
-            and the woff2 files from cdn.fontshare.com. */}
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link
-          rel="preconnect"
-          href="https://cdn.fontshare.com"
-          crossOrigin="anonymous"
-        />
-        {/* Poppins is used in exactly one place (the Explore badge's circular
-            label) at weight 600, so only that variant is requested. */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Poppins:wght@600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://api.fontshare.com/v2/css?f[]=cal-sans@400,600,700&display=swap"
-          rel="stylesheet"
-        />
         {/* The hero intro plays once a tab, but the static HTML always carries
             its overlay, so the flag has to be read before the first paint --
             by the time React hydrates and unmounts it, a reload has already
