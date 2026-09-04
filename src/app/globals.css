@@ -42,9 +42,9 @@
   /* Floating dock (navbar + explore badge). Both are genuinely fixed overlays
      in the design, so their offsets are a share of the viewport height taken
      from the reference frames:
-       nav bottom      137 / 810 = 16.9%
+       nav bottom      116 / 810 = 14.3%   (header y 626 + height 68)
        explore bottom   94 / 810 = 11.6% */
-  --nav-bottom: 16.9vh;
+  --nav-bottom: 14.3vh;
   --nav-height: clamp(64px, 4.7vw, 68px);
   --explore-bottom: 11.6%;
   --explore-size: 112px;
@@ -354,6 +354,17 @@ body {
 
 .dock--explore .dock__inner {
   justify-content: flex-end;
+}
+
+@media (min-width: 1024px) {
+  /* The badge reaches 30px past the content gutter -- the frame puts it at
+     x 1149..1335 of 1440, so 105 from the edge where the gutter is 135.
+     Widening the rail by 60 centres that overhang onto both sides, which keeps
+     it correct as the gutter grows with the viewport. */
+  .dock--explore .dock__inner {
+    width: calc(var(--container) + 60px);
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 1023px) {
