@@ -2067,6 +2067,24 @@ body {
   color: transparent;
 }
 
+/* ---------------------------------------------------------------------------
+   Why INNOSINO (Figma node 1057:9602)
+
+   The same 370x262 card as the process grid, so the frame reuses .svc-process
+   wholesale; all it changes is the fill, which it inverts -- a white ground
+   carrying #F1F1F1 cards.
+   -------------------------------------------------------------------------- */
+.svc-why .svc-card {
+  background-color: #f1f1f1;
+}
+
+.svc-why .svc-card--lead {
+  background:
+    linear-gradient(#f1f1f1, #f1f1f1) padding-box,
+    linear-gradient(180deg, #ff7018 26.92%, #ffbe03) border-box;
+  box-shadow: 0 0 15px rgba(30, 30, 30, 0.25);
+}
+
 .svc-card__eyebrow {
   font-size: var(--fs-small);
   font-weight: 700;

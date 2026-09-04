@@ -26,6 +26,13 @@ gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 /** The transition's easing, cubic-bezier(0, 0, 0.58, 1). */
 const FIGMA_EASE = CustomEase.create("figmaOut", "M0,0 C0,0 0.58,1 1,1");
 
+/** Off-frame starts for the Why INNOSINO points, by grid position. */
+const WHY_ENTRY: Record<number, { x: number; y: number }> = {
+  1: { x: -170.7, y: 127.3 },
+  2: { x: 148.1, y: 77.7 },
+  5: { x: 84.2, y: 112.9 },
+};
+
 /** The on-demand transition's easing, cubic-bezier(0.42, 0, 0.58, 1). */
 const FIGMA_EASE_IN_OUT = CustomEase.create(
   "figmaInOut",
@@ -211,6 +218,53 @@ export default function ServiceDetail({ service }: { service: Service }) {
       return () => mm.revert();
     },
     { scope: processRef, dependencies: [service.slug] },
+  );
+
+  const whyRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Scatter into the grid, which is what this set's two variants describe: the
+   * first holds point 02 off the left edge at x -96.55 against a final 535, 03
+   * off the right at 1483 against 935 and 06 below the bottom right corner at
+   * (1246.45, 746.89) against (935, 451), while 01, 04 and 05 are not drawn at
+   * all -- an unmatched layer, which resolves as a dissolve in place. Offsets
+   * are taken against the 370x262 card so they hold at any container width.
+   */
+  useGSAP(
+    () => {
+      const root = whyRef.current;
+      if (!root) return;
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          wide: "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
+          narrow: "(max-width: 899px) and (prefers-reduced-motion: no-preference)",
+        },
+        (context) => {
+          const wide = context.conditions?.wide;
+          const cards = gsap.utils.toArray<HTMLElement>(
+            root.querySelectorAll(".svc-card"),
+          );
+          cards.forEach((card, i) => {
+            // Stacked into one column below the breakpoint, where the frame's
+            // horizontal vectors would only drag cards in from the same edge.
+            const from = wide ? WHY_ENTRY[i] : undefined;
+            gsap.from(card, {
+              xPercent: from?.x ?? 0,
+              yPercent: from?.y ?? (wide ? 0 : 24),
+              opacity: 0,
+              duration: 1.6,
+              ease: FIGMA_EASE,
+              delay: i * 0.08,
+              scrollTrigger: { trigger: root, start: "top 85%", once: true },
+            });
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: whyRef, dependencies: [service.slug] },
   );
 
   const workStackRef = useRef<HTMLDivElement>(null);
@@ -547,26 +601,29 @@ export default function ServiceDetail({ service }: { service: Service }) {
       {/* =====================================================================
           SECTION 6: WHY IS INNOSINO THE RIGHT PARTNER (Node 1498:14733)
           ===================================================================== */}
-      <section className="flow-section" style={{ backgroundColor: "#F6F6F6" }}>
+      <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
             WHY IS INNOSINO THE RIGHT {service.title}{" "}
             <span className="brand-gradient-text">PARTNER?</span>
           </h2>
 
-          <div
-            className="svc-grid"
-            style={{ marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)" }}
-          >
-            {service.whyUsPoints.map((item) => (
-              <div key={item.num} className="svc-card">
-                <span className="svc-card__eyebrow">● {item.num}</span>
-                <div>
-                  <h3 className="svc-card__title">{item.title}</h3>
-                  <p className="svc-card__desc">{item.desc}</p>
+          <div className="svc-process svc-why" ref={whyRef}>
+            <div className="svc-grid">
+              {service.whyUsPoints.map((item, index) => (
+                <div
+                  key={item.num}
+                  /* The settled frame rules only the first point. */
+                  className={index === 0 ? "svc-card svc-card--lead" : "svc-card"}
+                >
+                  <span className="svc-card__eyebrow">{item.num}</span>
+                  <div>
+                    <h3 className="svc-card__title">{item.title}</h3>
+                    <p className="svc-card__desc">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
