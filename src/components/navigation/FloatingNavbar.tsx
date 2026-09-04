@@ -22,15 +22,15 @@ const navItems: NavItem[] = [
 /** The Services panel: four disciplines in two columns, then the two broader
     offers on their own lines — the arrangement of the reference frame. */
 const serviceGridLinks = [
-  { label: "Embedded System Design", href: "/services" },
-  { label: "Software Integration", href: "/services" },
-  { label: "Hardware & PCB Design", href: "/services" },
-  { label: "Manufacturing Support", href: "/services" },
+  { label: "Embedded System Design", href: "/services/embedded-system-design" },
+  { label: "Software Integration", href: "/services/software-integration" },
+  { label: "Hardware & PCB Design", href: "/services/hardware-pcb-design" },
+  { label: "Manufacturing Support", href: "/services/manufacturing-support" },
 ];
 
 const serviceStackLinks = [
-  { label: "Product Development", href: "/services" },
-  { label: "Industrial Automation", href: "/services" },
+  { label: "Product Development", href: "/services/product-development" },
+  { label: "Industrial Automation", href: "/services/industrial-automation" },
 ];
 
 /** The More panel carries everything the pill has no room for, including the
