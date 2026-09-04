@@ -59,7 +59,7 @@ export default function BlogsPage() {
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
               <Image
-                src="/about_us/IS-Logo.png"
+                src="/about_us/IS-Logo.webp"
                 alt="INNOSINO"
                 width={340}
                 height={128}

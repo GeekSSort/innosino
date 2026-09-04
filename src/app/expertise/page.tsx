@@ -57,7 +57,6 @@ export default function ExpertisePage() {
           <BackgroundVideo
             src="/service_page/Service sevtion Hero.mp4"
             poster="/posters/service_page/Service sevtion Hero.webp"
-            webmSrc="/service_page/Service sevtion Hero.webm"
             loading="eager"
             style={{
               width: "100%",
@@ -91,7 +90,7 @@ export default function ExpertisePage() {
         >
           <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
             <Image
-              src="/about_us/IS-Logo.png"
+              src="/about_us/IS-Logo.webp"
               alt="INNOSINO"
               width={236}
               height={32}

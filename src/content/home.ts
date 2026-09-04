@@ -46,7 +46,6 @@ export const serviceMedia: ServiceMedia[] = [
     id: "product-development",
     videoSrc: "/homepage_assets/Product Development.mp4",
     posterSrc: "/posters/homepage_assets/Product Development.webp",
-    webmSrc: "/homepage_assets/Product Development.webm",
     scrimOpacity: 0.12,
     title: "Product Development",
     body: "Transforming innovative ideas into reliable, market-ready products through research, engineering, and advanced technology.",
@@ -84,14 +83,14 @@ export const featuredProjects: FeaturedProject[] = [
     title: "Smart Musical Instruments",
     description:
       "Engineered six intelligent instruments with AI, DSP, and embedded technologies, delivering real-time audio processing, wireless connectivity, and patent-ready innovations.",
-    image: "/homepage_assets/featured_project_images/guitar.png",
+    image: "/homepage_assets/featured_project_images/guitar.webp",
     stats: [{ value: "6+", label: "Smart Instruments Developed" }],
   },
   {
     title: "PolyPan Electronic Handpan",
     description:
       "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI to deliver a modern, expressive musical experience powered by embedded technology.",
-    image: "/homepage_assets/featured_project_images/white_moontype.png",
+    image: "/homepage_assets/featured_project_images/white_moontype.webp",
     stats: [
       { value: "9", label: "Independent Touch Zones" },
       { value: "7", label: "Gesture Combinations" },
@@ -101,14 +100,14 @@ export const featuredProjects: FeaturedProject[] = [
     title: "AI Sensor & Security Systems",
     description:
       "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor occupancy in real time, and enable smart, camera-free access control for safer and more efficient spaces.",
-    image: "/homepage_assets/featured_project_images/ai.png",
+    image: "/homepage_assets/featured_project_images/ai.webp",
     stats: [{ value: "$2.8B", label: "Addressable Market" }],
   },
   {
     title: "Logic IC Trainer Kit",
     description:
       "An interactive digital logic training kit that helps students learn logic circuits through hands-on experiments, real-time visualization, and WebSerial connectivity for a practical engineering learning experience.",
-    image: "/homepage_assets/featured_project_images/blue and black image.png",
+    image: "/homepage_assets/featured_project_images/blue and black image.webp",
     stats: [{ value: "16", label: "Logic IC Profiles" }],
   },
 ];
@@ -122,46 +121,46 @@ export const industriesList: IndustryItem[] = [
   {
     id: "1",
     title: "Consumer Electronics",
-    image: "/homepage_assets/industries/Consumer Electronics.jpg",
+    image: "/homepage_assets/industries/Consumer Electronics.webp",
   },
   {
     id: "2",
     title: "Renewable Energy",
-    image: "/homepage_assets/industries/Renewable Energy.jpg",
+    image: "/homepage_assets/industries/Renewable Energy.webp",
   },
   {
     id: "3",
     title: "Industrial Automation",
-    image: "/homepage_assets/industries/Industrial Automation.png",
+    image: "/homepage_assets/industries/Industrial Automation.webp",
   },
   {
     id: "4",
     title: "Smart IOT",
-    image: "/homepage_assets/industries/Smart IOT.png",
+    image: "/homepage_assets/industries/Smart IOT.webp",
   },
   {
     id: "5",
     title: "Engineering Education",
-    image: "/homepage_assets/industries/Engineering Education.png",
+    image: "/homepage_assets/industries/Engineering Education.webp",
   },
   {
     id: "6",
     title: "Digital Musical Instruments",
-    image: "/homepage_assets/industries/Digital Musical Instruments.png",
+    image: "/homepage_assets/industries/Digital Musical Instruments.webp",
   },
   {
     id: "7",
     title: "Biomedical Electronics",
-    image: "/homepage_assets/industries/Biomedical Electronics.png",
+    image: "/homepage_assets/industries/Biomedical Electronics.webp",
   },
   {
     id: "8",
     title: "NFC and RFID Technology",
-    image: "/homepage_assets/industries/NFC and RFID Technology.png",
+    image: "/homepage_assets/industries/NFC and RFID Technology.webp",
   },
   {
     id: "9",
     title: "Wireless Communication",
-    image: "/homepage_assets/industries/Wireless Communication.jpg",
+    image: "/homepage_assets/industries/Wireless Communication.webp",
   },
 ];

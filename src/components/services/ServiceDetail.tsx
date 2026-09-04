@@ -64,14 +64,14 @@ const CARD_EXIT = { xPercent: 73, yPercent: -257, rotation: 45 };
 
 // Industries for auto-slider
 const industriesList = [
-  { title: "Consumer Electronics", image: "/homepage_assets/industries/Consumer Electronics.jpg" },
-  { title: "Renewable Energy", image: "/homepage_assets/industries/Renewable Energy.jpg" },
-  { title: "Industrial Automation", image: "/homepage_assets/industries/Industrial Automation.png" },
-  { title: "Smart IOT", image: "/homepage_assets/industries/Smart IOT.png" },
-  { title: "Engineering Education", image: "/homepage_assets/industries/Engineering Education.png" },
-  { title: "Digital Musical Instruments", image: "/homepage_assets/industries/Digital Musical Instruments.png" },
-  { title: "Biomedical Electronics", image: "/homepage_assets/industries/Biomedical Electronics.png" },
-  { title: "NFC and RFID Technology", image: "/homepage_assets/industries/NFC and RFID Technology.png" },
+  { title: "Consumer Electronics", image: "/homepage_assets/industries/Consumer Electronics.webp" },
+  { title: "Renewable Energy", image: "/homepage_assets/industries/Renewable Energy.webp" },
+  { title: "Industrial Automation", image: "/homepage_assets/industries/Industrial Automation.webp" },
+  { title: "Smart IOT", image: "/homepage_assets/industries/Smart IOT.webp" },
+  { title: "Engineering Education", image: "/homepage_assets/industries/Engineering Education.webp" },
+  { title: "Digital Musical Instruments", image: "/homepage_assets/industries/Digital Musical Instruments.webp" },
+  { title: "Biomedical Electronics", image: "/homepage_assets/industries/Biomedical Electronics.webp" },
+  { title: "NFC and RFID Technology", image: "/homepage_assets/industries/NFC and RFID Technology.webp" },
 ];
 
 // Partner Logos for continuous right-to-left sliding marquee
@@ -390,7 +390,6 @@ export default function ServiceDetail({ service }: { service: Service }) {
           <BackgroundVideo
             src="/service_page/Service sevtion Hero.mp4"
             poster="/posters/service_page/Service sevtion Hero.webp"
-            webmSrc="/service_page/Service sevtion Hero.webm"
             loading="eager"
           />
           <div
@@ -404,7 +403,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
             {/* Logo: Node 1498:14573 */}
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
               <Image
-                src="/about_us/IS-Logo.png"
+                src="/about_us/IS-Logo.webp"
                 alt="INNOSINO"
                 width={340}
                 height={128}

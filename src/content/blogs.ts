@@ -17,7 +17,7 @@ export const featuredBlog = {
   author: "Innosino Team",
   initials: "IS",
   readTime: "8 min",
-  image: "/blog_details assets/BD-01.png",
+  image: "/blog_details assets/BD-01.webp",
   cta: { label: "Know Details", href: "/blogs/details" },
 };
 
@@ -52,7 +52,7 @@ export const allBlogs: BlogCard[] = [
     desc: "How we choose copper weight, spacing, and shielding for a sensitive ground track.",
     author: "Innosino Team",
     readTime: "5 min",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
+    img: "/homepage_assets/featured_project_images/white_moontype.webp",
     filterTags: ["All", "PCB Design", "Featured Blogs"],
   },
   {
@@ -63,7 +63,7 @@ export const allBlogs: BlogCard[] = [
     desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
     author: "Innosino Team",
     readTime: "6 min",
-    img: "/blog_details assets/BD-02.png",
+    img: "/blog_details assets/BD-02.webp",
     filterTags: ["All", "Firmware", "Embedded Systems"],
   },
   {
@@ -74,7 +74,7 @@ export const allBlogs: BlogCard[] = [
     desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
     author: "Innosino Team",
     readTime: "7 min",
-    img: "/blog_details assets/BD-03.png",
+    img: "/blog_details assets/BD-03.webp",
     filterTags: ["All", "Embedded Systems", "IOT Devices"],
   },
   {
@@ -85,7 +85,7 @@ export const allBlogs: BlogCard[] = [
     desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
     author: "Innosino Team",
     readTime: "7 min",
-    img: "/blog_details assets/BD-03.png",
+    img: "/blog_details assets/BD-03.webp",
     filterTags: ["All", "Embedded Systems", "IOT Devices"],
   },
   {
@@ -96,7 +96,7 @@ export const allBlogs: BlogCard[] = [
     desc: "How we choose copper weight, spacing, and shielding for a sensitive ground track.",
     author: "Innosino Team",
     readTime: "5 min",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
+    img: "/homepage_assets/featured_project_images/white_moontype.webp",
     filterTags: ["All", "PCB Design", "Featured Blogs"],
   },
   {
@@ -107,7 +107,7 @@ export const allBlogs: BlogCard[] = [
     desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
     author: "Innosino Team",
     readTime: "6 min",
-    img: "/blog_details assets/BD-02.png",
+    img: "/blog_details assets/BD-02.webp",
     filterTags: ["All", "Firmware", "Embedded Systems"],
   },
   {
@@ -118,7 +118,7 @@ export const allBlogs: BlogCard[] = [
     desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
     author: "Innosino Team",
     readTime: "6 min",
-    img: "/blog_details assets/BD-02.png",
+    img: "/blog_details assets/BD-02.webp",
     filterTags: ["All", "Firmware", "Embedded Systems"],
   },
   {
@@ -129,7 +129,7 @@ export const allBlogs: BlogCard[] = [
     desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
     author: "Innosino Team",
     readTime: "7 min",
-    img: "/blog_details assets/BD-03.png",
+    img: "/blog_details assets/BD-03.webp",
     filterTags: ["All", "Embedded Systems", "IOT Devices"],
   },
   {
@@ -140,7 +140,7 @@ export const allBlogs: BlogCard[] = [
     desc: "How we choose copper weight, spacing, and shielding for a sensitive ground track.",
     author: "Innosino Team",
     readTime: "5 min",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
+    img: "/homepage_assets/featured_project_images/white_moontype.webp",
     filterTags: ["All", "PCB Design", "Featured Blogs"],
   },
 ];

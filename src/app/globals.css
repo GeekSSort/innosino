@@ -1146,8 +1146,8 @@ body {
 /* One flat colour, so the mark is a mask rather than three coloured PNGs: it
    is grey while it is a ghost and brand orange once the disc catches it. */
 .splash__mark {
-  -webkit-mask-image: url("/homepage_assets/splash-logomark-mask.png");
-  mask-image: url("/homepage_assets/splash-logomark-mask.png");
+  -webkit-mask-image: url("/homepage_assets/splash-logomark-mask.webp");
+  mask-image: url("/homepage_assets/splash-logomark-mask.webp");
   -webkit-mask-size: contain;
   mask-size: contain;
   -webkit-mask-repeat: no-repeat;

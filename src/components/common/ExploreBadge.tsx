@@ -93,7 +93,7 @@ export default function ExploreBadge({ onClick }: ExploreBadgeProps) {
             }}
           >
             <Image
-              src="/homepage_assets/home_page round logo/right_logo.png"
+              src="/homepage_assets/home_page round logo/right_logo.webp"
               alt=""
               fill
               sizes="112px"

@@ -23,7 +23,6 @@ export default function ServicesIndexPage() {
           <BackgroundVideo
             src="/service_page/Service sevtion Hero.mp4"
             poster="/posters/service_page/Service sevtion Hero.webp"
-            webmSrc="/service_page/Service sevtion Hero.webm"
             loading="eager"
           />
           <div
@@ -36,7 +35,7 @@ export default function ServicesIndexPage() {
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
               <Image
-                src="/about_us/IS-Logo.png"
+                src="/about_us/IS-Logo.webp"
                 alt="INNOSINO"
                 width={340}
                 height={128}

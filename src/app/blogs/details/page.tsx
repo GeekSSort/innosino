@@ -102,7 +102,7 @@ export default function BlogDetailsPage() {
         >
           <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
             <Image
-              src="/about_us/IS-Logo.png"
+              src="/about_us/IS-Logo.webp"
               alt="INNOSINO"
               width={236}
               height={32}
@@ -330,7 +330,7 @@ export default function BlogDetailsPage() {
           }}
         >
           <Image
-            src="/blog_details assets/BD-01.png"
+            src="/blog_details assets/BD-01.webp"
             alt="Inside the Logic IC Trainer Kit Profiles"
             fill
             sizes="970px"
@@ -662,7 +662,7 @@ export default function BlogDetailsPage() {
                 }}
               >
                 <Image
-                  src="/blog_details assets/BD-02.png"
+                  src="/blog_details assets/BD-02.webp"
                   alt="Logic Matrix Circuit Diagram"
                   fill
                   sizes="640px"
@@ -705,7 +705,7 @@ export default function BlogDetailsPage() {
                 }}
               >
                 <Image
-                  src="/blog_details assets/BD-03.png"
+                  src="/blog_details assets/BD-03.webp"
                   alt="Binary Waveform and Matrix Interface"
                   fill
                   sizes="640px"
@@ -826,7 +826,7 @@ export default function BlogDetailsPage() {
                 }}
               >
                 <Image
-                  src="/blog_details assets/BD-01.png"
+                  src="/blog_details assets/BD-01.webp"
                   alt="Logic IC Trainer Kit"
                   fill
                   sizes="250px"
@@ -903,7 +903,7 @@ export default function BlogDetailsPage() {
               title: "Stack-Up Choices For 3-Layer Sense Boards",
               desc: "How we choose copper weight, spacing, and shielding for capacitive ground track.",
               author: "Innosino Team",
-              img: "/homepage_assets/featured_project_images/white_moontype.png",
+              img: "/homepage_assets/featured_project_images/white_moontype.webp",
             },
             {
               category: "Firmware",
@@ -911,7 +911,7 @@ export default function BlogDetailsPage() {
               title: "Debugging Cross-Talk In Dense Capacitive Arrays",
               desc: "A practical walk-through of adaptive baseline filtering for closely packed touch zones.",
               author: "Innosino Team",
-              img: "/blog_details assets/BD-02.png",
+              img: "/blog_details assets/BD-02.webp",
             },
             {
               category: "Embedded Systems",
@@ -919,7 +919,7 @@ export default function BlogDetailsPage() {
               title: "Getting BLE MIDI Latency Under 10ms",
               desc: "Notes from tuning connection intervals and packet scheduling for live performance use.",
               author: "Innosino Team",
-              img: "/blog_details assets/BD-03.png",
+              img: "/blog_details assets/BD-03.webp",
             },
           ].map((blog, idx) => (
             <Link

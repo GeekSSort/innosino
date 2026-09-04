@@ -35,7 +35,7 @@ export default function ProjectDetailsPage() {
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
               <Image
-                src="/about_us/IS-Logo.png"
+                src="/about_us/IS-Logo.webp"
                 alt="INNOSINO"
                 width={340}
                 height={128}
@@ -863,7 +863,7 @@ export default function ProjectDetailsPage() {
               }}
             >
               <Image
-                src="/homepage_assets/featured_project_images/white_moontype.png"
+                src="/homepage_assets/featured_project_images/white_moontype.webp"
                 alt="PolyPan Handpan Shell"
                 width={420}
                 height={420}
@@ -892,7 +892,7 @@ export default function ProjectDetailsPage() {
                 }}
               >
                 <Image
-                  src="/project_page/image1 of from bench to shell.png"
+                  src="/project_page/image1 of from bench to shell.webp"
                   alt="From bench to shell - Optical and PCB Sensor Wave"
                   fill
                   sizes="573px"
@@ -911,7 +911,7 @@ export default function ProjectDetailsPage() {
                 }}
               >
                 <Image
-                  src="/project_page/image2 of from bench to shell.png"
+                  src="/project_page/image2 of from bench to shell.webp"
                   alt="From bench to shell - Touch Architecture Stack"
                   fill
                   sizes="573px"

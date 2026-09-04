@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
         >
           <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
             <Image
-              src="/about_us/IS-Logo.png"
+              src="/about_us/IS-Logo.webp"
               alt="INNOSINO"
               width={236}
               height={32}

@@ -11,7 +11,7 @@ export const featuredProject = {
   title: "Smart Musical Instruments",
   desc: "Engineered an intelligent musical instruments powered by AI, DSP, and embedded technologies, enabling real-time audio processing, ultra-low-latency wireless connectivity, intelligent gesture recognition, and patent-ready innovations for next-generation digital music experiences.",
   badge: "SMART INSTRUMENTS DEVELOPED",
-  image: "/homepage_assets/featured_project_images/guitar.png",
+  image: "/homepage_assets/featured_project_images/guitar.webp",
   cta: { label: "Know Details", href: "/projects/details" },
 };
 
@@ -44,7 +44,7 @@ export const allProjects: ProjectCard[] = [
     category: "Smart Devices",
     title: "PolyPan Electronic Handpan",
     desc: "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI for next-generation musicians.",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
+    img: "/homepage_assets/featured_project_images/white_moontype.webp",
     filterTags: ["All", "Smart Devices", "Featured Projects"],
   },
   {
@@ -52,7 +52,7 @@ export const allProjects: ProjectCard[] = [
     category: "Wireless Systems",
     title: "AI Sensor & Security Systems",
     desc: "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor vitals, and ensure workplace safety.",
-    img: "/homepage_assets/featured_project_images/ai.png",
+    img: "/homepage_assets/featured_project_images/ai.webp",
     filterTags: ["All", "Embedded Systems", "IOT Devices"],
   },
   {
@@ -60,7 +60,7 @@ export const allProjects: ProjectCard[] = [
     category: "Smart Devices",
     title: "Logic IC Trainer Kit",
     desc: "An interactive digital logic training kit that helps students learn logic circuits through hands-on experimentation and fault analysis.",
-    img: "/homepage_assets/featured_project_images/blue and black image.png",
+    img: "/homepage_assets/featured_project_images/blue and black image.webp",
     filterTags: ["All", "PCB Design", "Smart Devices"],
   },
   {
@@ -68,7 +68,7 @@ export const allProjects: ProjectCard[] = [
     category: "Smart Devices",
     title: "Logic IC Trainer Kit",
     desc: "An interactive digital logic training kit that helps students learn logic circuits through hands-on experimentation and fault analysis.",
-    img: "/homepage_assets/featured_project_images/blue and black image.png",
+    img: "/homepage_assets/featured_project_images/blue and black image.webp",
     filterTags: ["All", "PCB Design", "Smart Devices"],
   },
   {
@@ -76,7 +76,7 @@ export const allProjects: ProjectCard[] = [
     category: "Smart Devices",
     title: "PolyPan Electronic Handpan",
     desc: "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI for next-generation musicians.",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
+    img: "/homepage_assets/featured_project_images/white_moontype.webp",
     filterTags: ["All", "Smart Devices", "Featured Projects"],
   },
   {
@@ -84,7 +84,7 @@ export const allProjects: ProjectCard[] = [
     category: "Wireless Systems",
     title: "AI Sensor & Security Systems",
     desc: "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor vitals, and ensure workplace safety.",
-    img: "/homepage_assets/featured_project_images/ai.png",
+    img: "/homepage_assets/featured_project_images/ai.webp",
     filterTags: ["All", "Embedded Systems", "IOT Devices"],
   },
   {
@@ -92,7 +92,7 @@ export const allProjects: ProjectCard[] = [
     category: "Wireless Systems",
     title: "AI Sensor & Security Systems",
     desc: "An AI-powered security system that uses advanced mmWave sensors to detect human presence, monitor vitals, and ensure workplace safety.",
-    img: "/homepage_assets/featured_project_images/ai.png",
+    img: "/homepage_assets/featured_project_images/ai.webp",
     filterTags: ["All", "Embedded Systems", "IOT Devices"],
   },
   {
@@ -100,7 +100,7 @@ export const allProjects: ProjectCard[] = [
     category: "Smart Devices",
     title: "Logic IC Trainer Kit",
     desc: "An interactive digital logic training kit that helps students learn logic circuits through hands-on experimentation and fault analysis.",
-    img: "/homepage_assets/featured_project_images/blue and black image.png",
+    img: "/homepage_assets/featured_project_images/blue and black image.webp",
     filterTags: ["All", "PCB Design", "Smart Devices"],
   },
   {
@@ -108,7 +108,7 @@ export const allProjects: ProjectCard[] = [
     category: "Smart Devices",
     title: "PolyPan Electronic Handpan",
     desc: "An intelligent electronic handpan combining 9-zone touch sensing, gesture control, and wireless MIDI for next-generation musicians.",
-    img: "/homepage_assets/featured_project_images/white_moontype.png",
+    img: "/homepage_assets/featured_project_images/white_moontype.webp",
     filterTags: ["All", "Smart Devices", "Featured Projects"],
   },
 ];

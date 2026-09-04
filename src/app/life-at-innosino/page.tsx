@@ -13,11 +13,11 @@ export default function LifeAtInnosinoPage() {
 
   // Carousel images
   const heroImages = [
-    { src: "/lifeininnosino/12.jpg", alt: "Team collaboration" },
-    { src: "/lifeininnosino/13.jpg", alt: "INNOSINO bright open office" },
-    { src: "/lifeininnosino/14.jpg", alt: "Engineering brainstorming room" },
-    { src: "/lifeininnosino/2.jpg", alt: "Electronics workbench" },
-    { src: "/lifeininnosino/3.jpg", alt: "Team scrum & review" },
+    { src: "/lifeininnosino/12.webp", alt: "Team collaboration" },
+    { src: "/lifeininnosino/13.webp", alt: "INNOSINO bright open office" },
+    { src: "/lifeininnosino/14.webp", alt: "Engineering brainstorming room" },
+    { src: "/lifeininnosino/2.webp", alt: "Electronics workbench" },
+    { src: "/lifeininnosino/3.webp", alt: "Team scrum & review" },
   ];
 
   const handlePrev = () => {
@@ -71,7 +71,6 @@ export default function LifeAtInnosinoPage() {
           <BackgroundVideo
             src="/service_page/Service sevtion Hero.mp4"
             poster="/posters/service_page/Service sevtion Hero.webp"
-            webmSrc="/service_page/Service sevtion Hero.webm"
             loading="eager"
             style={{
               width: "100%",
@@ -105,7 +104,7 @@ export default function LifeAtInnosinoPage() {
         >
           <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
             <Image
-              src="/about_us/IS-Logo.png"
+              src="/about_us/IS-Logo.webp"
               alt="INNOSINO"
               width={236}
               height={32}
@@ -411,23 +410,23 @@ export default function LifeAtInnosinoPage() {
         >
           {/* Card 1 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/8.jpg" alt="Office moments" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/8.webp" alt="Office moments" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 2 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/2.jpg" alt="Team collaboration" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/2.webp" alt="Team collaboration" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 3 (470 x 287) */}
           <div style={{ position: "relative", width: "470px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/3.jpg" alt="Group discussion" fill sizes="470px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/3.webp" alt="Group discussion" fill sizes="470px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 4 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/4.jpg" alt="Breakout space" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/4.webp" alt="Breakout space" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 5 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/5.jpg" alt="Coding in flow" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/5.webp" alt="Coding in flow" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
         </div>
 
@@ -443,23 +442,23 @@ export default function LifeAtInnosinoPage() {
         >
           {/* Card 1 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/9.jpg" alt="Innosino Headquarters" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/9.webp" alt="Innosino Headquarters" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 2 (470 x 287) */}
           <div style={{ position: "relative", width: "470px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/6.jpg" alt="Modern workspace" fill sizes="470px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/6.webp" alt="Modern workspace" fill sizes="470px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 3 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/7.jpg" alt="Coffee chat" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/7.webp" alt="Coffee chat" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 4 (398 x 287) */}
           <div style={{ position: "relative", width: "398px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/10.jpg" alt="Peer review" fill sizes="398px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/10.webp" alt="Peer review" fill sizes="398px" style={{ objectFit: "cover" }} />
           </div>
           {/* Card 5 (270 x 287) */}
           <div style={{ position: "relative", width: "270px", height: "287px", borderRadius: "14px", overflow: "hidden", flexShrink: 0 }}>
-            <Image src="/lifeininnosino/11.jpg" alt="Focused engineering" fill sizes="270px" style={{ objectFit: "cover" }} />
+            <Image src="/lifeininnosino/11.webp" alt="Focused engineering" fill sizes="270px" style={{ objectFit: "cover" }} />
           </div>
         </div>
       </section>
@@ -528,7 +527,7 @@ export default function LifeAtInnosinoPage() {
               }}
             >
               <Image
-                src="/homepage_assets/featured_project_images/white_moontype.png"
+                src="/homepage_assets/featured_project_images/white_moontype.webp"
                 alt="Rev C PolyPan Board"
                 width={324}
                 height={318}
@@ -617,7 +616,7 @@ export default function LifeAtInnosinoPage() {
                 }}
               >
                 <Image
-                  src="/blog_assets/B-01.png"
+                  src="/blog_assets/B-01.webp"
                   alt="16 Projects Shipped This Month"
                   fill
                   sizes="256px"
@@ -704,7 +703,7 @@ export default function LifeAtInnosinoPage() {
                 }}
               >
                 <Image
-                  src="/blog_assets/B-02.jpg"
+                  src="/blog_assets/B-02.webp"
                   alt="BLE MIDI Latency Under 8ms"
                   fill
                   sizes="256px"

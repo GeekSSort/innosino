@@ -234,7 +234,7 @@ export default function ContactPage() {
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
               <Image
-                src="/about_us/IS-Logo.png"
+                src="/about_us/IS-Logo.webp"
                 alt="INNOSINO"
                 width={340}
                 height={128}
@@ -384,7 +384,6 @@ export default function ContactPage() {
                 <BackgroundVideo
                   src="/contact_us asset/Section.mp4"
                   poster="/posters/contact_us asset/Section.webp"
-                  webmSrc="/contact_us asset/Section.webm"
                   loading="lazy"
                 />
               </div>

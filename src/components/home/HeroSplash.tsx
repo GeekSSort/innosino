@@ -351,7 +351,7 @@ export default function HeroSplash() {
         <img
           className="splash__lockup"
           data-splash="lockup"
-          src="/homepage_assets/splash-wordmark.png"
+          src="/homepage_assets/splash-wordmark.webp"
           alt=""
         />
       </div>

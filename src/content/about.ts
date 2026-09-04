@@ -22,7 +22,7 @@ export const visionMission = {
     desc: "We transform ideas into products, deliver engineering solutions, bridge R&D and manufacturing, and build lasting partnerships.",
   },
   figure: {
-    src: "/about_us/imageundervisionmission.png",
+    src: "/about_us/imageundervisionmission.webp",
     alt: "Innosino Building Architecture",
   },
 };
@@ -64,28 +64,28 @@ export const testimonials: Testimonial[] = [
       "“Working with this team was a game changer they truly understood our vision, solved key challenges, and delivered a production-ready solution on time.”",
     author: "Arif Rahman",
     role: "Founder & CEO, NexaTech Labs",
-    avatar: "/homepage_assets/featured_project_images/white_moontype.png",
+    avatar: "/homepage_assets/featured_project_images/white_moontype.webp",
   },
   {
     quote:
       "“They brought deep technical expertise and a practical approach helping us move from idea to production faster than expected.”",
     author: "Tanvir Hossain",
     role: "CTO, VoltEdge Systems",
-    avatar: "/homepage_assets/featured_project_images/guitar.png",
+    avatar: "/homepage_assets/featured_project_images/guitar.webp",
   },
   {
     quote:
       "“A reliable partner who understands both engineering and business delivering quality without compromise.”",
     author: "Nusrat Karim",
     role: "Co-Founder, Nexlify Tech",
-    avatar: "/homepage_assets/featured_project_images/ai.png",
+    avatar: "/homepage_assets/featured_project_images/ai.webp",
   },
   {
     quote:
       "“Strong communication, fast execution, and production ready outcomes exactly what we needed.”",
     author: "Fahim Rahman",
     role: "Founder, IoTWorks",
-    avatar: "/homepage_assets/featured_project_images/blue and black image.png",
+    avatar: "/homepage_assets/featured_project_images/blue and black image.webp",
   },
 ];
 

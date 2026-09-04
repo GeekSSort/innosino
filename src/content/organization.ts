@@ -19,7 +19,7 @@ export const organization = {
   legalName: "INNOSINO (上海) Technology Co., Ltd.",
   description:
     "An innovation-driven engineering company turning ideas into high-performance, market-ready products across embedded systems, hardware and PCB design, product development and industrial automation.",
-  logo: "/about_us/IS-Logo.png",
+  logo: "/about_us/IS-Logo.webp",
   founder: { name: founderQuote.name, title: founderQuote.role },
   headquarters: { locality: "Shanghai", country: "CN" },
   email: contactDetails.email.value,
