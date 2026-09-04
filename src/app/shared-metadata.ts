@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 
 /**
  * Social scrapers need absolute URLs, so every relative path below is resolved
- * against this. Point it at the real domain once there is one — until then set
- * NEXT_PUBLIC_SITE_URL at build time (e.g. the *.workers.dev URL) or cards will
- * link to localhost.
+ * against this. It defaults to the production domain rather than localhost: a
+ * build that forgets the env var still emits shareable cards, instead of ones
+ * pointing at the visitor's own machine. Override for preview deployments.
  */
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://innosino.com";
 
 export const SITE_NAME = "INNOSINO";
 export const HOME_TITLE = "Innosino - From Concept to Mass Production";
