@@ -45,6 +45,7 @@
        nav bottom      137 / 810 = 16.9%
        explore bottom   94 / 810 = 11.6% */
   --nav-bottom: 16.9vh;
+  --nav-height: clamp(52px, 4.7vw, 68px);
   --explore-bottom: 11.6%;
   --explore-size: 112px;
 }
@@ -62,8 +63,10 @@
    corner, so those two anchors move together at a single breakpoint. */
 @media (max-width: 1023px) {
   :root {
-    --nav-bottom: 45vh;
-    --explore-bottom: 5%;
+    /* The pill becomes a floating bottom tab bar, so it hugs the bottom edge
+       (clear of the home indicator) and the badge is lifted above it. */
+    --nav-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    --explore-bottom: calc(var(--nav-bottom) + var(--nav-height) + 16px);
   }
 }
 
@@ -338,7 +341,7 @@ body {
   position: relative;
   box-sizing: border-box;
   max-width: 100%;
-  min-height: clamp(52px, 4.7vw, 68px);
+  min-height: var(--nav-height);
   padding: 12px 16px 12px clamp(16px, 1.7vw, 24px);
   border: 1.5px solid transparent;
   border-radius: 200px;
@@ -410,6 +413,74 @@ body {
 
   .nav-menu__item--overflow {
     display: block;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Portrait: the pill spans the gutters and pins to the bottom edge as a
+   floating tab bar. An inline pill never rests in the page flow here — it is
+   the tab bar from the start, so it does not need to scroll away first.
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  /* Bottom of the document clears the bar; mid-page frames still sit under it. */
+  body {
+    padding-bottom: calc(var(--nav-bottom) + var(--nav-height) + 16px);
+  }
+
+  /* No resting slot to reserve any more (the JS measures one for desktop). */
+  .nav-inline {
+    min-height: 0 !important;
+  }
+
+  .nav-inline__slot {
+    position: fixed;
+    inset-inline: 0;
+    bottom: var(--nav-bottom);
+    z-index: 90;
+    display: flex;
+    padding-inline: var(--gutter);
+  }
+
+  .nav-pill {
+    width: 100%;
+    padding-inline: clamp(12px, 3vw, 20px);
+    justify-content: space-between;
+  }
+
+  .nav-pill__links {
+    flex: 1;
+    justify-content: space-around;
+    gap: clamp(6px, 2vw, 20px);
+  }
+
+  .nav-pill__cta {
+    margin-inline-start: clamp(8px, 2vw, 16px);
+  }
+
+  /* Tablet: size to content and centre, rather than spanning the gutters. */
+  @media (min-width: 744px) {
+    .nav-inline__slot {
+      justify-content: center;
+    }
+
+    .nav-pill {
+      width: auto;
+      max-width: 100%;
+      padding-inline: 20px;
+    }
+
+    .nav-pill__links {
+      flex: 0 1 auto;
+      justify-content: flex-start;
+      gap: clamp(12px, 2.7vw, 20px);
+    }
+  }
+
+  /* Right-hand menu would overflow the full-width bar; anchor it to the trigger's
+     right edge instead. */
+  .nav-menu {
+    left: auto;
+    right: 0;
   }
 }
 
