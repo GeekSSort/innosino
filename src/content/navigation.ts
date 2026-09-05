@@ -39,5 +39,5 @@ export const moreLinks: NavItem[] = [
   { label: "Expertise", href: "/expertise" },
   { label: "Life at Innosino", href: "/life-at-innosino" },
   { label: "Blog", href: "/blogs" },
-  { label: "Career", href: "#careers" },
+  { label: "Career", href: "/career" },
 ];

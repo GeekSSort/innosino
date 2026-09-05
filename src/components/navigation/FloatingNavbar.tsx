@@ -22,6 +22,7 @@ const ROUTES_WITH_INLINE_NAV = [
   "/about",
   "/services",
   "/industries",
+  "/career",
   "/contact",
   "/projects",
   "/projects/details",

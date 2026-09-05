@@ -30,6 +30,7 @@ export const footerLinks: NavLink[] = [
   { label: "Life at INNOSINO", href: "/life-at-innosino" },
   { label: "Industries", href: "/industries" },
   { label: "Blogs", href: "/blogs" },
+  { label: "Career", href: "/career" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Condition", href: "#terms" },
   { label: "Contact Us", href: "/contact" },

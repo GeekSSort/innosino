@@ -22,6 +22,7 @@ export const indexableRoutes: string[] = [
   "/projects/details",
   "/blogs",
   "/blogs/details",
+  "/career",
   "/contact",
   "/privacy-policy",
 ];
