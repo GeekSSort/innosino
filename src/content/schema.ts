@@ -98,3 +98,28 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
     })),
   };
 }
+
+/**
+ * One article. `datePublished` is the post's own ISO date rather than a build
+ * timestamp, and the body is not reproduced here — the page renders it, and
+ * duplicating prose into the markup only invites the two to drift.
+ */
+export function blogPostingSchema(post: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  image: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    image: abs(post.image),
+    mainEntityOfPage: abs(`/blogs/${post.slug}`),
+    author: { "@id": `${siteUrl}/#organization` },
+    publisher: { "@id": `${siteUrl}/#organization` },
+  };
+}

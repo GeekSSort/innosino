@@ -8,13 +8,18 @@ import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/content/schema";
+import { blogsHero, categories } from "@/content/blogs";
 import {
-  allBlogs,
-  authorInitials,
-  blogsHero,
-  categories,
-  featuredBlog,
-} from "@/content/blogs";
+  featuredPost,
+  formatPostDate,
+  postAuthor,
+  postAuthorInitials,
+  readTime,
+  sortedPosts,
+} from "@/content/posts";
+
+/** The grid holds nine; the rest paginate. */
+const PER_PAGE = 9;
 
 export default function BlogsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -23,16 +28,27 @@ export default function BlogsPage() {
   const [chatOpen, setChatOpen] = useState(true);
 
 
-  // Filter blogs
-  const filteredBlogs = allBlogs.filter((b) => {
+  const featured = featuredPost();
+
+  /* The featured card above the grid is the newest post, so the grid skips it
+     rather than showing the same article twice on one screen. */
+  const filteredBlogs = sortedPosts().filter((post) => {
+    if (post.slug === featured.slug) return false;
     const matchesCategory =
-      selectedCategory === "All" || b.filterTags.includes(selectedCategory);
+      selectedCategory === "All" || post.filterTags.includes(selectedCategory);
+    const query = searchQuery.toLowerCase();
     const matchesSearch =
-      b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      b.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      b.category.toLowerCase().includes(searchQuery.toLowerCase());
+      post.title.toLowerCase().includes(query) ||
+      post.excerpt.toLowerCase().includes(query) ||
+      post.category.toLowerCase().includes(query);
     return matchesCategory && matchesSearch;
   });
+
+  /* Clamped rather than reset: a filter that shortens the list past the
+     current page would otherwise leave the grid empty with no way back. */
+  const pageCount = Math.max(1, Math.ceil(filteredBlogs.length / PER_PAGE));
+  const page = Math.min(currentPage, pageCount);
+  const pageBlogs = filteredBlogs.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
 
   return (
@@ -116,31 +132,31 @@ export default function BlogsPage() {
                     style={{ display: "flex", alignItems: "center", gap: "8px" }}
                   >
                     <span aria-hidden="true">✦</span>
-                    <span>{featuredBlog.eyebrow}</span>
+                    <span>Featured Blog</span>
                   </span>
-                  <span className="blog-card__date">{featuredBlog.date}</span>
+                  <span className="blog-card__date">{formatPostDate(featured.date)}</span>
                 </div>
 
                 <h2
                   className="pj-featured__title"
                   style={{ lineHeight: 1.25 }}
                 >
-                  {featuredBlog.title}
+                  {featured.title}
                 </h2>
 
-                <p className="pj-featured__desc">{featuredBlog.desc}</p>
+                <p className="pj-featured__desc">{featured.excerpt}</p>
 
                 <div className="blog-byline" style={{ marginBlockStart: "4px" }}>
-                  <span className="blog-byline__avatar">{authorInitials}</span>
+                  <span className="blog-byline__avatar">{postAuthorInitials}</span>
                   <span>
-                    <span className="blog-byline__name">{featuredBlog.author}</span>
-                    <span className="blog-byline__time">{featuredBlog.readTime}</span>
+                    <span className="blog-byline__name">{postAuthor}</span>
+                    <span className="blog-byline__time">{readTime(featured)}</span>
                   </span>
                 </div>
               </div>
 
-              <Link href={featuredBlog.cta.href} className="pj-featured__cta">
-                <span>{featuredBlog.cta.label}</span>
+              <Link href={`/blogs/${featured.slug}`} className="pj-featured__cta">
+                <span>Know Details</span>
                 <span style={{ fontSize: "0.8em" }} aria-hidden="true">
                   ↗
                 </span>
@@ -149,8 +165,8 @@ export default function BlogsPage() {
 
             <div className="pj-featured__media" style={{ backgroundColor: "#0B0B0B" }}>
               <Image
-                src={featuredBlog.image}
-                alt={featuredBlog.title}
+                src={featured.image}
+                alt={featured.title}
                 fill
                 sizes="(max-width: 899px) 100vw, 434px"
                 style={{ objectFit: "cover" }}
@@ -220,74 +236,81 @@ export default function BlogsPage() {
 
           {/* Blog grid */}
           <div className="pj-grid">
-            {filteredBlogs.map((blog, idx) => (
-              <Link key={idx} href="/blogs/details" className="blog-card">
+            {pageBlogs.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blogs/${post.slug}`}
+                className="blog-card"
+              >
                 <div className="blog-card__media">
                   <Image
-                    src={blog.img}
-                    alt={blog.title}
+                    src={post.image}
+                    alt={post.title}
                     fill
                     sizes="(max-width: 599px) 100vw, (max-width: 1023px) 50vw, 374px"
-                    style={{
-                      objectFit: blog.img.includes("white_moontype")
-                        ? "contain"
-                        : "cover",
-                    }}
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
 
                 <div className="blog-card__meta">
-                  <span>{blog.category}</span>
-                  <span className="blog-card__date">{blog.date}</span>
+                  <span>{post.category}</span>
+                  <span className="blog-card__date">
+                    {formatPostDate(post.date)}
+                  </span>
                 </div>
 
-                <h3 className="blog-card__title">{blog.title}</h3>
+                <h3 className="blog-card__title">{post.title}</h3>
 
-                <p className="blog-card__desc">{blog.desc}</p>
+                <p className="blog-card__desc">{post.excerpt}</p>
 
                 <div className="blog-byline">
-                  <span className="blog-byline__avatar">{authorInitials}</span>
+                  <span className="blog-byline__avatar">{postAuthorInitials}</span>
                   <span>
-                    <span className="blog-byline__name">{blog.author}</span>
-                    <span className="blog-byline__time">{blog.readTime}</span>
+                    <span className="blog-byline__name">{postAuthor}</span>
+                    <span className="blog-byline__time">{readTime(post)}</span>
                   </span>
                 </div>
               </Link>
             ))}
           </div>
 
-          {/* Pagination */}
-          <div className="pj-pagination">
-            <button
-              type="button"
-              className="pj-page-button pj-page-button--step"
-              aria-label="Previous page"
-              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            >
-              &lt;
-            </button>
-
-            {[1, 2, 3, 4, 5, 10].map((num) => (
+          {/* Pagination — page numbers come from the filtered count, so the
+              row cannot offer a page the grid has nothing for. */}
+          {pageCount > 1 && (
+            <div className="pj-pagination">
               <button
-                key={num}
                 type="button"
-                className="pj-page-button"
-                aria-current={currentPage === num ? "page" : undefined}
-                onClick={() => setCurrentPage(num)}
+                className="pj-page-button pj-page-button--step"
+                aria-label="Previous page"
+                disabled={page === 1}
+                onClick={() => setCurrentPage(Math.max(1, page - 1))}
               >
-                {num}
+                &lt;
               </button>
-            ))}
 
-            <button
-              type="button"
-              className="pj-page-button pj-page-button--step"
-              aria-label="Next page"
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              &gt;
-            </button>
-          </div>
+              {Array.from({ length: pageCount }, (_, i) => i + 1).map((num) => (
+                <button
+                  key={num}
+                  type="button"
+                  className="pj-page-button"
+                  aria-current={page === num ? "page" : undefined}
+                  onClick={() => setCurrentPage(num)}
+                >
+                  {num}
+                </button>
+              ))}
+
+              <button
+                type="button"
+                className="pj-page-button pj-page-button--step"
+                aria-label="Next page"
+                disabled={page === pageCount}
+                onClick={() => setCurrentPage(Math.min(pageCount, page + 1))}
+              >
+                &gt;
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

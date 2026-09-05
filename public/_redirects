@@ -4,10 +4,15 @@
 # one. Nothing in the site linked to them, but they may be bookmarked or
 # indexed, so they redirect rather than 404.
 #
+# /blogs/details was the single hand-built article page every blog card linked
+# to. Its article is now /blogs/inside-the-logic-ic-trainer-kit-16-profiles,
+# one of twenty, so the old URL redirects onto it rather than 404ing.
+#
 # Workers static assets reads this from the assets directory; Next copies
 # public/ into out/ on export.
 /blog              /blogs             301
-/blog/details      /blogs/details     301
+/blog/details      /blogs/inside-the-logic-ic-trainer-kit-16-profiles  301
+/blogs/details     /blogs/inside-the-logic-ic-trainer-kit-16-profiles  301
 /life              /life-at-innosino  301
 /life-in-innosino  /life-at-innosino  301
 /privacy           /privacy-policy    301

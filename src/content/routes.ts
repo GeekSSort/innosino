@@ -1,3 +1,4 @@
+import { posts } from "./posts";
 import { serviceSlugs } from "./services";
 
 /**
@@ -21,7 +22,7 @@ export const indexableRoutes: string[] = [
   "/projects",
   "/projects/details",
   "/blogs",
-  "/blogs/details",
+  ...posts.map((post) => `/blogs/${post.slug}`),
   "/career",
   "/contact",
   "/privacy-policy",

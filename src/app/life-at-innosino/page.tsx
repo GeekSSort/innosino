@@ -566,7 +566,7 @@ export default function LifeAtInnosinoPage() {
             {/* Button */}
             <div>
               <Link
-                href="/blogs/details"
+                href="/blogs"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -661,7 +661,7 @@ export default function LifeAtInnosinoPage() {
 
                 <div>
                   <Link
-                    href="/blogs/details"
+                    href="/blogs"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -748,7 +748,7 @@ export default function LifeAtInnosinoPage() {
 
                 <div>
                   <Link
-                    href="/blogs/details"
+                    href="/blogs/getting-ble-midi-latency-under-10ms"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
