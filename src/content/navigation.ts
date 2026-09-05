@@ -10,7 +10,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: "Services", href: "/services" },
-  { label: "Industries", href: "/#industries", secondary: true },
+  { label: "Industries", href: "/industries", secondary: true },
   { label: "Projects", href: "/projects" },
   { label: "About Us", href: "/about", secondary: true },
 ];
@@ -33,7 +33,7 @@ export const serviceStackLinks: NavItem[] = [
     two links the phone pill drops. */
 export const moreLinks: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Industries", href: "/#industries" },
+  { label: "Industries", href: "/industries" },
   { label: "About Us", href: "/about" },
   { label: "Contact Us", href: "/contact" },
   { label: "Expertise", href: "/expertise" },

@@ -115,6 +115,9 @@ export interface IndustryItem {
   id: string;
   title: string;
   image: string;
+  /** One line of "what this sector actually demands", shown on /industries.
+      The homepage marquee and the service pages only render the title. */
+  description: string;
 }
 
 export const industriesList: IndustryItem[] = [
@@ -122,45 +125,63 @@ export const industriesList: IndustryItem[] = [
     id: "1",
     title: "Consumer Electronics",
     image: "/homepage_assets/industries/Consumer Electronics.webp",
+    description:
+      "Compact, certified boards and firmware for products that ship at volume — wearables, audio, smart home and handhelds built to survive a real production line.",
   },
   {
     id: "2",
     title: "Renewable Energy",
     image: "/homepage_assets/industries/Renewable Energy.webp",
+    description:
+      "Solar, storage and power-conversion electronics: MPPT control, battery management and metering that hold their accuracy across a twenty-year field life.",
   },
   {
     id: "3",
     title: "Industrial Automation",
     image: "/homepage_assets/industries/Industrial Automation.webp",
+    description:
+      "Controllers, motor drives and industrial gateways engineered for electrical noise, wide temperature swings and continuous duty.",
   },
   {
     id: "4",
     title: "Smart IOT",
     image: "/homepage_assets/industries/Smart IOT.webp",
+    description:
+      "Low-power connected nodes and gateways — BLE, Wi-Fi, LoRa and cellular — with provisioning, OTA and fleet telemetry designed in from the first schematic.",
   },
   {
     id: "5",
     title: "Engineering Education",
     image: "/homepage_assets/industries/Engineering Education.webp",
+    description:
+      "Trainer kits, lab instruments and teaching platforms that stay safe in student hands and stay legible enough to learn from.",
   },
   {
     id: "6",
     title: "Digital Musical Instruments",
     image: "/homepage_assets/industries/Digital Musical Instruments.webp",
+    description:
+      "Low-latency audio hardware, MIDI controllers and synthesis platforms, where timing jitter and the analogue noise floor decide whether the product feels right.",
   },
   {
     id: "7",
     title: "Biomedical Electronics",
     image: "/homepage_assets/industries/Biomedical Electronics.webp",
+    description:
+      "Patient-facing sensing and monitoring hardware built to documented design controls, with isolation, signal integrity and traceability treated as requirements.",
   },
   {
     id: "8",
     title: "NFC and RFID Technology",
     image: "/homepage_assets/industries/NFC and RFID Technology.webp",
+    description:
+      "Contactless readers, tags and access control — antenna tuning, range testing and secure element integration, carried through to certification.",
   },
   {
     id: "9",
     title: "Wireless Communication",
     image: "/homepage_assets/industries/Wireless Communication.webp",
+    description:
+      "RF front ends, antennas and radio firmware taken from link-budget maths through chamber testing to regulatory approval.",
   },
 ];

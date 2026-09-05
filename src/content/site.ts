@@ -28,7 +28,7 @@ export const footerLinks: NavLink[] = [
   { label: "Services", href: "/services" },
   { label: "Expertise", href: "/expertise" },
   { label: "Life at INNOSINO", href: "/life-at-innosino" },
-  { label: "Industries", href: "/#industries" },
+  { label: "Industries", href: "/industries" },
   { label: "Blogs", href: "/blogs" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Condition", href: "#terms" },

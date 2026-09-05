@@ -14,10 +14,14 @@ import {
  * Routes whose design composes the pill inside their own layout (Figma places
  * it under the hero headline and again in the footer), so the floating copy
  * mounted by the root layout stands down there.
+ *
+ * A page that renders `variant="inline"` and is missing from this list shows
+ * two pills at once, so add the route here in the same commit as the page.
  */
 const ROUTES_WITH_INLINE_NAV = [
   "/about",
   "/services",
+  "/industries",
   "/contact",
   "/projects",
   "/projects/details",

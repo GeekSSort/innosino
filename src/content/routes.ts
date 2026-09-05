@@ -15,6 +15,7 @@ export const indexableRoutes: string[] = [
   "/about",
   "/expertise",
   "/life-at-innosino",
+  "/industries",
   "/services",
   ...serviceSlugs.map((slug) => `/services/${slug}`),
   "/projects",
