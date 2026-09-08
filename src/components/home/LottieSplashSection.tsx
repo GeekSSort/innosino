@@ -20,8 +20,10 @@ export interface LottieSplashSectionProps {
    */
   title?: string;
   /**
-   * Loop length of the animation's shape drift, which the portrait composition
-   * reuses so it moves at the same pace as the landscape one.
+   * The Lottie's own loop length, `(op - ip) / fr` from the JSON. The portrait
+   * composition reuses it so it moves at the same pace as the landscape one,
+   * which means dividing by `speed` first: the Lottie is played slowed, and
+   * the drift has to be slowed by the same factor to match it.
    */
   loopSeconds?: number;
   children?: React.ReactNode;
@@ -146,7 +148,7 @@ export default function LottieSplashSection({
         <div ref={containerRef} className="section-media" aria-hidden="true" />
         {title && (
           <>
-            <SplashShapes loopSeconds={loopSeconds} />
+            <SplashShapes loopSeconds={loopSeconds ? loopSeconds / speed : undefined} />
             <div className="splash-headline splash-headline--portrait">
               <h2 className="splash-headline__text">{title}</h2>
             </div>

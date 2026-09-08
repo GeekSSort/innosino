@@ -9,8 +9,8 @@ export const heroCopy = {
 
 /** The three full-bleed animated frames. */
 export const splashFrames = {
-  coreServices: { title: "Core Services", loopSeconds: 3.283 },
-  featuredProject: { title: "Featured Project", loopSeconds: 2.667 },
+  coreServices: { title: "Core Services", loopSeconds: 3.075 },
+  featuredProject: { title: "Featured Project", loopSeconds: 2.467 },
   industrySolutions: { title: "Industry Solutions", heading: "INDUSTRY SOLUTIONS", loopSeconds: 2.467 },
 };
 
