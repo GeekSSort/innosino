@@ -6,13 +6,23 @@ import SplashShapes from "./SplashShapes";
 /** Below this the portrait composition replaces the landscape animation. */
 const DESKTOP = "(min-width: 1024px)";
 
+/**
+ * How long one drift loop takes on screen, for every splash frame.
+ *
+ * The three Lotties are the same drift authored at different lengths (3.08s
+ * for Core Services, 2.47s for the other two), so playing them all at one
+ * fixed speed left three frames on the same page moving at three paces. Each
+ * is retimed to this instead, which is the only number to change to make the
+ * splash frames slower or faster.
+ */
+const LOOP_SECONDS = 6.15;
+
 export interface LottieSplashSectionProps {
   id?: string;
   /** Path to the Lottie JSON in /public. */
   path: string;
   /** Frame background colour behind the animation. */
   backgroundColor: string;
-  speed?: number;
   /**
    * The artboard's baked-in title. Supplying it opts the frame into the
    * portrait composition (`SplashShapes`), which needs the title as real text
@@ -20,10 +30,11 @@ export interface LottieSplashSectionProps {
    */
   title?: string;
   /**
-   * The Lottie's own loop length, `(op - ip) / fr` from the JSON. The portrait
-   * composition reuses it so it moves at the same pace as the landscape one,
-   * which means dividing by `speed` first: the Lottie is played slowed, and
-   * the drift has to be slowed by the same factor to match it.
+   * The Lottie's own loop length, `(op - ip) / fr` from the JSON, checked by
+   * scripts/check-splash-timing.mjs. It is what the frame is retimed *from*:
+   * both the animation and the portrait composition are stretched to
+   * LOOP_SECONDS, so this has to describe the file rather than the intended
+   * pace.
    */
   loopSeconds?: number;
   children?: React.ReactNode;
@@ -46,12 +57,12 @@ export default function LottieSplashSection({
   id,
   path,
   backgroundColor,
-  speed = 0.5,
   title,
   loopSeconds,
   children,
 }: LottieSplashSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const speed = loopSeconds ? loopSeconds / LOOP_SECONDS : 1;
 
   useEffect(() => {
     let anim: import("lottie-web").AnimationItem | null = null;
@@ -148,7 +159,7 @@ export default function LottieSplashSection({
         <div ref={containerRef} className="section-media" aria-hidden="true" />
         {title && (
           <>
-            <SplashShapes loopSeconds={loopSeconds ? loopSeconds / speed : undefined} />
+            <SplashShapes loopSeconds={loopSeconds ? LOOP_SECONDS : undefined} />
             <div className="splash-headline splash-headline--portrait">
               <h2 className="splash-headline__text">{title}</h2>
             </div>
