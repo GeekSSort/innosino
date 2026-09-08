@@ -17,17 +17,20 @@ export default function IndustrySolutionsListSection() {
    * track rather than assumed from a fixed 400px card pitch, so the loop stays
    * seamless when the card width changes with the viewport.
    *
-   * Driven by elapsed time, not by the frame: the reference frame moves the
-   * track 1600px across 8s, and advancing a fixed amount per frame instead
-   * would run at whatever the display refreshes at — half speed on a 30Hz
-   * throttle, double on a 120Hz phone.
+   * Driven by elapsed time, not by the frame: advancing a fixed amount per
+   * frame would run at whatever the display refreshes at — half speed on a
+   * 30Hz throttle, double on a 120Hz phone.
+   *
+   * The Figma reference moves the track 1600px across 8s, which is 200px/s and
+   * sends a ~370px card past in under two seconds — too fast to read the name
+   * under it. Paced to the card instead: one card roughly every five seconds.
    */
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const PX_PER_SECOND = 1600 / 8;
+    const PX_PER_SECOND = 80;
     let offset = 0;
     let last = performance.now();
     let frameId = 0;
