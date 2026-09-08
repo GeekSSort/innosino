@@ -47,7 +47,6 @@ export const chatWidget = {
 export const contactDetails = {
   whatsApp: { label: "what’s app:", value: "+86 13262237839" },
   email: { label: "Email:", value: "ceo@innosino.com" },
-  weChat: { label: "We Chat:", value: "Innosinno" },
 };
 
 export const social = {

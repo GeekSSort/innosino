@@ -370,13 +370,6 @@ export default function ContactPage() {
                       )}
                     </button>
                   </div>
-
-                  <div className="ct-contact">
-                    <span>
-                      <span className="ct-contact__label">We Chat: </span>
-                      Innosinno
-                    </span>
-                  </div>
                 </div>
               </div>
 
