@@ -22,6 +22,8 @@ export interface ServiceMedia {
   scrimOpacity: number;
   title: string;
   body: string;
+  /** Only set where the footage is cut faster than it reads behind copy. */
+  playbackRate?: number;
 }
 
 /** The four story-scroll service cards, in the order the page shows them. */
@@ -32,6 +34,7 @@ export const serviceMedia: ServiceMedia[] = [
     posterSrc: "/posters/homepage_assets/Embedded System Design.webp",
     scrimOpacity: 0.12,
     title: "Embedded System Design",
+    playbackRate: 0.5,
     body: "We build intelligent, energy-efficient embedded systems with seamless hardware-software integration, delivering reliable solutions tailored to your application.",
   },
   {

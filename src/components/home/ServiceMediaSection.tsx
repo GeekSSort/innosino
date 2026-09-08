@@ -16,6 +16,8 @@ export interface ServiceMediaSectionProps {
   scrimOpacity?: number;
   title: string;
   body: string;
+  /** Playback rate for `videoSrc`, where the footage runs fast for a backdrop. */
+  playbackRate?: number;
 }
 
 /**
@@ -35,6 +37,7 @@ export default function ServiceMediaSection({
   scrimOpacity = 0.12,
   title,
   body,
+  playbackRate,
 }: ServiceMediaSectionProps) {
   return (
     <section id={id} className="section-frame">
@@ -43,7 +46,13 @@ export default function ServiceMediaSection({
         {/* These four sections all sit below the fold, so the video waits until
             the section is close to the viewport and the poster holds the frame
             until then. */}
-        <BackgroundVideo src={videoSrc} poster={posterSrc} webmSrc={webmSrc} loading="lazy" />
+        <BackgroundVideo
+          src={videoSrc}
+          poster={posterSrc}
+          webmSrc={webmSrc}
+          loading="lazy"
+          playbackRate={playbackRate}
+        />
         <div
           className="section-media__scrim"
           style={{ backgroundColor: `rgba(0, 0, 0, ${scrimOpacity})` }}

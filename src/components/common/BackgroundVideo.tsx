@@ -30,6 +30,12 @@ export interface BackgroundVideoProps {
   style?: React.CSSProperties;
   /** Decorative background media is hidden from assistive tech by default. */
   ariaHidden?: boolean;
+  /**
+   * Playback rate, for footage cut faster than it reads as a background. These
+   * clips carry no audio and nothing is timed against them, so slowing one is
+   * a display choice rather than a re-encode.
+   */
+  playbackRate?: number;
 }
 
 /**
@@ -49,6 +55,7 @@ export default function BackgroundVideo({
   className,
   style,
   ariaHidden = true,
+  playbackRate = 1,
 }: BackgroundVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(false);
@@ -124,8 +131,12 @@ export default function BackgroundVideo({
     el.muted = true;
     // The <source> children only appear once active, so point the element at them.
     if (!el.currentSrc) el.load();
+    // load() resets playbackRate to defaultPlaybackRate, so set both and do it
+    // after the call rather than before.
+    el.defaultPlaybackRate = playbackRate;
+    el.playbackRate = playbackRate;
     el.play().catch(() => {});
-  }, [active]);
+  }, [active, playbackRate]);
 
   return (
     <video
