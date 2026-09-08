@@ -56,7 +56,7 @@ export const contactFaqs: Faq[] = [
   },
   {
     q: "Do I need a finished spec before reaching out?",
-    a: "Not at all. Whether you have a rough block diagram, a BOM draft, or just a concept napkin sketch, our engineering team can help formalize specifications, select viable architectures, and scope the development roadmap.",
+    a: "Not at all. Whether you have a rough block diagram, a BOM draft, or just a concept napkin sketch, our engineering team can help formalise specifications, select viable architectures, and scope the development roadmap.",
   },
   {
     q: "Can you sign an NDA before reviewing project details?",

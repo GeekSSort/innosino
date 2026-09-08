@@ -12,7 +12,7 @@ export const lifeAtInnosino = {
   n16ProjectsShippedThis: "16 Projects Shipped This Month Successfully",
   thisMonthWeSuccessfully: "This month, we successfully shipped 16 projects, from smart instruments to the Logic IC Trainer Kit. Every delivery reflects our commitment to quality engineering.",
   bleMidiLatencyNow: "BLE MIDI Latency Now Under 8 ms Our Cleanest Performance Yet.",
-  afterExtensiveTestingAnd: "After extensive testing and optimization, we reduced BLE MIDI latency to under 8 ms. The latest measurements delivered our cleanest signal trace yet.",
+  afterExtensiveTestingAnd: "After extensive testing and optimisation, we reduced BLE MIDI latency to under 8 ms. The latest measurements delivered our cleanest signal trace yet.",
   section5CtaBanner: "SECTION 5: CTA BANNER (x: 135, y: 2712, w: 1170, h: 400)",
   section6FooterInteractive: "SECTION 6: FOOTER & INTERACTIVE CHAT (y: 3176, Height: 275px)",
 };

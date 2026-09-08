@@ -102,7 +102,7 @@ export const posts: Post[] = [
       },
       {
         id: "real-time-visualization",
-        heading: "Real-Time Visualization",
+        heading: "Real-Time Visualisation",
         body: [
           "Every gate input and output transition is buffered and rendered on a two-tier LED ring around the socket. The inner ring shows the state the profile expects; the outer shows what the pin is actually doing. When those disagree, the learner sees the disagreement rather than a dead output.",
           "Bus contention and invalid combinations flag the offending zone in amber without cutting system power. Killing the rails on a fault is safer for the chip and useless for teaching — the fault disappears the instant it becomes interesting.",

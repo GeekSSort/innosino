@@ -121,7 +121,7 @@ export const services: Service[] = [
       },
       {
         num: "02",
-        title: "Cost Optimized Development",
+        title: "Cost Optimised Development",
         desc: "Stack-up, placement, and routing with impedance, thermal, and EMI considerations built into the layout itself.",
       },
       {
@@ -164,7 +164,7 @@ export const services: Service[] = [
       },
       {
         q: "Can you take over a board that's already in progress?",
-        a: "Absolutely. We can perform schematic & layout reviews, identify bugs or EMI issues, optimize the BOM for supply chain constraints, or redesign existing layouts for cost reduction and scale.",
+        a: "Absolutely. We can perform schematic & layout reviews, identify bugs or EMI issues, optimise the BOM for supply chain constraints, or redesign existing layouts for cost reduction and scale.",
       },
     ],
     projects: [
@@ -183,7 +183,7 @@ export const services: Service[] = [
       {
         category: "RENEWABLE ENERGY",
         title: "Power & Metering Boards",
-        desc: "High-current PCB layouts for power conversion and smart metering systems, engineered with optimized trace routing, thermal management, and stack-up planning for reliable, long-term performance.",
+        desc: "High-current PCB layouts for power conversion and smart metering systems, engineered with optimised trace routing, thermal management, and stack-up planning for reliable, long-term performance.",
         image: "/service_page/Power and Metering Boards.webp",
       },
     ],
