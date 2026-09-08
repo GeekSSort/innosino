@@ -44,7 +44,7 @@ export default function LifeAtInnosinoPage() {
     >
       {/* =========================================================================
           {lifeAtInnosino.section1HeroSection}
-          Video: /service_page/Service sevtion Hero.mp4
+          Video: /service_page/Service section Hero.mp4
           ========================================================================= */}
       <section
         style={{
@@ -69,8 +69,8 @@ export default function LifeAtInnosinoPage() {
           }}
         >
           <BackgroundVideo
-            src="/service_page/Service sevtion Hero.mp4"
-            poster="/posters/service_page/Service sevtion Hero.webp"
+            src="/service_page/Service section Hero.mp4"
+            poster="/posters/service_page/Service section Hero.webp"
             loading="eager"
             style={{
               width: "100%",

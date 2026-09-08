@@ -21,8 +21,8 @@ export default function ServicesIndexPage() {
       <section className="page-hero">
         <div className="section-media">
           <BackgroundVideo
-            src="/service_page/Service sevtion Hero.mp4"
-            poster="/posters/service_page/Service sevtion Hero.webp"
+            src="/service_page/Service section Hero.mp4"
+            poster="/posters/service_page/Service section Hero.webp"
             loading="eager"
           />
           <div

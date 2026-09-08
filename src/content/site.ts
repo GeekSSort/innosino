@@ -14,7 +14,7 @@ export interface NavLink {
 export const siteName = "INNOSINO";
 
 /** Rendered in the bottom bar of every page. */
-export const copyright = "© 2026 Innosion All Rights Reserved";
+export const copyright = "© 2026 Innosino All Rights Reserved";
 
 /*
  * Expertise and Life at INNOSINO are here because their only other links live

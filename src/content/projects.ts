@@ -9,7 +9,7 @@ export const projectsHero = {
 export const featuredProject = {
   eyebrow: "Featured Project",
   title: "Smart Musical Instruments",
-  desc: "Engineered an intelligent musical instruments powered by AI, DSP, and embedded technologies, enabling real-time audio processing, ultra-low-latency wireless connectivity, intelligent gesture recognition, and patent-ready innovations for next-generation digital music experiences.",
+  desc: "Engineered intelligent musical instruments powered by AI, DSP, and embedded technologies, enabling real-time audio processing, ultra-low-latency wireless connectivity, intelligent gesture recognition, and patent-ready innovations for next-generation digital music experiences.",
   badge: "SMART INSTRUMENTS DEVELOPED",
   image: "/homepage_assets/featured_project_images/guitar.webp",
   cta: { label: "Know Details", href: "/projects/details" },
