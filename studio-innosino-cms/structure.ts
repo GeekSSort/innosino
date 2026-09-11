@@ -14,6 +14,7 @@ import {ImagesIcon} from '@sanity/icons/Images'
 import {LockIcon} from '@sanity/icons/Lock'
 import {TagIcon} from '@sanity/icons/Tag'
 import {CommentIcon} from '@sanity/icons/Comment'
+import {EnvelopeIcon as InboxIcon} from '@sanity/icons/Envelope'
 
 /**
  * The Studio sidebar, written for the person who actually edits this site
@@ -62,6 +63,17 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('testimonial')
         .title('Client quotes')
         .icon(CommentIcon),
+
+      /* Applications arrive here from the job pages. Newest first, because
+         the only question anyone opens this list to answer is "what came in?" */
+      S.listItem()
+        .title('Job applications')
+        .icon(InboxIcon)
+        .child(
+          S.documentTypeList('jobApplication')
+            .title('Job applications')
+            .defaultOrdering([{field: 'submittedAt', direction: 'desc'}]),
+        ),
 
       S.divider(),
 

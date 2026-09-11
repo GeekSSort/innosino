@@ -3,6 +3,7 @@ import {post, category} from './documents/post'
 import {service} from './documents/service'
 import {project} from './documents/project'
 import {industry, testimonial, openRole} from './documents/misc'
+import {jobApplication} from './documents/jobApplication'
 import {siteSettings} from './pages/siteSettings'
 import {homePage} from './pages/homePage'
 import {aboutPage} from './pages/aboutPage'
@@ -44,6 +45,7 @@ export const collectionTypes = [
   industry,
   testimonial,
   openRole,
+  jobApplication,
 ]
 
 /** The names Structure locks to a fixed document id — see structure.ts. */

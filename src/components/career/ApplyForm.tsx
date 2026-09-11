@@ -5,21 +5,28 @@ import React, { useState } from "react";
 /**
  * The application form on a job page.
  *
- * The site is a static export with no server, so there is nothing here to POST
- * to. Rather than show a tick and drop the application, this composes the
- * message and hands it to the applicant's own mail client, which is the one
- * route that genuinely delivers without a backend. The CV is asked for as an
- * attachment because a mailto: cannot carry a file.
+ * Posts to /api/apply, a Cloudflare Worker that writes the application into
+ * the Content Lake, where it shows up in the Studio under Job applications.
+ * The token that write needs lives as a Worker secret — a write token shipped
+ * in this bundle would let anyone edit or empty the dataset.
  *
- * Swap `buildMailto` for a fetch to a form endpoint the day there is a server
- * to receive one; nothing else here needs to change.
+ * If that call fails for any reason, the form falls back to the applicant's
+ * own mail client rather than reporting a success it cannot back up. An
+ * application that quietly disappears is the one outcome worth writing extra
+ * code to avoid.
+ *
+ * A CV is still asked for as an attachment: files would need multipart upload
+ * and asset storage, which is worth doing only once someone is actually
+ * hiring through this.
  */
 export default function ApplyForm({
   role,
   email,
+  roleSlug,
 }: {
   role: string;
-  /** Where applications go — the one address the site already publishes. */
+  roleSlug: string;
+  /** Where applications go if the endpoint cannot be reached. */
   email: string;
 }) {
   const [name, setName] = useState("");
@@ -27,7 +34,12 @@ export default function ApplyForm({
   const [phone, setPhone] = useState("");
   const [links, setLinks] = useState("");
   const [message, setMessage] = useState("");
-  const [opened, setOpened] = useState(false);
+  const [state, setState] = useState<"editing" | "sending" | "sent" | "mail">(
+    "editing",
+  );
+  const [error, setError] = useState<string | null>(null);
+  /** Filled only by bots; a real applicant never sees this field. */
+  const [company, setCompany] = useState("");
 
   const buildMailto = () => {
     /* null drops the line; an empty string is a deliberate blank one. */
@@ -52,22 +64,68 @@ export default function ApplyForm({
     )}&body=${encodeURIComponent(body)}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = buildMailto();
-    setOpened(true);
+    setState("sending");
+    setError(null);
+
+    try {
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          roleTitle: role,
+          roleSlug,
+          name,
+          email: from,
+          phone,
+          links,
+          message,
+          company,
+        }),
+      });
+
+      if (!res.ok) throw new Error(`apply endpoint returned ${res.status}`);
+      setState("sent");
+      return;
+    } catch (cause) {
+      /*
+       * Running `next dev` there is no Worker, and a deploy could always fail.
+       * Either way the applicant gets a route that works rather than a tick
+       * over a lost application.
+       */
+      console.error("Application POST failed, falling back to email", cause);
+      setError(
+        "We could not submit that directly, so your email app should open instead.",
+      );
+      window.location.href = buildMailto();
+      setState("mail");
+    }
   };
 
   return (
     <div className="apply-form-card">
       <h2 className="job-detail__heading">Apply for this role</h2>
 
-      {opened ? (
+      {state === "sent" ? (
         <div className="apply-form__done">
           <p>
-            Your email app should have opened with this application ready to send.
-            <strong> Attach your CV and hit send</strong> — it is not with us until
-            you do.
+            <strong>Thanks — we have your application.</strong> Someone on the
+            engineering team reads these; expect a reply within a week either way.
+          </p>
+          <p>
+            One thing left: send your CV to{" "}
+            <a href={`mailto:${email}?subject=${encodeURIComponent(`CV — ${role} — ${name}`)}`}>
+              {email}
+            </a>
+            . A web form cannot take a file attachment.
+          </p>
+        </div>
+      ) : state === "mail" ? (
+        <div className="apply-form__done">
+          <p>
+            {error} <strong>Attach your CV and hit send</strong> — it is not with us
+            until you do.
           </p>
           <p>
             Nothing happened? Email{" "}
@@ -76,7 +134,7 @@ export default function ApplyForm({
             </a>{" "}
             directly.
           </p>
-          <button type="button" className="pill-button" onClick={() => setOpened(false)}>
+          <button type="button" className="pill-button" onClick={() => setState("editing")}>
             Edit the application
           </button>
         </div>
@@ -155,13 +213,30 @@ export default function ApplyForm({
             />
           </div>
 
+          {/* Hidden from people and from screen readers; bots fill it anyway. */}
+          <div className="apply-form__trap" aria-hidden="true">
+            <label htmlFor="apply-company">Company</label>
+            <input
+              id="apply-company"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </div>
+
           <p className="apply-form__note">
-            Submitting opens your email app with this filled in. Attach your CV there
-            — we cannot receive a file from this page.
+            Send your CV separately to {email} — a web form cannot take a file
+            attachment.
           </p>
 
-          <button type="submit" className="cta-banner__button job-detail__apply">
-            <span>Continue to email</span>
+          <button
+            type="submit"
+            className="cta-banner__button job-detail__apply"
+            disabled={state === "sending"}
+          >
+            <span>{state === "sending" ? "Sending…" : "Send application"}</span>
             <span style={{ fontSize: "0.75em" }} aria-hidden="true">
               ↗
             </span>

@@ -3,16 +3,18 @@
   "name": "innosino",
   "compatibility_date": "2026-09-04",
 
-  // No Worker script — just the static export. Requests for these files are
-  // served straight from Cloudflare's edge without invoking a Worker, which is
-  // why they cost nothing: static asset requests are free and unmetered on
-  // every plan, including Workers Free.
-  // Worker logging and tracing. Valid against wrangler's schema, but nothing is
-  // collected while this config ships no Worker: static asset requests never
-  // invoke one, so there is nothing to log or trace. It takes effect the moment
-  // a Worker does exist here — which is what adding Sanity through OpenNext
-  // would mean. head_sampling_rate 1 and persist true are both the defaults;
-  // they are written out so the intent survives a change of default.
+  // One Worker, for one route. `run_worker_first` is deliberately absent
+  // below, so a request that matches a static asset is still served straight
+  // from Cloudflare's edge without invoking this script — page views stay free
+  // and unmetered. Only unmatched paths, which is just POST /api/apply, reach
+  // the Worker and count as a request.
+  "main": "./worker/index.ts",
+  // Worker logging and tracing. This now collects something: the Worker logs
+  // the reason a Sanity write failed, which is the only place that detail
+  // exists — the applicant is told "could not save" and nothing more. Static
+  // asset requests still never invoke the Worker, so page views produce no
+  // logs. head_sampling_rate 1 and persist true are both the defaults; they
+  // are written out so the intent survives a change of default.
   "observability": {
     "logs": {
       "enabled": true,
@@ -29,6 +31,8 @@
 
   "assets": {
     "directory": "./out",
+    // The Worker falls through to this for everything but /api/apply.
+    "binding": "ASSETS",
     // Next's export writes /about.html for /about, so serve extensionless URLs
     // and redirect the .html form to the canonical path.
     "html_handling": "auto-trailing-slash",

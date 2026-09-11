@@ -119,7 +119,7 @@ export default function JobDetail({
           {/* The form is the page's real call to action, so it sits inline
               rather than behind another click. */}
           <div id="apply" style={{ scrollMarginBlockStart: "clamp(2rem, 8vw, 6rem)" }}>
-            <ApplyForm role={role.title} email={settings.email} />
+            <ApplyForm role={role.title} roleSlug={role.slug} email={settings.email} />
           </div>
 
           {otherRoles.length > 0 && (

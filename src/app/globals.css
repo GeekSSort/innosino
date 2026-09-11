@@ -3684,3 +3684,13 @@ body {
 .apply-form__done a {
   color: #ff7018;
 }
+
+/* Honeypot: off-screen rather than display:none, because some bots skip
+   fields they can tell are hidden. */
+.apply-form__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

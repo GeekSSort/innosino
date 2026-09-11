@@ -48,3 +48,7 @@ next-env.d.ts
 
 # wrangler local state
 .wrangler/
+
+# wrangler local secrets — never committed
+.dev.vars
+.dev.vars.*
