@@ -9,11 +9,11 @@ export default defineCliConfig({
    * Where `sanity deploy` publishes the Studio. This is the address editors
    * log in at, so it is part of the setup rather than a per-machine choice.
    */
-  studioHost: 'innosino-cms',
+  studioHost: 'innosino',
 
   deployment: {
     /** Pins which hosted application `sanity deploy` updates, so it never asks. */
-    appId: 'q2f8x6a0uggau9ibzjp0ucfi',
+    appId: 'tbox30isrzs1e984evf1f5ao',
 
     /**
      * Enable auto-updates for studios.
