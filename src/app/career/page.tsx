@@ -1,7 +1,6 @@
 import React from "react";
 import BrandLogo from "@/components/navigation/BrandLogo";
 import SiteFooter from "@/components/common/SiteFooter";
-import { applyHref } from "@/lib/apply-href";
 import { client } from "@/sanity/client";
 import {
   CAREER_PAGE_QUERY,
@@ -137,9 +136,9 @@ export default async function CareerPage() {
 
           <div className="svc-list" style={{ marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)" }}>
             {openRoles.map((role) => (
-              <a
-                key={role.number}
-                href={applyHref(settings.email, role.title)}
+              <Link
+                key={role.slug}
+                href={`/career/${role.slug}`}
                 className="svc-list__row"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
@@ -156,7 +155,7 @@ export default async function CareerPage() {
                       color: "#FF7018",
                     }}
                   >
-                    {role.meta}
+                    {`${role.location} · ${role.employmentType}`}
                   </span>
                 </h3>
                 <span className="svc-list__icon" aria-hidden="true">
@@ -176,7 +175,7 @@ export default async function CareerPage() {
                     />
                   </svg>
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

@@ -3533,3 +3533,106 @@ body {
   border: 3px solid #ffffff;
   box-shadow: 0 10px 30px rgba(255, 112, 24, 0.35);
 }
+
+/* --- Job detail page ------------------------------------------------------ */
+.job-detail__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ff7018;
+}
+
+/* The shared CTA button is black on white; in the dark hero that is a button
+   nobody can see, so this one carries the accent instead. */
+.job-detail__apply {
+  align-self: flex-start;
+  margin-block-start: clamp(0.5rem, 1.5vw, 1rem);
+  background-color: #ff7018;
+  color: #ffffff;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.job-detail__apply:hover {
+  background-color: #ff8534;
+  transform: translateY(-1px);
+}
+
+.job-detail__heading {
+  margin: 0;
+  font-family: var(--font-cal-sans), sans-serif;
+  font-size: clamp(1.375rem, 1rem + 1.5vw, 2.125rem);
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: -0.01em;
+}
+
+.job-detail__intro p {
+  margin: 0 0 1rem;
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: var(--fs-body);
+  line-height: 160%;
+  color: #666666;
+}
+
+.job-detail__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+.job-detail__list > li {
+  /* The rule stands in for a bullet, matching the accent the policy page uses
+     for its list rows. */
+  border-left: 3px solid #ff7018;
+  padding-left: 16px;
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: var(--fs-body);
+  line-height: 150%;
+  color: #444444;
+}
+
+.job-detail__others {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+}
+
+.job-detail__others > a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 24px;
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  background-color: #f8f8f8;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.job-detail__others > a:hover {
+  border-color: #ff7018;
+  transform: translateY(-2px);
+}
+
+.job-detail__others > a > span:first-child {
+  font-family: var(--font-cal-sans), sans-serif;
+  font-size: 1.125rem;
+  color: #000000;
+}
+
+.job-detail__others > a > span:last-child {
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: #ff7018;
+}

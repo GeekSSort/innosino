@@ -1,5 +1,5 @@
 import { siteUrl, SITE_NAME } from "@/app/shared-metadata";
-import type { Faq, Organization, Post } from "@/sanity/queries";
+import type { Faq, OpenRole, Organization, Post } from "@/sanity/queries";
 
 /**
  * Builders for the JSON-LD graphs. Every one is fed from the same content the
@@ -112,6 +112,38 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
       name: step.name,
       item: abs(step.path),
     })),
+  };
+}
+
+/**
+ * One job opening, so it can appear in Google's job search.
+ *
+ * `hiringOrganization` points at the Organization declared once in the root
+ * layout rather than restating the company here, and `validThrough` is left
+ * off deliberately: an expiry we do not track would start removing live
+ * listings on a date nobody chose.
+ */
+export function jobPostingSchema(role: OpenRole) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: role.title,
+    description: role.description,
+    ...(role.postedAt ? { datePosted: role.postedAt } : {}),
+    employmentType: role.employmentType.toUpperCase().replace(/-/g, "_"),
+    hiringOrganization: { "@id": `${siteUrl}/#organization` },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: role.location,
+      },
+    },
+    ...(/remote/i.test(role.location)
+      ? { jobLocationType: "TELECOMMUTE" }
+      : {}),
+    url: abs(`/career/${role.slug}`),
+    directApply: true,
   };
 }
 

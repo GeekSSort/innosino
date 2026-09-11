@@ -385,10 +385,31 @@ export const CAREER_PAGE_QUERY = defineQuery(`
   }
 `);
 
+const OPEN_ROLE_FIELDS = /* groq */ `
+  "slug": slug.current,
+  number,
+  title,
+  location,
+  employmentType,
+  description,
+  postedAt,
+  intro,
+  "responsibilities": coalesce(responsibilities, []),
+  "requirements": coalesce(requirements, []),
+  "niceToHave": coalesce(niceToHave, [])
+`;
+
+/** Only roles still marked as hiring: a closed one keeps its document but leaves the site. */
 export const OPEN_ROLES_QUERY = defineQuery(`
-  *[_type == "openRole" && isOpen == true] | order(order asc) {
-    number, title, meta, description
-  }
+  *[_type == "openRole" && isOpen == true] | order(order asc) { ${OPEN_ROLE_FIELDS} }
+`);
+
+export const OPEN_ROLE_QUERY = defineQuery(`
+  *[_type == "openRole" && isOpen == true && slug.current == $slug][0] { ${OPEN_ROLE_FIELDS} }
+`);
+
+export const OPEN_ROLE_SLUGS_QUERY = defineQuery(`
+  *[_type == "openRole" && isOpen == true && defined(slug.current)].slug.current
 `);
 
 export const CONTACT_PAGE_QUERY = defineQuery(`
@@ -520,10 +541,18 @@ export interface CareerPageData {
 }
 
 export interface OpenRole {
+  slug: string;
   number: string;
   title: string;
-  meta: string;
+  location: string;
+  employmentType: string;
   description: string;
+  postedAt: string | null;
+  /** Longer copy shown only on the job's own page. */
+  intro: PortableTextBlock[] | null;
+  responsibilities: string[];
+  requirements: string[];
+  niceToHave: string[];
 }
 
 export interface ContactPageData {
