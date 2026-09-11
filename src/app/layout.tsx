@@ -11,6 +11,16 @@ import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import { SPLASH_SEEN_KEY } from "@/content/splash";
 import JsonLd from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/content/schema";
+import { client } from "@/sanity/client";
+import {
+  NAV_QUERY,
+  ORGANIZATION_QUERY,
+  PAGE_SEO_QUERY,
+  type NavData,
+  type Organization,
+  type PageSeo,
+} from "@/sanity/queries";
+import { NavProvider } from "@/components/navigation/NavProvider";
 
 /**
  * Self-hosted through next/font rather than linked from Google and Fontshare.
@@ -42,29 +52,43 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  // Segment layouts set their own title; this suffixes them and supplies the
-  // homepage's own.
-  title: { default: HOME_TITLE, template: `%s | ${SITE_NAME}` },
-  description: HOME_DESCRIPTION,
-  alternates: { canonical: "/" },
-  // favicon.ico, apple-icon.png and opengraph-image.png in this directory are
-  // picked up by Next's file conventions.
-  openGraph: {
-    title: HOME_TITLE,
-    description: HOME_DESCRIPTION,
-    url: "/",
-    siteName: SITE_NAME,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: HOME_TITLE,
-    description: HOME_DESCRIPTION,
-  },
-};
+/**
+ * The homepage's own card, and the title template every other page suffixes.
+ *
+ * Read from the Studio with the shipped copy as a fallback, so an empty SEO
+ * field cannot leave the site's front door with a blank description.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await client.fetch<PageSeo | null>(PAGE_SEO_QUERY, {
+    id: "homePage",
+  });
+  const title = seo?.title?.trim() || HOME_TITLE;
+  const description = seo?.description?.trim() || HOME_DESCRIPTION;
+
+  return {
+    metadataBase: new URL(siteUrl),
+    // Segment layouts set their own title; this suffixes them and supplies the
+    // homepage's own.
+    title: { default: title, template: `%s | ${SITE_NAME}` },
+    description,
+    alternates: { canonical: "/" },
+    // favicon.ico, apple-icon.png and opengraph-image.png in this directory are
+    // picked up by Next's file conventions.
+    openGraph: {
+      title,
+      description,
+      url: "/",
+      siteName: SITE_NAME,
+      type: "website",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -72,11 +96,19 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  /* The organisation facts behind the Organization graph. Fetched here rather
+     than hardcoded so the entity the markup claims is the one the Studio
+     holds — the contact details and founder shown on the site itself. */
+  const [org, nav] = await Promise.all([
+    client.fetch<Organization>(ORGANIZATION_QUERY),
+    client.fetch<NavData>(NAV_QUERY),
+  ]);
+
   return (
     <html
       lang="en"
@@ -99,10 +131,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-black text-white">
-        {children}
-        <FloatingNavbar />
+        <NavProvider nav={nav}>
+          {children}
+          <FloatingNavbar />
+        </NavProvider>
         {/* The entity, declared once for the whole site. */}
-        <JsonLd data={organizationSchema()} />
+        <JsonLd data={organizationSchema(org)} />
         <JsonLd data={websiteSchema()} />
       </body>
     </html>

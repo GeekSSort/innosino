@@ -10,8 +10,31 @@ import FeaturedProjectSection from "@/components/home/FeaturedProjectSection";
 import FeaturedProjectListSection from "@/components/home/FeaturedProjectListSection";
 import IndustrySolutionsSection from "@/components/home/IndustrySolutionsSection";
 import IndustrySolutionsListSection from "@/components/home/IndustrySolutionsListSection";
+import { client } from "@/sanity/client";
+import {
+  HOME_PAGE_QUERY,
+  SITE_SETTINGS_QUERY,
+  type HomePageData,
+  type SiteSettings,
+} from "@/sanity/queries";
 
-export default function Home() {
+export default async function Home() {
+  const [home, settings] = await Promise.all([
+    client.fetch<HomePageData>(HOME_PAGE_QUERY),
+    client.fetch<SiteSettings>(SITE_SETTINGS_QUERY),
+  ]);
+
+  /* The reel is ordered in the Studio; each section takes the clip for its own
+     discipline, looked up by the service it links to rather than by position,
+     so reordering the reel cannot swap two sections' footage. */
+  const clip = (slug: string) => {
+    const found = home.serviceMedia.find((m) => m.id === slug);
+    if (!found) throw new Error(`Home page has no clip for service "${slug}"`);
+    return found;
+  };
+
+  const [coreServices, featuredProject, industrySolutions] = home.splashFrames;
+
   return (
     <main className="min-h-screen bg-black text-white selection:bg-orange-500 selection:text-white">
       {/* The nine-variant intro from Figma, over the top of the hero until it
@@ -23,35 +46,42 @@ export default function Home() {
           their own sticky/marquee behaviour and scroll normally after it. */}
       <StoryScroll ariaLabel="Introduction">
         {/* View 1: Splash Animation For Hero Section */}
-        <HeroSection />
+        <HeroSection heroCopy={home.hero} />
 
         {/* View 2: Featured Project / Core Services */}
-        <CoreServicesSection />
+        <CoreServicesSection frame={coreServices} />
 
         {/* View 3: Embedded System Design */}
-        <EmbeddedSystemDesignSection />
+        <EmbeddedSystemDesignSection data={clip("embedded-system-design")} />
 
         {/* View 4: Hardware & PCB Design */}
-        <HardwarePcbDesignSection />
+        <HardwarePcbDesignSection data={clip("hardware-pcb-design")} />
 
         {/* View 5: Product Development */}
-        <ProductDevelopmentSection />
+        <ProductDevelopmentSection data={clip("product-development")} />
 
         {/* View 6: Industrial Automation */}
-        <IndustrialAutomationSection />
+        <IndustrialAutomationSection data={clip("industrial-automation")} />
 
         {/* View 7: Featured Project Splash Banner */}
-        <FeaturedProjectSection />
+        <FeaturedProjectSection frame={featuredProject} />
       </StoryScroll>
 
       {/* View 8: Featured Project Cards List */}
-      <FeaturedProjectListSection />
+      <FeaturedProjectListSection
+        featuredProjects={home.featuredProjects}
+        featuredProjectsLede={home.featuredProjectsLede}
+      />
 
       {/* View 9: Industry Solutions Animated Banner */}
-      <IndustrySolutionsSection />
+      <IndustrySolutionsSection frame={industrySolutions} />
 
       {/* View 10: Industry Solutions Sliding Carousel & Footer */}
-      <IndustrySolutionsListSection />
+      <IndustrySolutionsListSection
+        industriesList={home.industries}
+        industriesLede={home.industriesLede}
+        settings={settings}
+      />
     </main>
   );
 }

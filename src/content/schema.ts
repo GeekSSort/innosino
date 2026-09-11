@@ -1,43 +1,59 @@
-import { organization } from "./organization";
 import { siteUrl, SITE_NAME } from "@/app/shared-metadata";
+import type { Faq, Organization, Post } from "@/sanity/queries";
 
 /**
- * Builders for the JSON-LD graphs. Every one is fed from the same content
- * modules the pages render, so the markup and the visible page cannot disagree
- * — structured data that describes something the visitor cannot see is the one
+ * Builders for the JSON-LD graphs. Every one is fed from the same content the
+ * pages render, so the markup and the visible page cannot disagree —
+ * structured data that describes something the visitor cannot see is the one
  * way this feature actively backfires.
+ *
+ * Nothing here reads a content module any more: the facts come from the
+ * Content Lake, handed in by the page that is already querying them.
  */
 
-const abs = (path: string) => (path === "/" ? siteUrl : `${siteUrl}${path}`);
+/**
+ * Absolute URL for a site path. Images now come from the asset CDN already
+ * absolute, so a bare prefix would produce "https://innosino.comhttps://..."
+ * — a malformed URL that quietly invalidates the graph it sits in.
+ */
+const abs = (path: string) => {
+  if (/^https?:\/\//.test(path)) return path;
+  return path === "/" ? siteUrl : `${siteUrl}${path}`;
+};
 
 /** The entity itself, once, in the root layout. */
-export function organizationSchema() {
+export function organizationSchema(org: Organization) {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${siteUrl}/#organization`,
-    name: organization.name,
-    legalName: organization.legalName,
+    name: org.siteName,
+    legalName: org.legalName,
     url: siteUrl,
-    description: organization.description,
-    logo: { "@type": "ImageObject", url: abs(organization.logo) },
+    description: org.organizationDescription,
+    logo: { "@type": "ImageObject", url: abs(org.logo) },
     founder: {
       "@type": "Person",
-      name: organization.founder.name,
-      jobTitle: organization.founder.title,
+      name: org.founder.name,
+      jobTitle: org.founder.title,
     },
+    /**
+     * City and country only. There is no street address anywhere on the site,
+     * and the Dhaka office belongs to DBTECH — a partner rather than INNOSINO
+     * — so neither is claimed here.
+     */
     address: {
       "@type": "PostalAddress",
-      addressLocality: organization.headquarters.locality,
-      addressCountry: organization.headquarters.country,
+      addressLocality: org.headquarters.locality,
+      addressCountry: org.headquarters.country,
     },
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
-      email: organization.email,
-      telephone: organization.telephone,
+      email: org.email,
+      telephone: org.whatsApp,
     },
-    sameAs: [...organization.sameAs],
+    sameAs: [org.linkedin].filter(Boolean),
   };
 }
 
@@ -57,14 +73,14 @@ export function websiteSchema() {
  * its accordion — an FAQPage describing answers that are not on the page is
  * the classic way this markup gets a site ignored.
  */
-export function faqSchema(faqs: readonly { q: string; a: string }[]) {
+export function faqSchema(faqs: readonly Faq[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
     })),
   };
 }
@@ -104,13 +120,7 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
  * timestamp, and the body is not reproduced here — the page renders it, and
  * duplicating prose into the markup only invites the two to drift.
  */
-export function blogPostingSchema(post: {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image: string;
-}) {
+export function blogPostingSchema(post: Post) {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",

@@ -1,226 +1,85 @@
-"use client";
-
-import React, { useState } from "react";
-import BackgroundVideo from "@/components/common/BackgroundVideo";
-import Image from "next/image";
-import Link from "next/link";
-import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
+import React from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
+import SiteFooter from "@/components/common/SiteFooter";
+import { client } from "@/sanity/client";
 import {
-  expertiseHeadings,
-  expertiseHero,
-  featureCards,
-  processStagesRow1,
-  processStagesRow2,
-  toolsAndTech,
-} from "@/content/expertise";
+  EXPERTISE_PAGE_QUERY,
+  SITE_SETTINGS_QUERY,
+  type ExpertisePageData,
+  type SiteSettings,
+} from "@/sanity/queries";
+import BackgroundVideo from "@/components/common/BackgroundVideo";
+import Link from "next/link";
 
-export default function ExpertisePage() {
-  const [chatOpen, setChatOpen] = useState(true);
+export default async function ExpertisePage() {
+  const [page, settings] = await Promise.all([
+    client.fetch<ExpertisePageData>(EXPERTISE_PAGE_QUERY),
+    client.fetch<SiteSettings>(SITE_SETTINGS_QUERY),
+  ]);
+
+  /* The rail renders in two rows. The split is worked out here rather than
+     stored as two arrays, so adding a stage in the Studio does not need a
+     second field deciding which row it belongs to. */
+  const row1 = page.processStages.slice(0, Math.ceil(page.processStages.length / 2));
+  const row2 = page.processStages.slice(row1.length);
+
 
   return (
     <main
-      style={{
-        position: "relative",
-        width: "1440px",
-        minHeight: "4231px",
-        overflow: "hidden",
-        backgroundColor: "#000000",
-        margin: "0 auto",
-      }}
+      /* body is a flex column: without an explicit width this sizes to its
+         widest child rather than to the viewport. */
+      style={{position: "relative", width: "100%", minWidth: 0, backgroundColor: "#000000"}}
     >
       {/* =========================================================================
           SECTION 1: HERO SECTION & OVERLAPPING HARDWARE CARD (Height: 684px)
           Video: /expertise_page_assets/Expertise.mp4
           ========================================================================= */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "684px",
-          backgroundColor: "#F1F1F1",
-          overflow: "visible",
-        }}
-      >
-        {/* Background Video */}
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            width: "1440px",
-            height: "684px",
-            overflow: "hidden",
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        >
-          <BackgroundVideo
-            src="/service_page/Service section Hero.mp4"
-            poster="/posters/service_page/Service section Hero.webp"
-            loading="eager"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.60)",
-              pointerEvents: "none",
-            }}
-          />
-        </div>
+      <section className="page-hero" style={{backgroundColor: "#F1F1F1"}}>
+        <div className="container page-hero__inner">
+          <div className="page-hero__head">
+            <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
+              <BrandLogo size="small" />
+            </Link>
 
-        {/* Logo at (135, 60) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "60px",
-            width: "236px",
-            height: "32px",
-            zIndex: 20,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-            <Image
-              src="/about_us/IS-Logo.webp"
-              alt="INNOSINO"
-              width={236}
-              height={32}
-              style={{ objectFit: "contain", height: "32px", width: "auto" }}
-              preload
-            />
-          </Link>
-        </div>
+            <div className="page-hero__copy">
+              <div className="breadcrumb">
+                <span className="breadcrumb__link" aria-hidden="true">
+                  ✦
+                </span>
+                <Link href="/" className="breadcrumb__link">
+                  HOME
+                </Link>
+                <span className="breadcrumb__link" aria-hidden="true">
+                  &gt;
+                </span>
+                <span className="breadcrumb__link">{page.hero.breadcrumb}</span>
+              </div>
 
-        {/* Hero Title & Breadcrumb Block (x: 134, y: 112) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "134px",
-            top: "112px",
-            width: "1171px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "16px",
-            zIndex: 20,
-          }}
-        >
-          {/* Breadcrumb: HOME > EXPERTISE */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "10px",
-              height: "24px",
-            }}
-          >
-            <span style={{ fontSize: "14px", color: "#FF7018" }}>✦</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <Link
-                href="/"
-                style={{
-                  fontFamily: "var(--font-urbanist), sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                }}
-              >
-                Home
-              </Link>
-              <span style={{ color: "#FF7018", fontSize: "14px" }}>&gt;</span>
-              <span
-                style={{
-                  fontFamily: "var(--font-urbanist), sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "#FF7018",
-                  textTransform: "uppercase",
-                }}
-              >
-                {expertiseHero.breadcrumb}
-              </span>
+              <h1 className="page-hero__title" style={{color: "#000000"}}>
+                {page.hero.titleLead}
+                <span className="brand-gradient-text">{page.hero.titleAccent}</span>
+              </h1>
+
+              <p className="page-hero__sub" style={{color: "#444444"}}>
+                {page.hero.sub}
+              </p>
             </div>
           </div>
 
-          {/* Heading: OUR EXPERTISE */}
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: "var(--font-cal-sans), sans-serif",
-              fontSize: "64px",
-              fontWeight: 400,
-              lineHeight: "1.1",
-              color: "#FFFFFF",
-              textTransform: "uppercase",
-            }}
-          >
-            {expertiseHero.title}
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            style={{
-              margin: 0,
-              width: "1171px",
-              fontFamily: "var(--font-urbanist), sans-serif",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "150%",
-              color: "#FFFFFF",
-            }}
-          >
-            {expertiseHero.sub}
-          </p>
-        </div>
-
-        {/* Floating Navbar at (134, 401) */}
-        <div style={{ position: "absolute", left: "134px", top: "401px", zIndex: 30 }}>
-                  </div>
-
-        {/* Overlapping Featured Hardware Visual Card (x: 235, y: 549, w: 970, h: 546) */}
-        <div
-          style={{
-            position: "absolute",
-            left: "235px",
-            top: "549px",
-            width: "970px",
-            height: "546px",
-            borderRadius: "18px",
-            boxSizing: "border-box",
-            zIndex: 25,
-            border: "2px solid transparent",
-            backgroundImage:
-              "linear-gradient(rgba(0,0,0,1), rgba(0,0,0,1)), linear-gradient(90deg, rgba(255,112,24,1) 26.9%, rgba(255,190,3,1) 100%)",
-            backgroundOrigin: "border-box",
-            backgroundClip: "padding-box, border-box",
-            overflow: "hidden",
-            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4)",
-            backgroundColor: "#0B0B0B",
-          }}
-        >
-          <BackgroundVideo
-            src="/expertise_page_assets/Expertise.mp4"
-            poster="/posters/expertise_page_assets/Expertise.webp"
-            loading="lazy"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-          />
+          {/*
+            The video card is the hero's last flow child and hangs into the
+            white band below it by --page-hero-hang, the same mechanism the
+            Projects and Blog heroes use. It was previously pinned at
+            (235, 549) inside a 1440px box, so below that width it sat off the
+            side of the screen.
+          */}
+          <div className="page-hero__media">
+            <BackgroundVideo
+              src="/expertise_page_assets/Expertise.mp4"
+              poster="/posters/expertise_page_assets/Expertise.webp"
+              loading="lazy"
+            />
+          </div>
         </div>
       </section>
 
@@ -228,22 +87,11 @@ export default function ExpertisePage() {
           SECTION 2: WHY IS INNOSINO THE RIGHT HARDWARE & PCB DESIGN PARTNER?
           Height: 939px | y: 684 | paddingTop: 459px | Background: #FFFFFF
           ========================================================================= */}
-      <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          minHeight: "939px",
-          backgroundColor: "#FFFFFF",
-          boxSizing: "border-box",
-          paddingTop: "459px",
-          paddingLeft: "135px",
-          paddingRight: "135px",
-          paddingBottom: "80px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "48px",
-        }}
-      >
+      <section className="hero-follow">
+        <div
+          className="container"
+          style={{display: "flex", flexDirection: "column", gap: "clamp(1.75rem, 4vw, 3rem)"}}
+        >
         {/* Section Heading */}
         <h2
           style={{
@@ -256,26 +104,25 @@ export default function ExpertisePage() {
             lineHeight: "1.2",
           }}
         >
-          {expertiseHeadings.why.lead}
-          <span style={{ color: "#FF7018" }}>{expertiseHeadings.why.accent}</span>
+          {page.whyHeading.lead}
+          <span style={{ color: "#FF7018" }}>{page.whyHeading.accent}</span>
         </h2>
 
         {/* 3x2 Feature Cards Grid */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 370px)",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
             columnGap: "30px",
             rowGap: "30px",
-            width: "1170px",
+            width: "100%",
           }}
         >
-          {featureCards.map((card, idx) => (
+          {page.featureCards.map((card, idx) => (
             <div
               key={idx}
               style={{
-                width: "370px",
-                height: "113px",
+                minHeight: "113px",
                 borderRadius: "12px",
                 backgroundColor: "#F1F1F1",
                 boxSizing: "border-box",
@@ -309,10 +156,11 @@ export default function ExpertisePage() {
                   lineHeight: "150%",
                 }}
               >
-                {card.desc}
+                {card.description}
               </p>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
@@ -321,19 +169,19 @@ export default function ExpertisePage() {
           Height: 1028px | y: 1623 | Background: #F1F1F1
           ========================================================================= */}
       <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          minHeight: "1028px",
-          backgroundColor: "#F1F1F1",
-          boxSizing: "border-box",
-          padding: "64px 135px",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-        }}
+        className="flow-section"
+        style={{backgroundColor: "#F1F1F1"}}
       >
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: "clamp(1.5rem, 4vw, 3rem)",
+          }}
+        >
         {/* Left Side: Sticky Title */}
         <div
           style={{
@@ -353,25 +201,25 @@ export default function ExpertisePage() {
               lineHeight: "1.2",
             }}
           >
-            {expertiseHeadings.tools.lead}
-            <span style={{ color: "#FF7018" }}>{expertiseHeadings.tools.accent}</span>
+            {page.toolsHeading.lead}
+            <span style={{ color: "#FF7018" }}>{page.toolsHeading.accent}</span>
           </h2>
         </div>
 
         {/* Right Side: 6 Tool Cards Stack */}
         <div
           style={{
-            width: "570px",
+            width: "min(100%, 570px)",
             display: "flex",
             flexDirection: "column",
             gap: "24px",
           }}
         >
-          {toolsAndTech.map((item, idx) => (
+          {page.toolsAndTech.map((item, idx) => (
             <div
               key={idx}
               style={{
-                width: "570px",
+                width: "min(100%, 570px)",
                 height: "130px",
                 borderRadius: "14px",
                 backgroundColor: "#FFFFFF",
@@ -407,10 +255,11 @@ export default function ExpertisePage() {
                   lineHeight: "150%",
                 }}
               >
-                {item.desc}
+                {item.description}
               </p>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
@@ -419,18 +268,13 @@ export default function ExpertisePage() {
           Height: 777px | y: 2651 | Background: #FFFFFF
           ========================================================================= */}
       <section
-        style={{
-          position: "relative",
-          width: "1440px",
-          minHeight: "777px",
-          backgroundColor: "#FFFFFF",
-          boxSizing: "border-box",
-          padding: "64px 135px 80px 135px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "48px",
-        }}
+        className="flow-section"
+        style={{backgroundColor: "#FFFFFF"}}
       >
+        <div
+          className="container"
+          style={{display: "flex", flexDirection: "column", gap: "clamp(1.75rem, 4vw, 3rem)"}}
+        >
         {/* Section Heading */}
         <h2
           style={{
@@ -443,8 +287,8 @@ export default function ExpertisePage() {
             lineHeight: "1.2",
           }}
         >
-          {expertiseHeadings.process.lead}
-          <span style={{ color: "#FF7018" }}>{expertiseHeadings.process.accent}</span>
+          {page.processHeading.lead}
+          <span style={{ color: "#FF7018" }}>{page.processHeading.accent}</span>
         </h2>
 
         {/* Process Cards Rows */}
@@ -453,23 +297,22 @@ export default function ExpertisePage() {
             display: "flex",
             flexDirection: "column",
             gap: "30px",
-            width: "1170px",
+            width: "100%",
           }}
         >
           {/* Row 1: Stages 01, 02, 03 (3 x 370px) */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 370px)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
               gap: "30px",
-              width: "1170px",
+              width: "100%",
             }}
           >
-            {processStagesRow1.map((item, idx) => (
+            {row1.map((item, idx) => (
               <div
                 key={idx}
                 style={{
-                  width: "370px",
                   height: "262px",
                   borderRadius: "14px",
                   backgroundColor: "#F8F8F8",
@@ -490,7 +333,7 @@ export default function ExpertisePage() {
                     color: "#FF7018",
                   }}
                 >
-                  {item.stage}
+                  {item.label}
                 </span>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -516,7 +359,7 @@ export default function ExpertisePage() {
                       lineHeight: "150%",
                     }}
                   >
-                    {item.desc}
+                    {item.description}
                   </p>
                 </div>
               </div>
@@ -527,17 +370,16 @@ export default function ExpertisePage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(2, 570px)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
               gap: "30px",
-              width: "1170px",
+              width: "100%",
             }}
           >
-            {processStagesRow2.map((item, idx) => (
+            {row2.map((item, idx) => (
               <div
                 key={idx}
                 style={{
-                  width: "570px",
-                  height: "262px",
+                  minHeight: "262px",
                   borderRadius: "14px",
                   backgroundColor: "#F8F8F8",
                   border: "1px solid #ECECEC",
@@ -557,7 +399,7 @@ export default function ExpertisePage() {
                     color: "#FF7018",
                   }}
                 >
-                  {item.stage}
+                  {item.label}
                 </span>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -583,12 +425,13 @@ export default function ExpertisePage() {
                       lineHeight: "150%",
                     }}
                   >
-                    {item.desc}
+                    {item.description}
                   </p>
                 </div>
               </div>
             ))}
           </div>
+        </div>
         </div>
       </section>
 
@@ -597,20 +440,17 @@ export default function ExpertisePage() {
           Height: 488px | y: 3492 | Background: #FFFFFF
           ========================================================================= */}
       <section
+        className="flow-section"
         style={{
-          position: "relative",
-          width: "1440px",
-          height: "488px",
           backgroundColor: "#FFFFFF",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxSizing: "border-box",
         }}
       >
         <div
           style={{
-            width: "1170px",
+            width: "100%",
             height: "328px",
             borderRadius: "20px",
             background: "linear-gradient(135deg, #FF7018 0%, #FFBE03 100%)",
@@ -663,12 +503,12 @@ export default function ExpertisePage() {
               zIndex: 2,
             }}
           >
-            {ctaBanner.title}
+            {settings.ctaBanner.title}
           </h2>
           <p
             style={{
               margin: 0,
-              width: "640px",
+              width: "min(100%, 640px)",
               fontFamily: "var(--font-urbanist), sans-serif",
               fontSize: "16px",
               fontWeight: 500,
@@ -677,7 +517,7 @@ export default function ExpertisePage() {
               zIndex: 2,
             }}
           >
-            {ctaBanner.body}
+            {settings.ctaBanner.body}
           </p>
           <Link
             href="/contact"
@@ -707,148 +547,7 @@ export default function ExpertisePage() {
           SECTION 6: FOOTER & INTERACTIVE CHAT
           Height: 276px | Background: #000000
           ========================================================================= */}
-      <footer
-        style={{
-          position: "relative",
-          width: "1440px",
-          height: "276px",
-          backgroundColor: "#000000",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ position: "absolute", left: "135px", top: "64px", zIndex: 30 }}>
-                  </div>
-
-        {/* Interactive Chat Widget */}
-        <div
-          style={{
-            position: "absolute",
-            left: "974px",
-            top: "39px",
-            width: "331px",
-            height: "141px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            gap: "12px",
-            zIndex: 40,
-          }}
-        >
-          {chatOpen && (
-            <div
-              style={{
-                position: "relative",
-                width: "331px",
-                height: "81px",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                boxSizing: "border-box",
-                padding: "9px 12px",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-              }}
-            >
-              <p
-                style={{
-                  margin: 0,
-                  width: "280px",
-                  fontFamily: "var(--font-urbanist), sans-serif",
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  lineHeight: "120%",
-                  color: "#666666",
-                }}
-              >
-                {chatWidget.greeting}
-              </p>
-              <button
-                type="button"
-                onClick={() => setChatOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: "2px",
-                  cursor: "pointer",
-                  color: "#999999",
-                }}
-                aria-label={chatWidget.closeLabel}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5" stroke="#888888" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
-            </div>
-          )}
-
-          <button
-            type="button"
-            onClick={() => setChatOpen(!chatOpen)}
-            style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "50%",
-              backgroundColor: "#FF6A00",
-              border: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
-            }}
-            aria-label={chatWidget.toggleLabel}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="#000000" />
-              <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-              <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Footer Bottom */}
-        <div
-          style={{
-            position: "absolute",
-            left: "135px",
-            top: "156px",
-            width: "1169px",
-            height: "56px",
-            borderTop: "1px solid rgba(255, 255, 255, 0.2)",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            boxSizing: "border-box",
-          }}
-        >
-          <p style={{ margin: 0, fontFamily: "var(--font-urbanist), sans-serif", fontSize: "14px", fontWeight: 400, color: "rgba(255, 255, 255, 0.8)" }}>
-            {copyright}
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "24px" }}>
-            {footerLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontFamily: "var(--font-urbanist), sans-serif",
-                  fontSize: "16px",
-                  fontWeight: 500,
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter settings={settings} />
     </main>
   );
 }

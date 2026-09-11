@@ -1,22 +1,22 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
+import SiteFooter from "@/components/common/SiteFooter";
+import { applyHref } from "@/lib/apply-href";
+import { client } from "@/sanity/client";
+import {
+  CAREER_PAGE_QUERY,
+  OPEN_ROLES_QUERY,
+  SITE_SETTINGS_QUERY,
+  type CareerPageData,
+  type OpenRole,
+  type SiteSettings,
+} from "@/sanity/queries";
 import Image from "next/image";
 import Link from "next/link";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/content/schema";
-import {
-  applyHref,
-  careerCta,
-  careerHero,
-  hiring,
-  lifeStrip,
-  openRoles,
-  whyJoin,
-} from "@/content/career";
-import { chatWidget, copyright, footerLinks } from "@/content/site";
 
 /**
  * The careers page. "Career" was a dead `#careers` anchor in the navbar's More
@@ -26,8 +26,13 @@ import { chatWidget, copyright, footerLinks } from "@/content/site";
  * and a form that silently drops applications is worse than a mailto that
  * reaches a real inbox.
  */
-export default function CareerPage() {
-  const [chatOpen, setChatOpen] = useState(true);
+export default async function CareerPage() {
+  const [page, openRoles, settings] = await Promise.all([
+    client.fetch<CareerPageData>(CAREER_PAGE_QUERY),
+    client.fetch<OpenRole[]>(OPEN_ROLES_QUERY),
+    client.fetch<SiteSettings>(SITE_SETTINGS_QUERY),
+  ]);
+
 
   return (
     <main className="svc-page">
@@ -47,14 +52,7 @@ export default function CareerPage() {
         <div className="container page-hero__inner">
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             <div className="page-hero__copy">
@@ -77,17 +75,17 @@ export default function CareerPage() {
                 <span className="breadcrumb__link" aria-hidden="true">
                   &gt;
                 </span>
-                <span className="breadcrumb__link">{careerHero.breadcrumb}</span>
+                <span className="breadcrumb__link">{page.hero.breadcrumb}</span>
               </div>
 
               <h1 className="page-hero__title">
-                {careerHero.titleLead}
+                {page.hero.titleLead}
                 <span className="brand-gradient-text">
-                  {careerHero.titleAccent}
+                  {page.hero.titleAccent}
                 </span>
               </h1>
 
-              <p className="page-hero__sub">{careerHero.sub}</p>
+              <p className="page-hero__sub">{page.hero.sub}</p>
             </div>
 
             <FloatingNavbar variant="inline" />
@@ -105,15 +103,15 @@ export default function CareerPage() {
               marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)",
             }}
           >
-            {whyJoin.heading.lead}
+            {page.whyJoinHeading.lead}
             <span className="section-heading__accent">
-              {whyJoin.heading.accent}
+              {page.whyJoinHeading.accent}
             </span>
           </h2>
 
           <div className="svc-process svc-why">
             <div className="svc-grid">
-              {whyJoin.cards.map((card, index) => (
+              {page.whyJoinCards.map((card, index) => (
                 <div
                   key={card.title}
                   /* The settled frame rules only the first card. */
@@ -121,7 +119,7 @@ export default function CareerPage() {
                 >
                   <div>
                     <h3 className="svc-card__title">{card.title}</h3>
-                    <p className="svc-card__desc">{card.desc}</p>
+                    <p className="svc-card__desc">{card.description}</p>
                   </div>
                 </div>
               ))}
@@ -140,13 +138,13 @@ export default function CareerPage() {
           <div className="svc-list" style={{ marginBlockStart: "clamp(1.5rem, 3.3vw, 48px)" }}>
             {openRoles.map((role) => (
               <a
-                key={role.num}
-                href={applyHref(role.title)}
+                key={role.number}
+                href={applyHref(settings.email, role.title)}
                 className="svc-list__row"
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <span className="svc-list__num">{role.num}</span>
-                <p className="svc-list__desc">{role.desc}</p>
+                <span className="svc-list__num">{role.number}</span>
+                <p className="svc-list__desc">{role.description}</p>
                 <h3 className="svc-list__title">
                   {role.title}
                   <span
@@ -194,20 +192,20 @@ export default function CareerPage() {
               marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)",
             }}
           >
-            {hiring.heading.lead}
+            {page.hiringHeading.lead}
             <span className="section-heading__accent">
-              {hiring.heading.accent}
+              {page.hiringHeading.accent}
             </span>
           </h2>
 
           <div className="svc-process">
             <div className="svc-grid svc-grid--pair">
-              {hiring.steps.map((step) => (
-                <div key={step.num} className="svc-card">
-                  <span className="svc-card__eyebrow">{step.num}</span>
+              {page.hiringSteps.map((step) => (
+                <div key={step.number} className="svc-card">
+                  <span className="svc-card__eyebrow">{step.number}</span>
                   <div>
                     <h3 className="svc-card__title">{step.title}</h3>
-                    <p className="svc-card__desc">{step.desc}</p>
+                    <p className="svc-card__desc">{step.description}</p>
                   </div>
                 </div>
               ))}
@@ -226,14 +224,14 @@ export default function CareerPage() {
               marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)",
             }}
           >
-            {lifeStrip.heading.lead}
+            {page.lifeHeading.lead}
             <span className="section-heading__accent">
-              {lifeStrip.heading.accent}
+              {page.lifeHeading.accent}
             </span>
           </h2>
 
           <div className="pj-grid">
-            {lifeStrip.photos.map((photo) => (
+            {page.lifePhotos.map((photo) => (
               <div key={photo.src} className="pj-card__media">
                 <Image
                   src={photo.src}
@@ -247,11 +245,11 @@ export default function CareerPage() {
           </div>
 
           <Link
-            href={lifeStrip.link.href}
+            href={page.lifeLink.href}
             className="pill-button"
             style={{ marginBlockStart: "clamp(1.5rem, 3vw, 2.5rem)" }}
           >
-            {lifeStrip.link.label}
+            {page.lifeLink.label}
           </Link>
         </div>
       </section>
@@ -260,12 +258,12 @@ export default function CareerPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <div className="cta-banner">
-            <h2 className="cta-banner__title">{careerCta.title}</h2>
+            <h2 className="cta-banner__title">{page.cta.title}</h2>
 
-            <p className="cta-banner__body">{careerCta.body}</p>
+            <p className="cta-banner__body">{page.cta.body}</p>
 
-            <a href={careerCta.action.href} className="cta-banner__button">
-              <span>{careerCta.action.label}</span>
+            <a href={page.cta.action.href} className="cta-banner__button">
+              <span>{page.cta.action.label}</span>
               <svg
                 width="12"
                 height="12"
@@ -286,115 +284,7 @@ export default function CareerPage() {
           </div>
         </div>
       </section>
-
-      <footer
-        className="flow-section"
-        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
-      >
-        <div className="container">
-          <div
-            className="chat-dock"
-            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {chatOpen && (
-              <div className="chat-dock__bubble">
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "var(--fs-small)",
-                    fontWeight: 400,
-                    lineHeight: 1.2,
-                    color: "#666666",
-                  }}
-                >
-                  {chatWidget.greeting}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setChatOpen(false)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: "2px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexShrink: 0,
-                  }}
-                  aria-label={chatWidget.closeLabel}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                      stroke="#888888"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setChatOpen(!chatOpen)}
-              className="chat-dock__toggle"
-              aria-label={chatWidget.toggleLabel}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
-                  fill="#000000"
-                />
-                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="footer-bar">
-            <p
-              style={{
-                margin: 0,
-                fontSize: "var(--fs-small)",
-                fontWeight: 400,
-                color: "rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              {copyright}
-            </p>
-
-            <div className="footer-bar__links">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  style={{
-                    fontSize: "var(--fs-body)",
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter settings={settings} />
 
       <JsonLd
         data={breadcrumbSchema([

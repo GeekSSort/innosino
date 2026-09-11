@@ -1,19 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
 import Image from "next/image";
 import Link from "next/link";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
-import {
-  formatPostDate,
-  postAuthor,
-  postAuthorInitials,
-  readTime,
-  relatedPosts,
-  type Post,
-} from "@/content/posts";
+import { PortableText } from "next-sanity";
+import { formatPostDate, readTime, relatedPosts } from "@/lib/post-format";
+import type { Post, SiteSettings } from "@/sanity/queries";
 
 /**
  * One article. Every post renders through this, so the twenty posts share a
@@ -21,7 +16,17 @@ import {
  * which is what /blogs/details was, for a single post, with nine cards
  * pointing at it.
  */
-export default function BlogArticle({ post }: { post: Post }) {
+export default function BlogArticle({
+  post,
+  all,
+  settings,
+}: {
+  post: Post;
+  /** Every post, so "Read next" can prefer ones sharing a filter pill. */
+  all: Post[];
+  settings: SiteSettings;
+}) {
+  const { chatWidget, copyright, ctaBanner, footerLinks } = settings;
   const [chatOpen, setChatOpen] = useState(true);
   const [copied, setCopied] = useState(false);
 
@@ -31,7 +36,7 @@ export default function BlogArticle({ post }: { post: Post }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const related = relatedPosts(post);
+  const related = relatedPosts(post, all);
 
   return (
     <main className="pd-page">
@@ -51,14 +56,7 @@ export default function BlogArticle({ post }: { post: Post }) {
         <div className="container page-hero__inner">
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             <div className="page-hero__copy">
@@ -95,13 +93,13 @@ export default function BlogArticle({ post }: { post: Post }) {
                 style={{ marginBlockStart: "clamp(0.25rem, 0.6vw, 8px)" }}
               >
                 <span className="blog-byline">
-                  <span className="blog-byline__avatar">{postAuthorInitials}</span>
+                  <span className="blog-byline__avatar">{post.authorInitials}</span>
                   <span>
                     <span
                       className="blog-byline__name"
                       style={{ color: "#FFFFFF" }}
                     >
-                      {postAuthor}
+                      {post.author}
                     </span>
                     <span className="blog-byline__time">
                       {formatPostDate(post.date)} · {readTime(post)} read
@@ -162,9 +160,7 @@ export default function BlogArticle({ post }: { post: Post }) {
                 <React.Fragment key={section.id}>
                   <section className="post-section">
                     <h2 id={section.id}>{section.heading}</h2>
-                    {section.body.map((paragraph, i) => (
-                      <p key={i}>{paragraph}</p>
-                    ))}
+                    <PortableText value={section.body} />
                   </section>
 
                   {/* The frame lifts the quote out between the second and

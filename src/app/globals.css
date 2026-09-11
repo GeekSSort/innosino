@@ -3444,3 +3444,92 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* --- Life at INNOSINO carousel -------------------------------------------
+   The three cards were pinned at x -451 / 335 / 1121 inside a 1440px frame,
+   so below that width the side cards sat off-screen and the centre one was
+   cropped. They now sit in a centred flow row that the hero clips, which
+   reproduces the same peek at desktop and collapses to the active card alone
+   on a phone. */
+.life-carousel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.2vw, 32px);
+  width: 100%;
+  margin-block-end: calc(var(--page-hero-hang) * -1);
+}
+
+.life-carousel__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(100%, 770px);
+  aspect-ratio: 770 / 470;
+  border-radius: 18px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 30px 60px rgba(30, 30, 30, 0.2);
+  border: 1.5px solid transparent;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(90deg, rgba(255, 112, 24, 1) 26.9%, rgba(255, 190, 3, 1) 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  transition: all 0.4s ease;
+}
+
+/* The peeking neighbours are decoration: there is no room for them on a phone,
+   and the arrows still reach every slide without them. */
+.life-carousel__card--side {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .life-carousel__card--side {
+    display: block;
+    flex: 0 0 770px;
+    width: 770px;
+    aspect-ratio: 770 / 380;
+    opacity: 0.85;
+    cursor: pointer;
+    border: 0;
+    background-image: none;
+    background-color: #f1f1f1;
+    box-shadow: none;
+  }
+}
+
+.life-carousel__nav {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(40px, 4vw, 56px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.life-carousel__nav:hover {
+  transform: scale(1.08);
+}
+
+.life-carousel__nav--prev {
+  left: clamp(8px, 2vw, 24px);
+  background-color: #ffffff;
+  border: 2px solid #eeeeee;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.life-carousel__nav--next {
+  right: clamp(8px, 2vw, 24px);
+  background-color: #ff7018;
+  border: 3px solid #ffffff;
+  box-shadow: 0 10px 30px rgba(255, 112, 24, 0.35);
+}

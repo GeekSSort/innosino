@@ -1,14 +1,16 @@
-import { pageMetadata } from "@/app/shared-metadata";
+import type { Metadata } from "next";
+import { pageSeo } from "@/sanity/page-seo";
 
 /**
- * The page is a Client Component and cannot export metadata, so the segment
- * layout carries it — otherwise this URL would share the homepage's card.
+ * Title and description come from the page's own SEO fields, falling back to
+ * the copy below when they are left empty in the Studio.
  */
-export const metadata = pageMetadata({
-  title: "Blog & Insights",
-  description: "Engineering notes and product-development insight from the INNOSINO team.",
-  path: "/blogs",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return pageSeo("blogsPage", "/blogs", {
+    title: "Blog & Insights",
+    description: "Engineering notes and product-development insight from the INNOSINO team.",
+  });
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children;

@@ -1,23 +1,24 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
+import SiteFooter from "@/components/common/SiteFooter";
+import { client } from "@/sanity/client";
+import {
+  ABOUT_PAGE_QUERY,
+  SITE_SETTINGS_QUERY,
+  type AboutPageData,
+  type SiteSettings,
+} from "@/sanity/queries";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
-import {
-  aboutHeadings,
-  aboutHero,
-  driveCards,
-  founderQuote,
-  stats,
-  testimonials,
-  visionMission,
-} from "@/content/about";
 
-export default function AboutPage() {
-  const [chatOpen, setChatOpen] = useState(true);
+export default async function AboutPage() {
+  const [page, settings] = await Promise.all([
+    client.fetch<AboutPageData>(ABOUT_PAGE_QUERY),
+    client.fetch<SiteSettings>(SITE_SETTINGS_QUERY),
+  ]);
+
 
   return (
     <main className="about-page">
@@ -44,14 +45,7 @@ export default function AboutPage() {
           <div className="about-hero__head">
             {/* Brand Logo (Node 1498:14274 Logo) */}
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             {/* Breadcrumb & Main Heading (Node 1498:14276) */}
@@ -76,10 +70,11 @@ export default function AboutPage() {
                 <span className="breadcrumb__link" aria-hidden="true">
                   ›
                 </span>
-                <span className="breadcrumb__link">{aboutHero.breadcrumb}</span>
+                <span className="breadcrumb__link">{page.hero.breadcrumb}</span>
               </div>
 
-              <h1 className="about-hero__title">{aboutHero.title}</h1>
+              <h1 className="about-hero__title">{page.hero.titleLead}
+                <span className="brand-gradient-text">{page.hero.titleAccent}</span></h1>
             </div>
           </div>
 
@@ -102,13 +97,13 @@ export default function AboutPage() {
               />
             </svg>
 
-            <p className="about-quote__text">{founderQuote.text}</p>
+            <p className="about-quote__text">{page.founderQuote.text}</p>
 
             <footer className="about-quote__author">
               <span className="about-quote__avatar" />
               <span>
-                <span className="about-quote__name">{founderQuote.name}</span>
-                <span className="about-quote__role">{founderQuote.role}</span>
+                <span className="about-quote__name">{page.founderQuote.name}</span>
+                <span className="about-quote__role">{page.founderQuote.role}</span>
               </span>
             </footer>
           </blockquote>
@@ -122,16 +117,16 @@ export default function AboutPage() {
         <div className="container">
           {/* Row 1: VISION (Node 1498:14264) */}
           <div className="about-row">
-            <h2 className="about-row__label">{visionMission.vision.label}</h2>
-            <p className="about-row__desc">{visionMission.vision.desc}</p>
+            <h2 className="about-row__label">{page.vision.title}</h2>
+            <p className="about-row__desc">{page.vision.body}</p>
           </div>
         </div>
 
         <div className="container">
           {/* Row 2: MISSION (Node 1498:14268) */}
           <div className="about-row about-row--reverse">
-            <p className="about-row__desc">{visionMission.mission.desc}</p>
-            <h2 className="about-row__label">{visionMission.mission.label}</h2>
+            <p className="about-row__desc">{page.mission.body}</p>
+            <h2 className="about-row__label">{page.mission.title}</h2>
           </div>
         </div>
 
@@ -139,8 +134,8 @@ export default function AboutPage() {
           {/* Architecture / Building Image Card (Node 1498:14272) */}
           <div className="about-figure">
             <Image
-              src={visionMission.figure.src}
-              alt={visionMission.figure.alt}
+              src={page.visionFigure.src}
+              alt={page.visionFigure.alt}
               fill
               sizes="(max-width: 1023px) 100vw, 970px"
               style={{ objectFit: "cover" }}
@@ -158,19 +153,19 @@ export default function AboutPage() {
       >
         <div className="container about-split">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            {aboutHeadings.drives.lead}
-            <span style={{ color: "#FF7018" }}>{aboutHeadings.drives.accent}</span>
+            {page.driveHeading.lead}
+            <span style={{ color: "#FF7018" }}>{page.driveHeading.accent}</span>
           </h2>
 
           {/* 4 Feature Cards Vertical Stack (Node 1498:14302) */}
           <div className="about-cards">
-            {driveCards.map((card, idx) => (
+            {page.driveCards.map((card, idx) => (
               <div
                 key={card.title}
                 className={idx === 0 ? "about-card about-card--featured" : "about-card"}
               >
                 <h3 className="about-card__title">{card.title}</h3>
-                <p className="about-card__desc">{card.desc}</p>
+                <p className="about-card__desc">{card.description}</p>
               </div>
             ))}
           </div>
@@ -183,9 +178,9 @@ export default function AboutPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <h2 className="section-heading" style={{ color: "#000000" }}>
-            {aboutHeadings.testimonials.lead}
+            {page.testimonialsHeading.lead}
             <span className="section-heading__accent">
-              {aboutHeadings.testimonials.accent}
+              {page.testimonialsHeading.accent}
             </span>
           </h2>
         </div>
@@ -196,7 +191,7 @@ export default function AboutPage() {
           style={{ marginBlockStart: "clamp(1.5rem, 4.4vw, 64px)" }}
         >
           <div className="about-scroller__track">
-            {testimonials.map((t, idx) => (
+            {page.testimonials.map((t, idx) => (
               <figure key={idx} className="about-testimonial">
                 <blockquote className="about-testimonial__quote">
                   {t.quote}
@@ -250,9 +245,9 @@ export default function AboutPage() {
       >
         <div className="container">
           <h2 className="section-heading" style={{ color: "#FFFFFF" }}>
-            {aboutHeadings.results.lead}
+            {page.resultsHeading.lead}
             <span className="section-heading__accent">
-              {aboutHeadings.results.accent}
+              {page.resultsHeading.accent}
             </span>
           </h2>
 
@@ -261,14 +256,14 @@ export default function AboutPage() {
             className="about-stats"
             style={{ marginBlockStart: "clamp(1.5rem, 4.4vw, 64px)" }}
           >
-            {stats.map((stat, idx) => (
+            {page.stats.map((stat, idx) => (
               <div
-                key={stat.title}
+                key={stat.label}
                 className={idx === 0 ? "about-stat about-stat--featured" : "about-stat"}
               >
-                <span className="about-stat__label">{stat.title}</span>
-                <span className="about-stat__number">{stat.number}</span>
-                <p className="about-stat__desc">{stat.desc}</p>
+                <span className="about-stat__label">{stat.label}</span>
+                <span className="about-stat__number">{stat.value}</span>
+                <p className="about-stat__desc">{stat.description}</p>
               </div>
             ))}
           </div>
@@ -284,12 +279,12 @@ export default function AboutPage() {
       >
         <div className="container">
           <div className="cta-banner">
-            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
+            <h2 className="cta-banner__title">{settings.ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">{ctaBanner.body}</p>
+            <p className="cta-banner__body">{settings.ctaBanner.body}</p>
 
-            <Link href={ctaBanner.action.href} className="cta-banner__button">
-              <span>{ctaBanner.action.label}</span>
+            <Link href={settings.ctaBanner.action.href} className="cta-banner__button">
+              <span>{settings.ctaBanner.action.label}</span>
               <svg
                 width="12"
                 height="12"
@@ -314,116 +309,7 @@ export default function AboutPage() {
       {/* =====================================================================
           SECTION 7: FOOTER & CHAT WIDGET (Node 1498:14373)
           ===================================================================== */}
-      <footer
-        className="flow-section"
-        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
-      >
-        <div className="container">
-          {/* Interactive Chat Widget (Node 1498:14397) */}
-          <div
-            className="chat-dock"
-            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {chatOpen && (
-              <div className="chat-dock__bubble">
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "var(--fs-small)",
-                    fontWeight: 400,
-                    lineHeight: 1.2,
-                    color: "#666666",
-                  }}
-                >
-                  {chatWidget.greeting}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setChatOpen(false)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: "2px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexShrink: 0,
-                  }}
-                  aria-label={chatWidget.closeLabel}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                      stroke="#888888"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setChatOpen(!chatOpen)}
-              className="chat-dock__toggle"
-              aria-label={chatWidget.toggleLabel}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
-                  fill="#000000"
-                />
-                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Bottom Copyright & Links Bar (Node 1498:14374) */}
-          <div className="footer-bar">
-            <p
-              style={{
-                margin: 0,
-                fontSize: "var(--fs-small)",
-                fontWeight: 400,
-                color: "rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              {copyright}
-            </p>
-
-            <div className="footer-bar__links">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  style={{
-                    fontSize: "var(--fs-body)",
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter settings={settings} />
     </main>
   );
 }

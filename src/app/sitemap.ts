@@ -20,8 +20,10 @@ export const dynamic = "force-static";
  * timestamps (a CMS, or the git commit date of their content module), that is
  * the moment to add it.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
-  return indexableRoutes.map((path) => ({
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const routes = await indexableRoutes();
+
+  return routes.map((path) => ({
     url: path === "/" ? siteUrl : `${siteUrl}${path}`,
   }));
 }

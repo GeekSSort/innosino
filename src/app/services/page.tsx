@@ -1,21 +1,30 @@
-"use client";
-
 import React from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
 import Link from "next/link";
-import Image from "next/image";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import { services } from "@/content/services";
-import { servicesIndex } from "@/content/servicesIndex";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/content/schema";
+import { client } from "@/sanity/client";
+import {
+  SERVICES_QUERY,
+  SERVICES_PAGE_QUERY,
+  type PageHero,
+  type Service,
+} from "@/sanity/queries";
 
 /**
  * The services index. This URL used to be the Hardware & PCB Design page
  * itself, which is why the nav's six discipline links had nowhere to point:
  * the detail content now lives under /services/[slug] and this lists it.
  */
-export default function ServicesIndexPage() {
+export default async function ServicesIndexPage() {
+  const [services, page] = await Promise.all([
+    client.fetch<Service[]>(SERVICES_QUERY),
+    client.fetch<{ hero: PageHero }>(SERVICES_PAGE_QUERY),
+  ]);
+  const { hero } = page;
+
   return (
     <main className="svc-page">
       <section className="page-hero">
@@ -34,14 +43,7 @@ export default function ServicesIndexPage() {
         <div className="container page-hero__inner">
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             <div className="page-hero__copy">
@@ -58,17 +60,17 @@ export default function ServicesIndexPage() {
                     fill="#FF7018"
                   />
                 </svg>
-                <span className="breadcrumb__link">{servicesIndex.breadcrumb}</span>
+                <span className="breadcrumb__link">{hero.breadcrumb}</span>
               </div>
 
               <h1 className="page-hero__title">
-                {servicesIndex.titleLead}
+                {hero.titleLead}
                 <span className="brand-gradient-text">
-                  {servicesIndex.titleAccent}
+                  {hero.titleAccent}
                 </span>
               </h1>
 
-              <p className="page-hero__sub">{servicesIndex.sub}</p>
+              <p className="page-hero__sub">{hero.sub}</p>
             </div>
 
             <FloatingNavbar variant="inline" />

@@ -1,8 +1,7 @@
 import ServiceMediaSection from "./ServiceMediaSection";
-import { serviceMedia } from "@/content/home";
+import type { HomePageData } from "@/sanity/queries";
 
-const data = serviceMedia.find((s) => s.id === "embedded-system-design")!;
 
-export default function EmbeddedSystemDesignSection() {
+export default function EmbeddedSystemDesignSection({ data }: { data: HomePageData["serviceMedia"][number] }) {
   return <ServiceMediaSection {...data} />;
 }

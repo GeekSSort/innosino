@@ -1,0 +1,50 @@
+{
+ "aboutPage": {
+  "title": "About Us",
+  "description": "An innovation-driven engineering company turning ideas into high-performance, market-ready products across embedded systems, electronics, smart energy and industrial technologies."
+ },
+ "servicesPage": {
+  "title": "Services",
+  "description": "Hardware and PCB design, embedded systems, product development and industrial automation \u2014 engineered for real-world performance and seamless manufacturing."
+ },
+ "expertisePage": {
+  "title": "Expertise",
+  "description": "Two decades of electronics R&D across embedded systems, PCB design, smart energy and industrial automation."
+ },
+ "industriesPage": {
+  "title": "Industries",
+  "description": "Consumer electronics, renewable energy, industrial automation, IoT, biomedical, RF and more \u2014 the sectors Innosino designs hardware and firmware for, from concept to mass production."
+ },
+ "projectsPage": {
+  "title": "Projects",
+  "description": "Selected work: intelligent instruments, embedded platforms and connected products built to solve real problems and reach production."
+ },
+ "projectDetailPage": {
+  "title": "Project Details",
+  "description": "Selected work: intelligent instruments, embedded platforms and connected products built to solve real problems and reach production."
+ },
+ "blogsPage": {
+  "title": "Blog & Insights",
+  "description": "Engineering notes and product-development insight from the INNOSINO team."
+ },
+ "careerPage": {
+  "title": "Career",
+  "description": "Open engineering roles at Innosino \u2014 embedded firmware, hardware and PCB design, IoT backend, test and manufacturing support. Build products that reach a production line."
+ },
+ "contactPage": {
+  "title": "Contact Us",
+  "description": "Tell us about your project \u2014 hardware, firmware, or both. We'll come back with a clear path from concept to production."
+ },
+ "lifePage": {
+  "title": "Life at INNOSINO",
+  "description": "Team moments, office events and the behind-the-scenes innovation of everyday engineering at INNOSINO."
+ },
+ "privacyPage": {
+  "title": "Privacy Policy",
+  "description": "How INNOSINO collects, uses and protects your information."
+ },
+ "homePage": {
+  "title": "Innosino - From Concept to Mass Production",
+  "description": "We turn ideas into high-performance, market ready products from concept to mass production."
+ }
+}

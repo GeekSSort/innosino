@@ -1,14 +1,14 @@
 import LottieSplashSection from "./LottieSplashSection";
-import { splashFrames } from "@/content/home";
+import type { HomePageData } from "@/sanity/queries";
 
-export default function CoreServicesSection() {
+export default function CoreServicesSection({ frame }: { frame: HomePageData["splashFrames"][number] }) {
   return (
     <LottieSplashSection
       id="core-services"
       path="/core_services_animation.json"
       backgroundColor="#FF7018"
-      title={splashFrames.coreServices.title}
-      loopSeconds={splashFrames.coreServices.loopSeconds}
+      title={frame.title}
+      loopSeconds={frame.loopSeconds}
     />
   );
 }

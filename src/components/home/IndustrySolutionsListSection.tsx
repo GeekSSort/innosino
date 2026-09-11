@@ -1,15 +1,21 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { chatWidget, copyright, footerLinks } from "@/content/site";
-import { industriesLede, industriesList } from "@/content/home";
+import SiteFooter from "@/components/common/SiteFooter";
+import type { HomePageData, SiteSettings } from "@/sanity/queries";
 
 
 
-export default function IndustrySolutionsListSection() {
-  const [chatOpen, setChatOpen] = useState(true);
+export default function IndustrySolutionsListSection({
+  industriesList,
+  industriesLede,
+  settings,
+}: {
+  industriesList: HomePageData["industries"];
+  industriesLede: string;
+  settings: SiteSettings;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -110,139 +116,7 @@ export default function IndustrySolutionsListSection() {
       </div>
 
       <div className="container">
-        {/* Chat widget sits at the container's right edge, above the footer. */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-            gap: "12px",
-            marginBottom: "clamp(1.5rem, 3vw, 2.5rem)",
-          }}
-        >
-          {chatOpen && (
-            <div
-              style={{
-                width: "min(100%, 331px)",
-                boxSizing: "border-box",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                padding: "9px 12px",
-                display: "flex",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-                gap: "8px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-              }}
-            >
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: "var(--fs-small)",
-                  fontWeight: 400,
-                  lineHeight: 1.2,
-                  color: "#666666",
-                }}
-              >
-                Welcome to Innosino! Need help? Just reply to this message—we&rsquo;re
-                online and ready to assist you.
-              </p>
-              <button
-                type="button"
-                onClick={() => setChatOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: "2px",
-                  cursor: "pointer",
-                  display: "flex",
-                  flexShrink: 0,
-                }}
-                aria-label="Close message"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                    stroke="#888888"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
-            </div>
-          )}
-
-          <button
-            type="button"
-            onClick={() => setChatOpen(!chatOpen)}
-            style={{
-              width: "48px",
-              height: "48px",
-              flexShrink: 0,
-              borderRadius: "50%",
-              backgroundColor: "#FF6A00",
-              border: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "0 4px 20px rgba(255, 106, 0, 0.4)",
-            }}
-            aria-label={chatWidget.toggleLabel}
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
-                fill="#000000"
-              />
-              <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-              <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-            </svg>
-          </button>
-        </div>
-
-        <footer className="footer-bar">
-          <p
-            style={{
-              margin: 0,
-              fontSize: "var(--fs-small)",
-              fontWeight: 400,
-              color: "rgba(255, 255, 255, 0.8)",
-            }}
-          >
-            {copyright}
-          </p>
-
-          <div className="footer-bar__links">
-            {footerLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontSize: "var(--fs-body)",
-                  fontWeight: 500,
-                  color: "#FFFFFF",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </footer>
+        <SiteFooter settings={settings} />
       </div>
     </section>
   );

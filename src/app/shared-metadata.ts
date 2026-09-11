@@ -31,12 +31,16 @@ export function pageMetadata({
   title,
   description,
   path,
+  image,
 }: {
   title: string;
   description: string;
   path: string;
+  /** A per-page share image from the Studio; falls back to the site card. */
+  image?: string;
 }): Metadata {
   const socialTitle = `${title} | ${SITE_NAME}`;
+  const card = image ? { url: image, alt: socialTitle } : OG_IMAGE;
   return {
     title,
     description,
@@ -48,13 +52,13 @@ export function pageMetadata({
       siteName: SITE_NAME,
       type: "website",
       locale: "en_US",
-      images: [OG_IMAGE],
+      images: [card],
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
       description,
-      images: [OG_IMAGE],
+      images: [card],
     },
   };
 }

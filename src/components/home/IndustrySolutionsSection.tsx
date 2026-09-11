@@ -1,21 +1,21 @@
 import LottieSplashSection from "./LottieSplashSection";
-import { splashFrames } from "@/content/home";
+import type { HomePageData } from "@/sanity/queries";
 
-export default function IndustrySolutionsSection() {
+export default function IndustrySolutionsSection({ frame }: { frame: HomePageData["splashFrames"][number] }) {
   return (
     <LottieSplashSection
       id="industries"
       path="/industry_solutions_animation.json"
       backgroundColor="#000000"
-      title={splashFrames.industrySolutions.title}
-      loopSeconds={splashFrames.industrySolutions.loopSeconds}
+      title={frame.title}
+      loopSeconds={frame.loopSeconds}
     >
       {/* Figma centres this headline optically inside the animated frame
           (x 335-972 of 1440, y 372-455 of 810), so it is centred rather than
           pinned to a coordinate. */}
       <div className="splash-headline">
         <h2 className="splash-headline__text">
-          {splashFrames.industrySolutions.heading}
+          {frame.heading}
         </h2>
       </div>
     </LottieSplashSection>

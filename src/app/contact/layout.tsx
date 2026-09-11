@@ -1,23 +1,30 @@
-import { pageMetadata } from "@/app/shared-metadata";
+import type { Metadata } from "next";
+import { pageSeo } from "@/sanity/page-seo";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema, faqSchema } from "@/content/schema";
-import { contactFaqs } from "@/content/contact";
+import { client } from "@/sanity/client";
+import { CONTACT_PAGE_QUERY, type ContactPageData } from "@/sanity/queries";
 
-/**
- * The page is a Client Component and cannot export metadata, so the segment
- * layout carries it — otherwise this URL would share the homepage's card.
- */
-export const metadata = pageMetadata({
-  title: "Contact Us",
-  description: "Tell us about your project — hardware, firmware, or both. We'll come back with a clear path from concept to production.",
-  path: "/contact",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return pageSeo("contactPage", "/contact", {
+    title: "Contact Us",
+    description: "Tell us about your project — hardware, firmware, or both. We'll come back with a clear path from concept to production.",
+  });
+}
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  /* Built from the same array the accordion renders, so the markup and the
+     page can never describe different answers. */
+  const page = await client.fetch<ContactPageData>(CONTACT_PAGE_QUERY);
+
   return (
     <>
       {children}
-      <JsonLd data={faqSchema(contactFaqs)} />
+      {page.faqs?.length > 0 && <JsonLd data={faqSchema(page.faqs)} />}
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },

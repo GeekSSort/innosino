@@ -1,0 +1,55 @@
+# Rebuilds and redeploys the site.
+#
+# The site is a static export: every Sanity query runs during `next build` and
+# never at request time, so publishing in the Studio changes nothing until a
+# build runs. This is that build.
+#
+# Two triggers:
+#   push            — a code change on main
+#   repository_dispatch — a Sanity webhook, so Publish in the Studio reaches
+#                     the live site without anyone opening a terminal
+#
+# Before it can run, two repository secrets are needed (Settings → Secrets and
+# variables → Actions):
+#   CLOUDFLARE_API_TOKEN   a token with the "Edit Cloudflare Workers" template
+#   CLOUDFLARE_ACCOUNT_ID  from the Cloudflare dashboard URL
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [sanity-publish]
+  workflow_dispatch:
+
+concurrency:
+  # A burst of edits should produce one deploy of the final state, not a queue
+  # of deploys of intermediate ones.
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npx tsc --noEmit
+
+      # Reads published content from the Content Lake and writes ./out.
+      - run: npm run build
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

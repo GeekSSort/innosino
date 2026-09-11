@@ -1,15 +1,21 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
+import SiteFooter from "@/components/common/SiteFooter";
+import { client } from "@/sanity/client";
+import {
+  INDUSTRIES_PAGE_QUERY,
+  INDUSTRIES_QUERY,
+  SITE_SETTINGS_QUERY,
+  type Industry,
+  type IndustriesPageData,
+  type SiteSettings,
+} from "@/sanity/queries";
 import Image from "next/image";
 import Link from "next/link";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema } from "@/content/schema";
-import { industriesList } from "@/content/home";
-import { industriesPage } from "@/content/industries";
-import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
 
 /**
  * The industries index. "Industries" was a homepage anchor (/#industries) in
@@ -17,8 +23,13 @@ import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
  * nothing to say about any of them beyond a title in a marquee. This is that
  * page; the navbar and the footer now point at it instead of the anchor.
  */
-export default function IndustriesPage() {
-  const [chatOpen, setChatOpen] = useState(true);
+export default async function IndustriesPage() {
+  const [page, industriesList, settings] = await Promise.all([
+    client.fetch<IndustriesPageData>(INDUSTRIES_PAGE_QUERY),
+    client.fetch<Industry[]>(INDUSTRIES_QUERY),
+    client.fetch<SiteSettings>(SITE_SETTINGS_QUERY),
+  ]);
+
 
   return (
     <main className="svc-page">
@@ -38,14 +49,7 @@ export default function IndustriesPage() {
         <div className="container page-hero__inner">
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             <div className="page-hero__copy">
@@ -69,18 +73,18 @@ export default function IndustriesPage() {
                   &gt;
                 </span>
                 <span className="breadcrumb__link">
-                  {industriesPage.breadcrumb}
+                  {page.hero.breadcrumb}
                 </span>
               </div>
 
               <h1 className="page-hero__title">
-                {industriesPage.titleLead}
+                {page.hero.titleLead}
                 <span className="brand-gradient-text">
-                  {industriesPage.titleAccent}
+                  {page.hero.titleAccent}
                 </span>
               </h1>
 
-              <p className="page-hero__sub">{industriesPage.sub}</p>
+              <p className="page-hero__sub">{page.hero.sub}</p>
             </div>
 
             <FloatingNavbar variant="inline" />
@@ -97,9 +101,9 @@ export default function IndustriesPage() {
               marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)",
             }}
           >
-            {industriesPage.gridHeading.lead}
+            {page.gridHeading.lead}
             <span className="section-heading__accent">
-              {industriesPage.gridHeading.accent}
+              {page.gridHeading.accent}
             </span>
           </h2>
 
@@ -131,12 +135,12 @@ export default function IndustriesPage() {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <div className="cta-banner">
-            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
+            <h2 className="cta-banner__title">{settings.ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">{ctaBanner.body}</p>
+            <p className="cta-banner__body">{settings.ctaBanner.body}</p>
 
-            <Link href={ctaBanner.action.href} className="cta-banner__button">
-              <span>{ctaBanner.action.label}</span>
+            <Link href={settings.ctaBanner.action.href} className="cta-banner__button">
+              <span>{settings.ctaBanner.action.label}</span>
               <svg
                 width="12"
                 height="12"
@@ -157,115 +161,7 @@ export default function IndustriesPage() {
           </div>
         </div>
       </section>
-
-      <footer
-        className="flow-section"
-        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
-      >
-        <div className="container">
-          <div
-            className="chat-dock"
-            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {chatOpen && (
-              <div className="chat-dock__bubble">
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "var(--fs-small)",
-                    fontWeight: 400,
-                    lineHeight: 1.2,
-                    color: "#666666",
-                  }}
-                >
-                  {chatWidget.greeting}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setChatOpen(false)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: "2px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexShrink: 0,
-                  }}
-                  aria-label={chatWidget.closeLabel}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                      stroke="#888888"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setChatOpen(!chatOpen)}
-              className="chat-dock__toggle"
-              aria-label={chatWidget.toggleLabel}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
-                  fill="#000000"
-                />
-                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="footer-bar">
-            <p
-              style={{
-                margin: 0,
-                fontSize: "var(--fs-small)",
-                fontWeight: 400,
-                color: "rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              {copyright}
-            </p>
-
-            <div className="footer-bar__links">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  style={{
-                    fontSize: "var(--fs-body)",
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter settings={settings} />
 
       <JsonLd
         data={breadcrumbSchema([

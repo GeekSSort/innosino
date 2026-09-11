@@ -1,8 +1,7 @@
 import ServiceMediaSection from "./ServiceMediaSection";
-import { serviceMedia } from "@/content/home";
+import type { HomePageData } from "@/sanity/queries";
 
-const data = serviceMedia.find((s) => s.id === "product-development")!;
 
-export default function ProductDevelopmentSection() {
+export default function ProductDevelopmentSection({ data }: { data: HomePageData["serviceMedia"][number] }) {
   return <ServiceMediaSection {...data} />;
 }

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/app/shared-metadata";
 import JsonLd from "@/components/seo/JsonLd";
 import { blogPostingSchema, breadcrumbSchema } from "@/content/schema";
-import { getPost, posts } from "@/content/posts";
+import { client } from "@/sanity/client";
+import { POST_QUERY, POST_SLUGS_QUERY, type Post } from "@/sanity/queries";
 
-export function generateStaticParams() {
-  return posts.map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const slugs = await client.fetch<string[]>(POST_SLUGS_QUERY);
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -14,12 +16,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await client.fetch<Post | null>(POST_QUERY, { slug });
   if (!post) return {};
   return pageMetadata({
-    title: post.title,
-    description: post.excerpt,
+    title: post.seo?.title?.trim() || post.title,
+    description: post.seo?.description?.trim() || post.excerpt,
     path: `/blogs/${post.slug}`,
+    image: post.seo?.image ?? post.image,
   });
 }
 
@@ -31,7 +34,7 @@ export default async function BlogPostLayout({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await client.fetch<Post | null>(POST_QUERY, { slug });
   if (!post) return children;
 
   return (

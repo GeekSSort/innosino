@@ -3,9 +3,9 @@
 import React from "react";
 import ExploreBadge from "@/components/common/ExploreBadge";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
-import { heroCopy } from "@/content/home";
+import type { HomePageData } from "@/sanity/queries";
 
-export default function HeroSection() {
+export default function HeroSection({ heroCopy }: { heroCopy: HomePageData["hero"] }) {
   return (
     <section id="hero" className="section-frame">
       <div className="section-frame__inner">

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CustomEase } from "gsap/CustomEase";
@@ -9,9 +10,8 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import type { Service } from "@/content/services";
-import { chatWidget, copyright, ctaBanner, footerLinks } from "@/content/site";
-import { industriesLede } from "@/content/home";
+import SiteFooter from "@/components/common/SiteFooter";
+import type { Service, SiteSettings } from "@/sanity/queries";
 
 gsap.registerPlugin(ScrollTrigger, CustomEase, useGSAP);
 
@@ -88,9 +88,17 @@ const partnerLogos = [
   { name: "Altium", color: "#A87A24", symbol: "✦" },
 ];
 
-export default function ServiceDetail({ service }: { service: Service }) {
+export default function ServiceDetail({
+  service,
+  settings,
+  industriesLede,
+}: {
+  service: Service;
+  settings: SiteSettings;
+  /** The industries standfirst, shared with the home page. */
+  industriesLede: string;
+}) {
   const [openFaq, setOpenFaq] = useState<number | null>(2); // Default open: index 2
-  const [chatOpen, setChatOpen] = useState(true);
   const [sliderX, setSliderX] = useState(0);
   const [partnersSliderX, setPartnersSliderX] = useState(0);
 
@@ -402,14 +410,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
           <div className="page-hero__head">
             {/* Logo: Node 1498:14573 */}
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             {/* Hero Content Frame: Node 1498:14574 */}
@@ -521,14 +522,14 @@ export default function ServiceDetail({ service }: { service: Service }) {
             <div className="svc-grid">
               {service.processStages.slice(0, 3).map((item, index) => (
                 <div
-                  key={item.stage}
+                  key={item.label}
                   /* The frame gives only the opening stage the gradient rule. */
                   className={index === 0 ? "svc-card svc-card--lead" : "svc-card"}
                 >
-                  <span className="svc-card__eyebrow">{item.stage}</span>
+                  <span className="svc-card__eyebrow">{item.label}</span>
                   <div>
                     <h3 className="svc-card__title">{item.title}</h3>
-                    <p className="svc-card__desc">{item.desc}</p>
+                    <p className="svc-card__desc">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -536,11 +537,11 @@ export default function ServiceDetail({ service }: { service: Service }) {
 
             <div className="svc-grid svc-grid--pair">
               {service.processStages.slice(3, 5).map((item) => (
-                <div key={item.stage} className="svc-card">
-                  <span className="svc-card__eyebrow">{item.stage}</span>
+                <div key={item.label} className="svc-card">
+                  <span className="svc-card__eyebrow">{item.label}</span>
                   <div>
                     <h3 className="svc-card__title">{item.title}</h3>
-                    <p className="svc-card__desc">{item.desc}</p>
+                    <p className="svc-card__desc">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -566,9 +567,9 @@ export default function ServiceDetail({ service }: { service: Service }) {
           >
           <div className="svc-list">
             {service.onDemandServices.map((item) => (
-              <div key={item.num} className="svc-list__row">
-                <span className="svc-list__num">{item.num}</span>
-                <p className="svc-list__desc">{item.desc}</p>
+              <div key={item.number} className="svc-list__row">
+                <span className="svc-list__num">{item.number}</span>
+                <p className="svc-list__desc">{item.description}</p>
                 <h3 className="svc-list__title">{item.title}</h3>
                 <span className="svc-list__icon">
                   <svg
@@ -619,7 +620,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                     <div>
                       <span className="svc-work__eyebrow">● {proj.category}</span>
                       <h3 className="svc-work__title">{proj.title}</h3>
-                      <p className="svc-work__desc">{proj.desc}</p>
+                      <p className="svc-work__desc">{proj.description}</p>
                     </div>
 
                     <Link href="/contact" className="svc-work__cta">
@@ -673,14 +674,14 @@ export default function ServiceDetail({ service }: { service: Service }) {
             <div className="svc-grid">
               {service.whyUsPoints.map((item, index) => (
                 <div
-                  key={item.num}
+                  key={item.number}
                   /* The settled frame rules only the first point. */
                   className={index === 0 ? "svc-card svc-card--lead" : "svc-card"}
                 >
-                  <span className="svc-card__eyebrow">{item.num}</span>
+                  <span className="svc-card__eyebrow">{item.number}</span>
                   <div>
                     <h3 className="svc-card__title">{item.title}</h3>
-                    <p className="svc-card__desc">{item.desc}</p>
+                    <p className="svc-card__desc">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -707,14 +708,14 @@ export default function ServiceDetail({ service }: { service: Service }) {
               {service.faqs.map((faq, fIdx) => {
                 const isOpen = openFaq === fIdx;
                 return (
-                  <div key={faq.q} className="faq__item">
+                  <div key={faq.question} className="faq__item">
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : fIdx)}
                       className="faq__button"
                       aria-expanded={isOpen}
                     >
-                      <span>{faq.q}</span>
+                      <span>{faq.question}</span>
                       <svg
                         className="faq__icon"
                         viewBox="0 0 48 48"
@@ -730,7 +731,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
                         which would make this page's FAQPage schema describe text it
                         does not contain. */}
                     <div className="faq__answer" hidden={!isOpen}>
-                      {faq.a}
+                      {faq.answer}
                     </div>
                   </div>
                 );
@@ -784,12 +785,12 @@ export default function ServiceDetail({ service }: { service: Service }) {
       <section className="flow-section" style={{ backgroundColor: "#FFFFFF" }}>
         <div className="container">
           <div className="cta-banner">
-            <h2 className="cta-banner__title">{ctaBanner.title}</h2>
+            <h2 className="cta-banner__title">{settings.ctaBanner.title}</h2>
 
-            <p className="cta-banner__body">{ctaBanner.body}</p>
+            <p className="cta-banner__body">{settings.ctaBanner.body}</p>
 
-            <Link href={ctaBanner.action.href} className="cta-banner__button">
-              <span>{ctaBanner.action.label}</span>
+            <Link href={settings.ctaBanner.action.href} className="cta-banner__button">
+              <span>{settings.ctaBanner.action.label}</span>
               <svg
                 width="12"
                 height="12"
@@ -814,114 +815,7 @@ export default function ServiceDetail({ service }: { service: Service }) {
       {/* =====================================================================
           SECTION 10: FOOTER & CHAT WIDGET (Node 1498:14837)
           ===================================================================== */}
-      <footer
-        className="flow-section"
-        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
-      >
-        <div className="container">
-          <div
-            className="chat-dock"
-            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {chatOpen && (
-              <div className="chat-dock__bubble">
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "var(--fs-small)",
-                    fontWeight: 400,
-                    lineHeight: 1.2,
-                    color: "#666666",
-                  }}
-                >
-                  {chatWidget.greeting}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setChatOpen(false)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: "2px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexShrink: 0,
-                  }}
-                  aria-label={chatWidget.closeLabel}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                      stroke="#888888"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setChatOpen(!chatOpen)}
-              className="chat-dock__toggle"
-              aria-label={chatWidget.toggleLabel}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
-                  fill="#000000"
-                />
-                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="footer-bar">
-            <p
-              style={{
-                margin: 0,
-                fontSize: "var(--fs-small)",
-                fontWeight: 400,
-                color: "rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              {copyright}
-            </p>
-
-            <div className="footer-bar__links">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  style={{
-                    fontSize: "var(--fs-body)",
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter settings={settings} />
     </main>
   );
 }

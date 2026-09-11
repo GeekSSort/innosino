@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { featuredProjects, featuredProjectsLede } from "@/content/home";
+import type { HomePageData } from "@/sanity/queries";
 
 // Sparkle Icon matching Figma node 1498:14140 / 1498:14163 (color: #D65900)
 function SparkleIcon() {
@@ -57,7 +57,13 @@ function ArrowUpRightIcon({ color = "#FFFFFF" }: { color?: string }) {
  * stack degrades to a plain vertical list below 900px (see `.stack-card` in
  * globals.css) where there is not enough viewport height for it to read.
  */
-export default function FeaturedProjectListSection() {
+export default function FeaturedProjectListSection({
+  featuredProjects,
+  featuredProjectsLede,
+}: {
+  featuredProjects: HomePageData["featuredProjects"];
+  featuredProjectsLede: string;
+}) {
   return (
     <section className="flow-section" style={{
         backgroundColor: "#FFBE03",

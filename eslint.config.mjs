@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone Sanity Studio — its own eslint config and deps.
+    "studio-innosino-cms/**",
   ]),
 ]);
 

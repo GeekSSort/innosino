@@ -122,7 +122,7 @@ export default function BackgroundVideo({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [active]);
+  }, [active, loading]);
 
   useEffect(() => {
     const el = ref.current;

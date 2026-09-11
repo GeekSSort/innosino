@@ -3,12 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  moreLinks,
-  navItems,
-  serviceGridLinks,
-  serviceStackLinks,
-} from "@/content/navigation";
+import { useNav } from "@/components/navigation/NavProvider";
 
 /**
  * Routes whose design composes the pill inside their own layout (Figma places
@@ -49,6 +44,7 @@ type OpenPanel = "services" | "more" | null;
 export default function FloatingNavbar({
   variant = "fixed",
 }: FloatingNavbarProps) {
+  const { navItems, moreLinks, serviceGridLinks, serviceStackLinks } = useNav();
   const [panel, setPanel] = useState<OpenPanel>(null);
   const [floating, setFloating] = useState(false);
   const [expanded, setExpanded] = useState(false);
@@ -106,13 +102,23 @@ export default function FloatingNavbar({
     return () => query.removeEventListener("change", sync);
   }, []);
 
-  // Back inside the hero, the pill is open again by definition.
-  useEffect(() => {
+  /*
+   * Back inside the hero, the pill is open again by definition, so the
+   * collapsed toggle and any open panel are reset.
+   *
+   * Adjusted during render against the previous value rather than in an
+   * effect: an effect would paint one frame with the stale panel still open,
+   * then immediately re-render to close it. React handles a setState in the
+   * render body of the component being rendered without that extra frame.
+   */
+  const [wasFloating, setWasFloating] = useState(floating);
+  if (wasFloating !== floating) {
+    setWasFloating(floating);
     if (!floating) {
       setExpanded(false);
       setPanel(null);
     }
-  }, [floating]);
+  }
 
   // The panel spans the whole pill, so its arrow is what points at the trigger:
   // park the arrow over the trigger's centre, measured against the pill.

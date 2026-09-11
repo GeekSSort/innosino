@@ -1,22 +1,31 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import BrandLogo from "@/components/navigation/BrandLogo";
+import SiteFooter from "@/components/common/SiteFooter";
+import { client } from "@/sanity/client";
+import {
+  PROJECT_DETAIL_PAGE_QUERY,
+  SITE_SETTINGS_QUERY,
+  type ProjectDetailPageData,
+  type SiteSettings,
+} from "@/sanity/queries";
 import BackgroundVideo from "@/components/common/BackgroundVideo";
 import Image from "next/image";
 import Link from "next/link";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
-import { chatWidget, copyright, footerLinks } from "@/content/site";
-import { projectDetail } from "@/content/projectDetail";
 
-export default function ProjectDetailsPage() {
-  const [chatOpen, setChatOpen] = useState(true);
+export default async function ProjectDetailsPage() {
+  const [page, settings] = await Promise.all([
+    client.fetch<ProjectDetailPageData>(PROJECT_DETAIL_PAGE_QUERY),
+    client.fetch<SiteSettings>(SITE_SETTINGS_QUERY),
+  ]);
+
 
   return (
     <main className="pd-page">
       {/* =====================================================================
-          {projectDetail.section1HeroOverlapping}
-          {projectDetail.theVideoCardIs}
-          {projectDetail.bodyBelowItBy}
+          SECTION 1: HERO & OVERLAPPING MEDIA CARD
+          The video card is the hero's last flow child and hangs into the white
+          body below it by --page-hero-hang.
           ===================================================================== */}
       <section className="page-hero">
         <div className="section-media">
@@ -34,14 +43,7 @@ export default function ProjectDetailsPage() {
         <div className="container page-hero__inner">
           <div className="page-hero__head">
             <Link href="/" aria-label="INNOSINO home" className="brand-logo-link">
-              <Image
-                src="/about_us/IS-Logo.webp"
-                alt="INNOSINO"
-                width={340}
-                height={128}
-                className="brand-logo"
-                preload
-              />
+              <BrandLogo />
             </Link>
 
             <div className="page-hero__copy">
@@ -76,9 +78,9 @@ export default function ProjectDetailsPage() {
               <h1 className="page-hero__title">POLYPAN ELECTRONIC HANDPAN</h1>
 
               <p className="page-hero__sub">
-                {projectDetail.anIntelligentElectronicHandpan}
-                {projectDetail.touchSensingGestureControl}
-                {projectDetail.a4000Year}
+                {page.hero.sub}
+                
+                
                 voice.
               </p>
 
@@ -114,10 +116,10 @@ export default function ProjectDetailsPage() {
       </section>
 
       {/* =========================================================================
-          {projectDetail.section2MainWhite}
+          SECTION 2: MAIN WHITE CONTENT BODY
           Contains: Project Overview, The Challenge, Engineering Approach,
                     Technical Specifications, Signal Path, Project Timeline,
-                    {projectDetail.whatShippedFromBench}
+                    {page.sectionsHeading}
           ========================================================================= */}
       <section className="pd-body">
         <div
@@ -152,7 +154,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            {projectDetail.thePolypanIsAn}
+            {page.overviewIntro}
           </p>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", marginTop: "8px" }}>
@@ -297,7 +299,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            {projectDetail.weDevelopedAnIntegrated}
+            {page.architectureNote}
           </p>
 
           <div
@@ -388,7 +390,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            {projectDetail.comprehensiveBreakdownOfHardware}
+            {page.specsLede}
           </p>
 
           <div
@@ -473,7 +475,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            {projectDetail.fromTheMomentA}
+            {page.signalPathLede}
           </p>
 
           <div
@@ -506,7 +508,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                {projectDetail.touchLayer}
+                {page.signalPathSteps[0]}
               </div>
               <span style={{ color: "#FF7018", fontSize: "18px" }}>➔</span>
               <div
@@ -521,7 +523,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                {projectDetail.signalFiltering}
+                {page.signalPathSteps[1]}
               </div>
               <span style={{ color: "#FF7018", fontSize: "18px" }}>➔</span>
               <div
@@ -536,7 +538,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                {projectDetail.mcuFirmwareDsp}
+                {page.signalPathSteps[2]}
               </div>
             </div>
 
@@ -554,7 +556,7 @@ export default function ProjectDetailsPage() {
                   backgroundColor: "rgba(255, 112, 24, 0.08)",
                 }}
               >
-                {projectDetail.gestureSensing}
+                {page.signalPathSteps[3]}
               </div>
               <span style={{ color: "#FF7018", fontSize: "18px" }}>➔</span>
               <div
@@ -599,7 +601,7 @@ export default function ProjectDetailsPage() {
               color: "#555555",
             }}
           >
-            {projectDetail.theEndToEnd}
+            {page.timelineLede}
           </p>
 
           <div
@@ -668,7 +670,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {projectDetail.architectureFeasibility}
+                  {page.timelineSteps[0]}
                 </div>
               </div>
 
@@ -686,7 +688,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {projectDetail.electronicsPcbV1}
+                  {page.timelineSteps[1]}
                 </div>
                 <div
                   style={{
@@ -700,7 +702,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {projectDetail.caseCadErgonomics}
+                  {page.timelineSteps[2]}
                 </div>
               </div>
 
@@ -718,7 +720,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {projectDetail.firmwareTouchTuning}
+                  {page.timelineSteps[3]}
                 </div>
                 <div
                   style={{
@@ -732,7 +734,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {projectDetail.bomOptimizationTesting}
+                  {page.timelineSteps[4]}
                 </div>
               </div>
 
@@ -750,7 +752,7 @@ export default function ProjectDetailsPage() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {projectDetail.pilotRunMassMfg}
+                  {page.timelineSteps[5]}
                 </div>
               </div>
             </div>
@@ -952,7 +954,7 @@ export default function ProjectDetailsPage() {
               lineHeight: "1.2",
             }}
           >
-            {projectDetail.haveAHardwareIdea}
+            {page.cta.title}
           </h2>
           <p
             style={{
@@ -965,7 +967,7 @@ export default function ProjectDetailsPage() {
               lineHeight: "150%",
             }}
           >
-            {projectDetail.tellUsWhatYou}
+            {page.cta.body}
           </p>
           <Link
             href="/contact"
@@ -992,117 +994,10 @@ export default function ProjectDetailsPage() {
       </section>
 
       {/* =========================================================================
-          {projectDetail.section3FooterInteractive}
+          SECTION 3: FOOTER & INTERACTIVE CHAT WIDGET
           Black #000000 background
           ========================================================================= */}
-      <footer
-        className="flow-section"
-        style={{ backgroundColor: "#000000", paddingBlockStart: 0 }}
-      >
-        <div className="container">
-          <div
-            className="chat-dock"
-            style={{ marginBlockEnd: "clamp(1.5rem, 3vw, 2.5rem)" }}
-          >
-            {chatOpen && (
-              <div className="chat-dock__bubble">
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: "var(--fs-small)",
-                    fontWeight: 400,
-                    lineHeight: 1.2,
-                    color: "#666666",
-                  }}
-                >
-                  {chatWidget.greeting}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setChatOpen(false)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: "2px",
-                    cursor: "pointer",
-                    display: "flex",
-                    flexShrink: 0,
-                  }}
-                  aria-label={chatWidget.closeLabel}
-                >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.5 3.5L10.5 10.5M10.5 3.5L3.5 10.5"
-                      stroke="#888888"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            )}
-
-            <button
-              type="button"
-              onClick={() => setChatOpen(!chatOpen)}
-              className="chat-dock__toggle"
-              aria-label={chatWidget.toggleLabel}
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z"
-                  fill="#000000"
-                />
-                <rect x="6" y="7" width="12" height="2" rx="1" fill="#FF6A00" />
-                <rect x="6" y="11" width="8" height="2" rx="1" fill="#FF6A00" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="footer-bar">
-            <p
-              style={{
-                margin: 0,
-                fontSize: "var(--fs-small)",
-                fontWeight: 400,
-                color: "rgba(255, 255, 255, 0.8)",
-              }}
-            >
-              {copyright}
-            </p>
-
-            <div className="footer-bar__links">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  style={{
-                    fontSize: "var(--fs-body)",
-                    fontWeight: 500,
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter settings={settings} />
     </main>
   );
 }
