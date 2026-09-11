@@ -32,7 +32,15 @@ export default function HeroSection({ heroCopy }: { heroCopy: HomePageData["hero
         <div className="hero-copy">
           <h1 className="hero-title">
             {heroCopy.titleLead}
-            <span style={{ color: "#FF6A00" }}>{heroCopy.titleAccent}</span>
+            {/* The brand name is the logo, on its own line. The file's viewBox
+                is cropped to the artwork, so 1.2em puts the wordmark's caps at
+                ~0.88em against the 0.7em caps of the line above it. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="hero-title__logo"
+              src="/INNOSINO-logo-on black BG.svg"
+              alt={heroCopy.titleAccent}
+            />
           </h1>
           <p className="hero-subtitle">{heroCopy.subtitle}</p>
         </div>

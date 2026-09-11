@@ -239,19 +239,36 @@ body {
 
 .hero-title {
   margin: 0;
+  /* .hero-copy centres its children, so this box would otherwise shrink to
+     the width of the lead-in text -- and the logo's min(100%, ...) would then
+     cap against that text instead of the container. */
+  width: 100%;
   font-family: var(--font-cal-sans), sans-serif;
   /* Its own ramp rather than --fs-display, which the sub-page heroes share.
-     "WELCOME TO INNOSINO" needs 11.48px of width per 1px of font size, so at
-     the 361px container of a 393 viewport it fits on one line only up to
-     31.4px — and the shared ramp floors at 32.09px, which wrapped it. Anchored
-     to the Figma frames instead: 26px @393 (their 31px block at line-height
-     1.2) through 64px @1440, which stays on one line at every width between. */
-  font-size: clamp(1.625rem, 0.734rem + 3.629vw, 4rem);
+     Since the brand name became the logo below it, this line is the lead-in
+     and not the headline, so it sits well under the Figma ramp: 18px @393
+     through 40px @1440. The logo carries the size. */
+  font-size: clamp(1.125rem, 0.609rem + 2.101vw, 2.5rem);
   font-weight: 400;
   line-height: 1.2;
   text-transform: uppercase;
   text-wrap: balance;
   color: #ffffff;
+}
+
+/* The logo replaces the second half of the heading, so it breaks to its own
+   line. Sized in em off the line above so the pair scales as one block: the
+   file's viewBox is cropped to the artwork (1024x161, so 6.36:1), and 22em
+   wide is 3.46em tall -- 138px @1440 and 62px @393, about 3.3x the cap height
+   of the lead-in. The min() is the floor under that: on a narrow or zoomed
+   viewport the container wins and the logo shrinks to fit rather than
+   pushing the page sideways. Width drives it so the aspect ratio comes from
+   the file, which is why height is auto. */
+.hero-title__logo {
+  display: block;
+  width: min(100%, 22em);
+  height: auto;
+  margin-inline: auto;
 }
 
 .hero-subtitle {
