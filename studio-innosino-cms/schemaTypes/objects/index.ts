@@ -21,7 +21,19 @@ export const splitHeading = defineType({
       title: 'Heading',
       type: 'string',
       description: 'The first part, in the normal colour.',
-      validation: (rule) => rule.required(),
+      /*
+       * The trailing space that separates this from the highlighted words is
+       * invisible in the input, so its absence is flagged here rather than
+       * discovered on the live site.
+       */
+      validation: (rule) =>
+        rule.required().custom((value, context) => {
+          const accent = (context.parent as {accent?: string})?.accent
+          if (!value || !accent) return true
+          return value.endsWith(' ')
+            ? true
+            : 'Add a space at the end, or this will run into the highlighted words.'
+        }),
     }),
     defineField({
       name: 'accent',

@@ -31,8 +31,8 @@ export default function HeroSection({ heroCopy }: { heroCopy: HomePageData["hero
       <div className="hero-grid">
         <div className="hero-copy">
           <h1 className="hero-title">
-            {"WELCOME TO "}
-            <span style={{ color: "#FF6A00" }}>INNOSINO</span>
+            {heroCopy.titleLead}
+            <span style={{ color: "#FF6A00" }}>{heroCopy.titleAccent}</span>
           </h1>
           <p className="hero-subtitle">{heroCopy.subtitle}</p>
         </div>

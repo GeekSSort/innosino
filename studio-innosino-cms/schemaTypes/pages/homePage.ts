@@ -34,7 +34,17 @@ export const homePage = defineType({
           type: 'string',
           initialValue: 'WELCOME TO ',
           description: 'Keep the space at the end, or the two parts will run together.',
-          validation: (rule) => rule.required(),
+          /*
+           * A missing trailing space is invisible in the input and produces
+           * "WELCOME TO THEINNOSINO" on the live site, which is exactly how
+           * this went wrong once. Warn at the point of editing instead.
+           */
+          validation: (rule) =>
+            rule.required().custom((value) =>
+              !value || value.endsWith(' ')
+                ? true
+                : 'Add a space at the end, or this will run into the highlighted words.',
+            ),
         }),
         defineField({
           name: 'titleAccent',
