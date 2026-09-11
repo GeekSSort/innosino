@@ -3575,6 +3575,9 @@ body {
 
 .job-detail__intro p {
   margin: 0 0 1rem;
+  /* The container is 1170px wide; prose set that long is hard to track back to
+     the next line, so the text column stops at a readable measure. */
+  max-width: 70ch;
   font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-body);
   line-height: 160%;
@@ -3584,6 +3587,7 @@ body {
 .job-detail__list {
   margin: 0;
   padding: 0;
+  max-width: 80ch;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -3634,5 +3638,49 @@ body {
   font-family: var(--font-urbanist), sans-serif;
   font-size: var(--fs-small);
   font-weight: 600;
+  color: #ff7018;
+}
+
+/* --- Job application form ------------------------------------------------- */
+.apply-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: clamp(20px, 3vw, 40px);
+  border: 1px solid #ececec;
+  border-radius: 18px;
+  background-color: #f8f8f8;
+}
+
+.ct-optional {
+  font-weight: 400;
+  color: #888888;
+}
+
+.apply-form__note {
+  margin: 0;
+  grid-column: 1 / -1;
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: var(--fs-small);
+  line-height: 150%;
+  color: #666666;
+}
+
+.apply-form__done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.apply-form__done p {
+  margin: 0;
+  font-family: var(--font-urbanist), sans-serif;
+  font-size: var(--fs-body);
+  line-height: 160%;
+  color: #444444;
+}
+
+.apply-form__done a {
   color: #ff7018;
 }

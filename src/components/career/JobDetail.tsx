@@ -4,7 +4,7 @@ import BackgroundVideo from "@/components/common/BackgroundVideo";
 import BrandLogo from "@/components/navigation/BrandLogo";
 import FloatingNavbar from "@/components/navigation/FloatingNavbar";
 import SiteFooter from "@/components/common/SiteFooter";
-import { applyHref } from "@/lib/apply-href";
+import ApplyForm from "@/components/career/ApplyForm";
 import type { OpenRole, SiteSettings } from "@/sanity/queries";
 
 /** A titled list of bullets, dropped entirely when the Studio field is empty. */
@@ -37,8 +37,6 @@ export default function JobDetail({
   otherRoles: OpenRole[];
   settings: SiteSettings;
 }) {
-  const apply = applyHref(settings.email, role.title);
-
   return (
     <main className="job-detail">
       <section className="page-hero">
@@ -86,10 +84,10 @@ export default function JobDetail({
 
               <p className="page-hero__sub">{role.description}</p>
 
-              <a href={apply} className="cta-banner__button job-detail__apply">
+              <a href="#apply" className="cta-banner__button job-detail__apply">
                 <span>Apply for this role</span>
                 <span style={{ fontSize: "0.75em" }} aria-hidden="true">
-                  ↗
+                  ↓
                 </span>
               </a>
             </div>
@@ -118,22 +116,10 @@ export default function JobDetail({
           <BulletSection title="What we are looking for" items={role.requirements} />
           <BulletSection title="Nice to have" items={role.niceToHave} />
 
-          {/*
-            The closing prompt is the page's only other way to apply, so it is
-            here whether or not the role has any bullets filled in yet.
-          */}
-          <div className="cta-banner cta-banner--compact">
-            <h2 className="cta-banner__title">READY TO APPLY?</h2>
-            <p className="cta-banner__body">
-              Send a CV and anything you have built. A repo, a board file or a photo of
-              something that works counts for more than a cover letter.
-            </p>
-            <a href={apply} className="cta-banner__button">
-              <span>Apply for this role</span>
-              <span style={{ fontSize: "0.75em" }} aria-hidden="true">
-                ↗
-              </span>
-            </a>
+          {/* The form is the page's real call to action, so it sits inline
+              rather than behind another click. */}
+          <div id="apply" style={{ scrollMarginBlockStart: "clamp(2rem, 8vw, 6rem)" }}>
+            <ApplyForm role={role.title} email={settings.email} />
           </div>
 
           {otherRoles.length > 0 && (

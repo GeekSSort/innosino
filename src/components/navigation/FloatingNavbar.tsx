@@ -28,7 +28,7 @@ const ROUTES_WITH_INLINE_NAV = [
  * Detail routes are dynamic and every one of them composes the pill itself, so
  * they are matched by prefix rather than listed.
  */
-const PREFIXES_WITH_INLINE_NAV = ["/blogs/", "/projects/", "/services/"];
+const PREFIXES_WITH_INLINE_NAV = ["/blogs/", "/career/", "/projects/", "/services/"];
 
 interface FloatingNavbarProps {
   /**
